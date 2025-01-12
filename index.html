@@ -1246,7 +1246,7 @@
 
     @media screen and (max-width: 768px) {
       .timeline::after {
-        left: 31px;
+        left: 30px;  /* Moved line closer to left edge */
       }
 
       .timeline-item {
@@ -1260,8 +1260,10 @@
       }
 
       .timeline-dot {
-        left: 22px;
-        right: auto;
+        left: 30px;
+        transform: translateX(-50%);
+        width: 50px;  /* Smaller logo on mobile */
+        height: 50px;
       }
 
       .timeline-item:nth-child(even) .timeline-dot {
@@ -2338,6 +2340,95 @@ window.addEventListener('scroll', () => {
 .timeline-content:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Timeline mobile fixes - more comprehensive */
+@media (max-width: 768px) {
+  .timeline::after {
+    left: 30px;
+  }
+
+  .timeline-dot {
+    left: 30px;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Target all timeline items */
+  .timeline-item {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+
+  /* Target all content containers */
+  .timeline-content,
+  .timeline-item:nth-child(even) .timeline-content,
+  .timeline-item:nth-child(odd) .timeline-content {
+    width: calc(100% - 70px);
+    margin-left: 60px !important;
+    margin-right: 10px !important;
+    padding: 15px;
+  }
+
+  /* Fix any floating issues */
+  .timeline-item::after {
+    clear: both;
+    content: '';
+    display: table;
+  }
+
+  /* Ensure text stays within bounds */
+  .timeline-content * {
+    max-width: 100%;
+    word-wrap: break-word;
+  }
+
+  /* Consistent header styling */
+  .timeline-header,
+  .timeline-item:nth-child(even) .timeline-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  /* Text size adjustments */
+  .timeline-date {
+    font-size: 0.9em;
+  }
+
+  .timeline-content h3 {
+    font-size: 1.2em;
+  }
+
+  .timeline-content h4 {
+    font-size: 1em;
+  }
+
+  .timeline-content p {
+    font-size: 0.9em;
+    margin: 10px 0;
+  }
+
+  /* Tag adjustments */
+  .timeline-tags {
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 10px;
+  }
+
+  .timeline-tags span {
+    font-size: 0.8em;
+    padding: 3px 8px;
+    margin: 2px;
+  }
+
+  /* Fix any absolute positioning */
+  .timeline-item .timeline-content {
+    position: relative;
+    left: auto;
+    right: auto;
+  }
 }
 </style>
 </body>
