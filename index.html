@@ -188,6 +188,233 @@
 </div>		
 </section>
 
+<!--Experience Timeline-->
+<section id="timeline" class="secPad">
+  <div class="container">
+    <div class="heading text-center">
+      <h2>Journey So Far</h2>
+      <p>My academic and professional timeline</p>
+    </div>
+
+    <div class="timeline">
+      <!-- Current Role -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">Jan 2023 - Present</div>
+          <h3>Machine Learning Platform Engineer</h3>
+          <h4>Abacus.ai | Remote</h4>
+          <ul>
+            <li>Led development of production-level Data and Application Connectors</li>
+            <li>Developed connectors for Confluence, MongoDB, Zendesk, Sharepoint</li>
+            <li>Secured $60,000 deal through MS Teams App development</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- AMD -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">Aug 2022 - Nov 2022</div>
+          <h3>Server Performance Intern</h3>
+          <h4>AMD | Bangalore</h4>
+          <ul>
+            <li>Analyzed server performance and hardware reports</li>
+            <li>Identified performance bottlenecks in server workloads</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Texas Instruments -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">May 2022 - Jul 2022</div>
+          <h3>Embedded Software Engineering Intern</h3>
+          <h4>Texas Instruments | Bangalore</h4>
+          <ul>
+            <li>Developed AM61x Public ROM prototype using ARM cortex-A core</li>
+            <li>Implemented boot pipeline and memory management systems</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Education -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">2019 - 2023</div>
+          <h3>B.Tech in Computer Science</h3>
+          <h4>Indian Institute of Technology Kanpur</h4>
+          <ul>
+            <li>CGPA: 9.14/10</li>
+            <li>Received Academic Excellence Award (Top 5%)</li>
+            <li>Awarded PD Murti Scholarship in 2021, 2022</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- School -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-date">2018</div>
+          <h3>Class XII (ISC)</h3>
+          <h4>St. Paul's College, Lucknow</h4>
+          <ul>
+            <li>Percentage: 98%</li>
+            <li>AIR 127 in JEE Advanced</li>
+            <li>AIR 9 in UP-JEE</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      background: #3498db;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -1px;
+      opacity: 0.3;
+    }
+
+    .timeline-item {
+      padding: 10px 40px;
+      position: relative;
+      width: 50%;
+      animation: slideIn 0.8s ease-in-out forwards;
+      opacity: 0;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-dot {
+      width: 16px;
+      height: 16px;
+      background: #3498db;
+      border-radius: 50%;
+      position: absolute;
+      right: -8px;
+      top: 32px;
+      z-index: 2;
+    }
+
+    .timeline-item:nth-child(even) .timeline-dot {
+      left: -8px;
+    }
+
+    .timeline-content {
+      padding: 20px 30px;
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-5px);
+    }
+
+    .timeline-date {
+      color: #3498db;
+      font-size: 0.9em;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    .timeline-content h3 {
+      margin: 0 0 10px 0;
+      color: #2c3e50;
+      font-size: 1.3em;
+    }
+
+    .timeline-content h4 {
+      margin: 0 0 15px 0;
+      color: #7f8c8d;
+      font-size: 1em;
+    }
+
+    .timeline-content ul {
+      margin: 0;
+      padding-left: 20px;
+      color: #666;
+    }
+
+    .timeline-content li {
+      margin-bottom: 5px;
+    }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .timeline::after {
+        left: 31px;
+      }
+
+      .timeline-item {
+        width: 100%;
+        padding-left: 70px;
+        padding-right: 25px;
+      }
+
+      .timeline-item:nth-child(even) {
+        left: 0;
+      }
+
+      .timeline-dot {
+        left: 23px;
+        right: auto;
+      }
+
+      .timeline-item:nth-child(even) .timeline-dot {
+        left: 23px;
+      }
+    }
+  </style>
+
+  <script>
+    // Animate timeline items when they come into view
+    function revealTimeline() {
+      const items = document.querySelectorAll('.timeline-item');
+      items.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.2}s`;
+      });
+    }
+
+    // Run on page load
+    revealTimeline();
+  </script>
+</section>
+
 <!--Portfolio-->
 <section id="portfolio" class="page-section section appear clearfix secPad">
   <div class="container">

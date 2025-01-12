@@ -1,0 +1,121 @@
+/* Modern smooth scrolling */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Clean typography */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+    line-height: 1.47059;
+    font-weight: 400;
+    letter-spacing: -.022em;
+}
+
+/* Section headers */
+.section-title {
+    font-size: 48px;
+    line-height: 1.08349;
+    font-weight: 600;
+    letter-spacing: -.003em;
+    margin-bottom: 0.4em;
+}
+
+/* Smooth transitions */
+.card, .btn-filter, .project-links a {
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Enhanced card styling */
+.card {
+    background: #fff;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+    margin-bottom: 30px;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Modern buttons */
+.btn-demo, .btn-github {
+    padding: 12px 22px;
+    border-radius: 980px;
+    font-size: 17px;
+    line-height: 1.23536;
+    font-weight: 400;
+    letter-spacing: -.022em;
+    background: #0071e3;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.btn-demo:hover, .btn-github:hover {
+    background: #0077ED;
+    transform: translateY(-1px);
+}
+
+/* Tech stack tags */
+.tech-stack span {
+    font-size: 12px;
+    padding: 4px 12px;
+    border-radius: 980px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #1d1d1f;
+    margin: 0 4px 8px 0;
+    display: inline-block;
+}
+
+/* Filter navigation */
+.portfolio-filter {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 40px 0;
+}
+
+.portfolio-filter .btn-filter {
+    padding: 8px 18px;
+    border-radius: 980px;
+    font-size: 14px;
+    background: rgba(0, 0, 0, 0.05);
+    color: #1d1d1f;
+    border: none;
+    cursor: pointer;
+}
+
+.portfolio-filter .btn-filter.current {
+    background: #0071e3;
+    color: #fff;
+}
+
+/* Responsive design */
+@media (max-width: 734px) {
+    .section-title {
+        font-size: 32px;
+    }
+    
+    .portfolio-filter {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 10px 0;
+    }
+    
+    .card-content {
+        flex-direction: column;
+    }
+}
+
+/* Smooth animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+} 
