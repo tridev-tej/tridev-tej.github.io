@@ -102,7 +102,7 @@
   <div class="parlex-back">
     <div class="container">
      <div class="row">
-	<div class="col-md-12">      <h2>“Dreams are extremely important. You can’t do it unless you imagine it.” <span>-George Lucas</span></h2></div>
+	<div class="col-md-12">      <h2>"Dreams are extremely important. You can't do it unless you imagine it." <span>-George Lucas</span></h2></div>
       </div>
     </div>
     <!--/.container--> 
@@ -127,9 +127,10 @@
       <div class="skill-category">
         <h3><i class="fa fa-code"></i> Programming Languages</h3>
         <div class="skills-grid">
+          <!-- Python -->
           <div class="skill-card">
-            <div class="skill-icon python">
-              <i class="fa fa-python"></i>
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/python.png" alt="Python" class="lang-logo">
             </div>
             <h4>Python</h4>
             <div class="skill-level">
@@ -145,26 +146,10 @@
             </div>
           </div>
 
+          <!-- Ruby -->
           <div class="skill-card">
-            <div class="skill-icon cpp">
-              <i class="fa fa-code"></i>
-            </div>
-            <h4>C++</h4>
-            <div class="skill-level">
-              <div class="progress-bar">
-                <div class="progress" style="width: 90%"></div>
-              </div>
-              <span>90%</span>
-            </div>
-            <div class="skill-tags">
-              <span>STL</span>
-              <span>OOP</span>
-            </div>
-          </div>
-
-          <div class="skill-card">
-            <div class="skill-icon ruby">
-              <i class="fa fa-gem"></i>
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/ruby.png" alt="Ruby" class="lang-logo">
             </div>
             <h4>Ruby</h4>
             <div class="skill-level">
@@ -175,7 +160,65 @@
             </div>
             <div class="skill-tags">
               <span>Rails</span>
-              <span>Web</span>
+              <span>PostgreSQL</span>
+            </div>
+          </div>
+
+          <!-- JavaScript -->
+          <div class="skill-card">
+            <div class="skill-icon">
+              <img src="images/logos/javascript.png" alt="JavaScript" class="lang-logo">
+            </div>
+            <h4>JavaScript</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+              <span>90%</span>
+            </div>
+            <div class="skill-tags">
+              <span><i class="fab fa-react"></i> React</span>
+              <span><i class="fab fa-node-js"></i> Node.js</span>
+              <span><i class="fab fa-vuejs"></i> Vue.js</span>
+            </div>
+          </div>
+
+          <!-- DevOps -->
+          <div class="skill-card">
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/devops.png" alt="DevOps" class="lang-logo">
+            </div>
+            <h4>DevOps</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 88%"></div>
+              </div>
+              <span>88%</span>
+            </div>
+            <div class="skill-tags">
+              <span>Docker</span>
+              <span>AWS</span>
+              <span>Jenkins</span>
+              <span>Redis</span>
+            </div>
+          </div>
+
+          <!-- Databases -->
+          <div class="skill-card">
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/database.png" alt="Databases" class="lang-logo">
+            </div>
+            <h4>Databases</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 92%"></div>
+              </div>
+              <span>92%</span>
+            </div>
+            <div class="skill-tags">
+              <span>MongoDB</span>
+              <span>SQL</span>
+              <span>Redis</span>
             </div>
           </div>
         </div>
@@ -186,8 +229,8 @@
         <h3><i class="fa fa-tools"></i> Frameworks & Tools</h3>
         <div class="skills-grid">
           <div class="skill-card">
-            <div class="skill-icon django">
-              <i class="fa fa-server"></i>
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/django.png" alt="Django" class="lang-logo">
             </div>
             <h4>Django</h4>
             <div class="skill-level">
@@ -203,8 +246,8 @@
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon docker">
-              <i class="fa fa-docker"></i>
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/docker.png" alt="Docker" class="lang-logo">
             </div>
             <h4>Docker</h4>
             <div class="skill-level">
@@ -220,8 +263,8 @@
           </div>
 
           <div class="skill-card">
-            <div class="skill-icon git">
-              <i class="fa fa-git-alt"></i>
+            <div class="skill-icon needs-white-bg">
+              <img src="images/logos/git.png" alt="Git" class="lang-logo">
             </div>
             <h4>Git</h4>
             <div class="skill-level">
@@ -285,14 +328,32 @@
     .skill-icon {
       width: 60px;
       height: 60px;
-      border-radius: 12px;
+      border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 15px;
-      font-size: 28px;
-      color: white;
-      transition: transform 0.3s ease;
+      background: var(--bg-card);  /* Match with your dark theme background */
+      padding: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* For logos that need white background */
+    .skill-icon.needs-white-bg {
+      background: white;
+    }
+
+    .lang-logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      mix-blend-mode: normal;  /* Ensures proper blending */
+    }
+
+    /* Hover effect */
+    .skill-icon:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
     }
 
     .skill-card:hover .skill-icon {
@@ -364,6 +425,37 @@
     .progress {
       animation: fillProgress 1.5s ease-out forwards;
     }
+
+    .skill-tags span {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .skill-tags img {
+      width: 16px;
+      height: 16px;
+      object-fit: contain;
+    }
+
+    .skill-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      font-size: 30px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      color: white;
+    }
+
+    .skill-icon.python { background: linear-gradient(135deg, #3776AB, #2D5F8E); }
+    .skill-icon.ruby { background: linear-gradient(135deg, #CC0000, #A30000); }
+    .skill-icon.js { background: linear-gradient(135deg, #F7DF1E, #C8B91C); }
+    .skill-icon.devops { background: linear-gradient(135deg, #2496ED, #1D78BD); }
+    .skill-icon.database { background: linear-gradient(135deg, #4DB33D, #3E8F31); }
   </style>
 
   <script>
@@ -854,7 +946,7 @@
         </div>
       </div>
 
-      <!-- Education - IITK -->
+      <!-- IITK -->
       <div class="timeline-item" data-company="iitk">
         <div class="timeline-dot"></div>
         <div class="timeline-content" onclick="scrollToExperience('iitk')">
@@ -1109,9 +1201,13 @@
         transform: scale(1); 
         opacity: 0.6;
       }
-      100% { 
-        transform: scale(1.5); 
-        opacity: 0;
+      50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
       }
     }
 
