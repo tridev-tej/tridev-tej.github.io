@@ -849,18 +849,19 @@
     }
 
     .company-logo {
-      width: 50px;
-      height: 50px;
+      width: 80px;
+      height: 80px;
       object-fit: contain;
       border-radius: 12px;
-      background: white;
       padding: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+      background: var(--bg-secondary);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      margin-right: 15px;
+      transition: transform 0.3s ease;
     }
 
     .timeline-content:hover .company-logo {
-      transform: rotate(5deg);
+      transform: scale(1.05);
     }
 
     .timeline-date {
@@ -925,8 +926,8 @@
       }
 
       .company-logo {
-        width: 40px;
-        height: 40px;
+        width: 60px;
+        height: 60px;
       }
 
       .separator-line {
@@ -1632,11 +1633,15 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <div class="social pull-left"> <a href="#"><i class="fa fa-twitter"></i></a> <a href="#"><i class="fa fa-facebook"></i></a> <a href="#"><i class="fa fa-dribbble"></i></a> <a href="#"><i class="fa fa-flickr"></i></a> <a href="#"><i class="fa fa-github"></i></a> </div>
+        <div class="social pull-left">
+          <a href="#"><i class="fa fa-twitter"></i></a>
+          <a href="#"><i class="fa fa-facebook"></i></a>
+          <a href="#"><i class="fa fa-dribbble"></i></a>
+          <a href="#"><i class="fa fa-flickr"></i></a>
+          <a href="#"><i class="fa fa-github"></i></a>
+        </div>
       </div>
-      <div class="col-md-6"> <span class="pull-right">Copyright 2014 | All Rights Reserved  -- Template by <a href="http://webThemez.com">WebThemez.com</a></span> </div>
     </div>
-    <!-- / .row --> 
   </div>
 </footer>
 <a href="#top" class="topHome"><i class="fa fa-chevron-up fa-2x"></i></a> 
@@ -1717,7 +1722,7 @@ window.addEventListener('scroll', () => {
     }
     100% {
         transform: translateY(0);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        box-shadow: var(--card-shadow);
     }
 }
 
