@@ -190,13 +190,43 @@
 
 <!--Experience Timeline-->
 <section id="timeline" class="secPad">
+  <!-- Add a specific background div -->
+  <div class="timeline-background"></div>
+  
+  <!-- Rest of your timeline content -->
   <div class="container">
     <div class="heading text-center">
       <h2>Journey So Far</h2>
       <p>My academic and professional timeline</p>
+      <div class="separator">
+        <span class="separator-line"></span>
+        <span class="separator-icon"><i class="fa fa-briefcase"></i></span>
+        <span class="separator-line"></span>
+      </div>
     </div>
 
     <div class="timeline">
+      <!-- Tridev.ai - Latest Role -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <div class="timeline-content">
+          <div class="timeline-header">
+            <img src="images/logos/tridev.png" alt="Tridev.ai" class="company-logo">
+            <div>
+              <div class="timeline-date">Dec 2023 - Present</div>
+              <h3>Founder & CEO</h3>
+              <h4>Tridev.ai | AI Consultancy</h4>
+            </div>
+          </div>
+          <ul>
+            <li>Leading AI consultancy firm providing end-to-end engineering solutions</li>
+            <li>Expertise in Python, Django, Ruby on Rails, and Machine Learning</li>
+            <li>Specialized in Generative AI and Full Stack Development</li>
+            <li>Delivering custom software solutions and technical consultancy</li>
+          </ul>
+        </div>
+      </div>
+
       <!-- Current Role -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
@@ -299,27 +329,82 @@
 
   <style>
     #timeline {
-      background: url('./images/timeline_bg.png') center center/cover no-repeat fixed;
       position: relative;
       padding: 80px 0;
+      overflow: hidden; /* Ensure background stays contained */
     }
 
-    /* Add an overlay to ensure text readability */
-    #timeline::before {
-      content: '';
+    .timeline-background {
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(255, 255, 255, 0); /* Semi-transparent white overlay */
+      background-image: url('images/timeline_bg.png');
+      background-position: center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      z-index: -1; /* Place behind content */
+      opacity: 1; /* Full visibility */
+    }
+
+    /* Ensure container is above background */
+    .container {
+      position: relative;
       z-index: 1;
     }
 
-    /* Ensure content stays above the overlay */
-    #timeline .container {
+    .timeline-content {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Remove any other background-related styles */
+    #timeline::before {
+      display: none;
+    }
+
+    .separator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 30px 0;
+    }
+
+    .separator-line {
+      height: 2px;
+      width: 100px;
+      background: linear-gradient(90deg, transparent, #3498db, transparent);
+    }
+
+    .separator-icon {
+      margin: 0 20px;
+      width: 40px;
+      height: 40px;
+      background: #3498db;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
       position: relative;
-      z-index: 2;
+    }
+
+    .separator-icon::before,
+    .separator-icon::after {
+      content: '';
+      position: absolute;
+      width: 46px;
+      height: 46px;
+      border: 2px solid rgba(52, 152, 219, 0.5);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    .separator-icon::after {
+      animation-delay: 1s;
     }
 
     .timeline {
@@ -332,13 +417,16 @@
     .timeline::after {
       content: '';
       position: absolute;
-      width: 2px;
-      background: #3498db;
+      width: 3px;
+      background: linear-gradient(180deg, 
+        rgba(52, 152, 219, 1) 0%,
+        rgba(52, 152, 219, 0.8) 100%
+      );
       top: 0;
       bottom: 0;
       left: 50%;
       margin-left: -1px;
-      opacity: 0.3;
+      z-index: 1;
     }
 
     .timeline-item {
@@ -358,59 +446,103 @@
     }
 
     .timeline-dot {
-      width: 16px;
-      height: 16px;
-      background: #3498db;
+      width: 20px;
+      height: 20px;
+      background: rgba(52, 152, 219, 1);
       border-radius: 50%;
       position: absolute;
-      right: -8px;
+      right: -10px;
       top: 32px;
       z-index: 2;
+      box-shadow: 0 0 0 4px rgba(52, 152, 219, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-item:hover .timeline-dot {
+      transform: scale(1.2);
+      box-shadow: 0 0 0 6px rgba(52, 152, 219, 0.4);
     }
 
     .timeline-item:nth-child(even) .timeline-dot {
-      left: -8px;
+      left: -10px;
     }
 
     .timeline-content {
-      padding: 20px 30px;
-      background: white;
+      padding: 25px 30px;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
       border-radius: 18px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .timeline-content::before {
+      content: '';
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      background: white;
+      transform: rotate(45deg);
+      top: 30px;
+      right: -7px;
+      box-shadow: 2px -2px 8px rgba(0, 0, 0, 0.05);
+    }
+
+    .timeline-item:nth-child(even) .timeline-content::before {
+      left: -7px;
+      right: auto;
+      box-shadow: -2px 2px 8px rgba(0, 0, 0, 0.05);
     }
 
     .timeline-content:hover {
       transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .company-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 12px;
+      background: white;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content:hover .company-logo {
+      transform: rotate(5deg);
     }
 
     .timeline-date {
-      color: #3498db;
+      color: rgba(52, 152, 219, 1);
       font-size: 0.9em;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      display: inline-block;
+      padding: 4px 12px;
+      background: rgba(52, 152, 219, 0.15);
+      border-radius: 15px;
     }
 
-    .timeline-content h3 {
-      margin: 0 0 10px 0;
-      color: #2c3e50;
-      font-size: 1.3em;
-    }
-
-    .timeline-content h4 {
-      margin: 0 0 15px 0;
-      color: #7f8c8d;
-      font-size: 1em;
-    }
-
-    .timeline-content ul {
-      margin: 0;
-      padding-left: 20px;
-      color: #666;
-    }
-
-    .timeline-content li {
-      margin-bottom: 5px;
+    @keyframes pulse {
+      0% { 
+        transform: scale(1); 
+        opacity: 0.6;
+      }
+      100% { 
+        transform: scale(1.5); 
+        opacity: 0;
+      }
     }
 
     @keyframes slideIn {
@@ -440,56 +572,34 @@
       }
 
       .timeline-dot {
-        left: 23px;
+        left: 22px;
         right: auto;
       }
 
       .timeline-item:nth-child(even) .timeline-dot {
-        left: 23px;
+        left: 22px;
       }
-    }
 
-    .timeline-header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      margin-bottom: 15px;
-    }
+      .timeline-content::before {
+        display: none;
+      }
 
-    .company-logo {
-      width: 50px;
-      height: 50px;
-      object-fit: contain;
-      border-radius: 8px;
-      background: white;
-      padding: 5px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-
-    .timeline-header > div {
-      flex: 1;
-    }
-
-    @media screen and (max-width: 768px) {
       .company-logo {
         width: 40px;
         height: 40px;
       }
+
+      .separator-line {
+        width: 60px;
+      }
+    }
+
+    .timeline-content h3,
+    .timeline-content h4,
+    .timeline-content ul {
+      color: #000;
     }
   </style>
-
-  <script>
-    // Animate timeline items when they come into view
-    function revealTimeline() {
-      const items = document.querySelectorAll('.timeline-item');
-      items.forEach((item, index) => {
-        item.style.animationDelay = `${index * 0.2}s`;
-      });
-    }
-
-    // Run on page load
-    revealTimeline();
-  </script>
 </section>
 
 <!--Portfolio-->
@@ -1041,7 +1151,7 @@
     @keyframes pulse {
         0% {
             transform: scale(1);
-            opacity: 1;
+            opacity: 0.6;
         }
         50% {
             transform: scale(1.1);
