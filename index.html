@@ -2111,6 +2111,122 @@
   </style>
 </section>
 
+<!-- Resume Section -->
+<section id="resume" class="secPad">
+  <div class="container">
+    <div class="heading text-center">
+      <h2>My Resume</h2>
+      <p>Download my detailed professional background</p>
+      <div class="separator">
+        <span class="separator-line"></span>
+        <span class="separator-icon"><i class="fa fa-file-alt"></i></span>
+        <span class="separator-line"></span>
+      </div>
+    </div>
+
+    <div class="resume-container">
+      <div class="resume-preview">
+        <div class="resume-preview-img">
+          <img src="images/resume.jpg" alt="Resume Preview">
+          <div class="preview-overlay">
+            <i class="fa fa-search-plus"></i>
+          </div>
+        </div>
+        <div class="download-button">
+          <a href="files/resume.pdf" class="download-btn" download>
+            <i class="fa fa-download"></i>
+            Download Resume
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .resume-container {
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+    }
+
+    .resume-preview {
+      width: 200px;  /* Small fixed width */
+      text-align: center;
+    }
+
+    .resume-preview-img {
+      position: relative;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .resume-preview-img img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .preview-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      color: white;
+    }
+
+    .preview-overlay i {
+      font-size: 1.5em;
+    }
+
+    .resume-preview-img:hover .preview-overlay {
+      opacity: 1;
+    }
+
+    .download-button {
+      margin-top: 15px;
+    }
+
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--accent-primary);
+      color: white;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .download-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+    }
+
+    @media (max-width: 768px) {
+      .resume-preview {
+        width: 150px;  /* Even smaller on mobile */
+      }
+    }
+  </style>
+
+  <script>
+    document.querySelector('.resume-preview-img').addEventListener('click', function() {
+      window.open('files/resume.pdf', '_blank');
+    });
+  </script>
+</section>
+
 <!--/.page-section-->
 <footer class="copyright">
   <div class="container">
