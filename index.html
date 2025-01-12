@@ -168,7 +168,7 @@
 
   <div class="experience-cards">
     <!-- Tridev.ai -->
-    <div class="exp-card">
+    <div class="exp-card" id="exp-tridev">
       <div class="exp-card-header">
         <img src="images/logos/tridev.png" alt="Tridev.ai" class="company-logo">
         <div class="exp-meta">
@@ -200,7 +200,7 @@
     </div>
 
     <!-- Abacus.ai -->
-    <div class="exp-card">
+    <div class="exp-card" id="exp-abacus">
       <div class="exp-card-header">
         <img src="images/logos/abacus.png" alt="Abacus.ai" class="company-logo">
         <div class="exp-meta">
@@ -229,7 +229,93 @@
       </div>
     </div>
 
-    <!-- Add more exp-cards for other experiences -->
+    <!-- AMD -->
+    <div class="exp-card" id="exp-amd">
+      <div class="exp-card-header">
+        <img src="images/logos/amd.png" alt="AMD" class="company-logo">
+        <div class="exp-meta">
+          <h3>Server Performance Intern</h3>
+          <h4>AMD</h4>
+          <span class="exp-duration">
+            <i class="fa fa-calendar"></i> Aug 2022 - Nov 2022
+          </span>
+          <span class="exp-location">
+            <i class="fa fa-map-marker"></i> Bangalore
+          </span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <ul class="exp-achievements">
+          <li>Analyzed server performance and hardware reports</li>
+          <li>Identified performance bottlenecks in server workloads</li>
+          <li>Optimized system performance through detailed analysis</li>
+        </ul>
+        <div class="tech-stack">
+          <span>Performance Analysis</span>
+          <span>Hardware</span>
+          <span>Server Architecture</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Texas Instruments -->
+    <div class="exp-card" id="exp-ti">
+      <div class="exp-card-header">
+        <img src="images/logos/ti.png" alt="Texas Instruments" class="company-logo">
+        <div class="exp-meta">
+          <h3>Embedded Software Engineering Intern</h3>
+          <h4>Texas Instruments</h4>
+          <span class="exp-duration">
+            <i class="fa fa-calendar"></i> May 2022 - Jul 2022
+          </span>
+          <span class="exp-location">
+            <i class="fa fa-map-marker"></i> Bangalore
+          </span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <ul class="exp-achievements">
+          <li>Developed AM61x Public ROM prototype using ARM cortex-A core</li>
+          <li>Implemented boot pipeline and memory management systems</li>
+          <li>Worked on embedded systems and firmware development</li>
+        </ul>
+        <div class="tech-stack">
+          <span>Embedded Systems</span>
+          <span>ARM</span>
+          <span>C</span>
+          <span>Firmware</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IITK -->
+    <div class="exp-card" id="exp-iitk">
+      <div class="exp-card-header">
+        <img src="images/logos/iitk.png" alt="IIT Kanpur" class="company-logo">
+        <div class="exp-meta">
+          <h3>B.Tech in Computer Science</h3>
+          <h4>Indian Institute of Technology Kanpur</h4>
+          <span class="exp-duration">
+            <i class="fa fa-calendar"></i> 2019 - 2023
+          </span>
+          <span class="exp-location">
+            <i class="fa fa-map-marker"></i> Kanpur
+          </span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <ul class="exp-achievements">
+          <li>CGPA: 9.14/10</li>
+          <li>Received Academic Excellence Award (Top 5%)</li>
+          <li>Awarded PD Murti Scholarship in 2021, 2022</li>
+        </ul>
+        <div class="tech-stack">
+          <span>Computer Science</span>
+          <span>Engineering</span>
+          <span>Academic Excellence</span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -404,9 +490,9 @@
 
     <div class="timeline">
       <!-- Tridev.ai - Latest Role -->
-      <div class="timeline-item">
+      <div class="timeline-item" data-company="tridev">
         <div class="timeline-dot"></div>
-        <div class="timeline-content">
+        <div class="timeline-content" onclick="scrollToExperience('tridev')">
           <div class="timeline-header">
             <img src="images/logos/tridev.png" alt="Tridev.ai" class="company-logo">
             <div>
@@ -418,16 +504,14 @@
           <ul>
             <li>Leading AI consultancy firm providing end-to-end engineering solutions</li>
             <li>Expertise in Python, Django, Ruby on Rails, and Machine Learning</li>
-            <li>Specialized in Generative AI and Full Stack Development</li>
-            <li>Delivering custom software solutions and technical consultancy</li>
           </ul>
         </div>
       </div>
 
-      <!-- Current Role -->
-      <div class="timeline-item">
+      <!-- Abacus.ai -->
+      <div class="timeline-item" data-company="abacus">
         <div class="timeline-dot"></div>
-        <div class="timeline-content">
+        <div class="timeline-content" onclick="scrollToExperience('abacus')">
           <div class="timeline-header">
             <img src="images/logos/abacus.png" alt="Abacus.ai" class="company-logo">
             <div>
@@ -438,16 +522,15 @@
           </div>
           <ul>
             <li>Led development of production-level Data and Application Connectors</li>
-            <li>Developed connectors for Confluence, MongoDB, Zendesk, Sharepoint</li>
-            <li>Secured $60,000 deal through MS Teams App development</li>
+            <li>Developed connectors for various platforms</li>
           </ul>
         </div>
       </div>
 
       <!-- AMD -->
-      <div class="timeline-item">
+      <div class="timeline-item" data-company="amd">
         <div class="timeline-dot"></div>
-        <div class="timeline-content">
+        <div class="timeline-content" onclick="scrollToExperience('amd')">
           <div class="timeline-header">
             <img src="images/logos/amd.png" alt="AMD" class="company-logo">
             <div>
@@ -464,9 +547,9 @@
       </div>
 
       <!-- Texas Instruments -->
-      <div class="timeline-item">
+      <div class="timeline-item" data-company="ti">
         <div class="timeline-dot"></div>
-        <div class="timeline-content">
+        <div class="timeline-content" onclick="scrollToExperience('ti')">
           <div class="timeline-header">
             <img src="images/logos/ti.png" alt="Texas Instruments" class="company-logo">
             <div>
@@ -476,16 +559,16 @@
             </div>
           </div>
           <ul>
-            <li>Developed AM61x Public ROM prototype using ARM cortex-A core</li>
-            <li>Implemented boot pipeline and memory management systems</li>
+            <li>Developed AM61x Public ROM prototype</li>
+            <li>Implemented boot pipeline and memory management</li>
           </ul>
         </div>
       </div>
 
       <!-- Education - IITK -->
-      <div class="timeline-item">
+      <div class="timeline-item" data-company="iitk">
         <div class="timeline-dot"></div>
-        <div class="timeline-content">
+        <div class="timeline-content" onclick="scrollToExperience('iitk')">
           <div class="timeline-header">
             <img src="images/logos/iitk.png" alt="IIT Kanpur" class="company-logo">
             <div>
@@ -496,8 +579,7 @@
           </div>
           <ul>
             <li>CGPA: 9.14/10</li>
-            <li>Received Academic Excellence Award (Top 5%)</li>
-            <li>Awarded PD Murti Scholarship in 2021, 2022</li>
+            <li>Academic Excellence Award (Top 5%)</li>
           </ul>
         </div>
       </div>
@@ -1509,5 +1591,89 @@
 <script src="js/jquery.diagram.js"></script> 
 <script src="js/custom.js" type="text/javascript"></script> 
 <script src="js/owl-carousel/owl.carousel.js"></script>
+
+<script>
+function scrollToExperience(company) {
+    const expCard = document.getElementById(`exp-${company}`);
+    if (expCard) {
+        // Get the card's position and dimensions
+        const cardRect = expCard.getBoundingClientRect();
+        const absoluteCardTop = window.pageYOffset + cardRect.top;
+        const cardHeight = cardRect.height;
+        
+        // Calculate the target scroll position (center of viewport)
+        const windowHeight = window.innerHeight;
+        const targetScroll = absoluteCardTop - (windowHeight/2) + (cardHeight/2);
+
+        // Smooth scroll to position
+        window.scrollTo({
+            top: targetScroll,
+            behavior: 'smooth'
+        });
+        
+        // Add highlight animation
+        expCard.classList.add('highlight-card');
+        setTimeout(() => {
+            expCard.classList.remove('highlight-card');
+        }, 2000);
+    }
+}
+
+// Add hover effect to timeline items to show they're clickable
+document.querySelectorAll('.timeline-content').forEach(item => {
+    item.style.cursor = 'pointer';
+});
+
+// Optional: Add scroll completion detection
+let scrollEndTimeout;
+window.addEventListener('scroll', () => {
+    clearTimeout(scrollEndTimeout);
+    scrollEndTimeout = setTimeout(() => {
+        // Scroll has ended, ensure card is perfectly centered
+        const hash = window.location.hash;
+        if (hash) {
+            const targetCard = document.querySelector(hash);
+            if (targetCard) {
+                const cardRect = targetCard.getBoundingClientRect();
+                if (Math.abs(cardRect.top - window.innerHeight/2 + cardRect.height/2) > 1) {
+                    scrollToExperience(hash.replace('#exp-', ''));
+                }
+            }
+        }
+    }, 100);
+});
+</script>
+
+<style>
+@keyframes highlightCard {
+    0% {
+        transform: translateY(0);
+        box-shadow: 0 10px 30px rgba(52, 152, 219, 0.3);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 20px 50px rgba(52, 152, 219, 0.5);
+    }
+    100% {
+        transform: translateY(0);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+}
+
+.highlight-card {
+    animation: highlightCard 2s ease;
+    z-index: 10; /* Ensure highlighted card appears above others */
+}
+
+.timeline-content {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+</style>
 </body>
 </html>
