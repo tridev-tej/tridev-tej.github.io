@@ -191,114 +191,409 @@
 <!--Portfolio-->
 <section id="portfolio" class="page-section section appear clearfix secPad">
   <div class="container">
-    <div class="heading"> 
+    <div class="heading text-center"> 
       <h2>Portfolio</h2>
-      <p>Here are some of my key projects and accomplishments</p>
+      <p>Discover my latest projects and achievements</p>
+      <div class="separator">
+        <span class="separator-line"></span>
+        <span class="separator-icon"><i class="fa fa-code"></i></span>
+        <span class="separator-line"></span>
+      </div>
     </div>
+    
+    <!-- Filter Navigation -->
+    <nav class="primary clearfix">
+      <ul class="portfolio-filter" id="filter">
+        <li><a class="btn-filter current" href="#" data-filter="*">All</a></li>
+        <li><a class="btn-filter" href="#" data-filter=".ml">Machine Learning</a></li>
+        <li><a class="btn-filter" href="#" data-filter=".web">Web Development</a></li>
+        <li><a class="btn-filter" href="#" data-filter=".mobile">Mobile Apps</a></li>
+        <li><a class="btn-filter" href="#" data-filter=".cloud">Cloud Solutions</a></li>
+      </ul>
+    </nav>
+
     <div class="row">
-      <nav id="filter" class="col-md-12">
-        <ul>
-          <li><a href="#" class="current btn-theme btn-small" data-filter="*">All</a></li>
-          <li><a href="#" class="btn-theme btn-small" data-filter=".ml">Machine Learning</a></li>
-          <li><a href="#" class="btn-theme btn-small" data-filter=".web">Web Development</a></li>
-          <li><a href="#" class="btn-theme btn-small" data-filter=".systems">Systems</a></li>
-        </ul>
-      </nav>
       <div class="col-md-12">
         <div class="row">
           <div class="portfolio-items isotopeWrapper clearfix" id="3">
             
-            <article class="col-sm-12 isotopeItem ml">
-              <div class="portfolio-item">
-                <div class="row">
-                  <div class="col-md-6">
+            <!-- Project 1 -->
+            <article class="col-sm-12 isotopeItem ml cloud">
+              <div class="card portfolio-item">
+                <div class="card-content">
+                  <div class="content-left">
+                    <span class="project-number">01</span>
                     <h3>LLM Chatbot System</h3>
-                    <p>A sophisticated chatbot system leveraging Large Language Models to enable natural conversations. Key features include:</p>
-                    <ul>
-                      <li>Asynchronous API architecture for real-time responses</li>
-                      <li>Support for multi-user group conversations</li>
-                      <li>Context awareness and conversation history management</li>
-                      <li>Integration with multiple LLM providers</li>
+                    <div class="tech-stack">
+                      <span>Python</span>
+                      <span>FastAPI</span>
+                      <span>Redis</span>
+                      <span>Docker</span>
+                    </div>
+                    <p class="project-description">
+                      A sophisticated chatbot system leveraging Large Language Models.
+                    </p>
+                    <ul class="feature-list">
+                      <li><i class="fa fa-check"></i> Asynchronous API architecture</li>
+                      <li><i class="fa fa-check"></i> Multi-user group conversations</li>
+                      <li><i class="fa fa-check"></i> Context awareness system</li>
                     </ul>
-                    <p><strong>Technologies:</strong> Python, FastAPI, Redis, Docker</p>
+                    <div class="project-links">
+                      <a href="#" class="btn-demo">Live Demo</a>
+                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="video-container">
-                      <iframe width="100%" height="315" 
-                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                      </iframe>
+                  <div class="content-right">
+                    <div class="video-wrapper">
+                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
                     </div>
                   </div>
                 </div>
               </div>
             </article>
 
-            <article class="col-sm-12 isotopeItem web">
-              <div class="portfolio-item">
-                <div class="row">
-                  <div class="col-md-6">
+            <!-- Project 2 -->
+            <article class="col-sm-12 isotopeItem web cloud">
+              <div class="card portfolio-item">
+                <div class="card-content">
+                  <div class="content-left">
+                    <span class="project-number">02</span>
                     <h3>MS Teams Integration</h3>
-                    <p>Enterprise-grade Microsoft Teams application that secured a $60,000 deal. Features include:</p>
-                    <ul>
-                      <li>Seamless integration with MS Teams workflow</li>
-                      <li>Real-time notifications and updates</li>
-                      <li>Custom bot commands and interactions</li>
-                      <li>Secure authentication and data handling</li>
+                    <div class="tech-stack">
+                      <span>Node.js</span>
+                      <span>Microsoft Graph API</span>
+                      <span>Azure</span>
+                      <span>OAuth 2.0</span>
+                    </div>
+                    <p class="project-description">
+                      Enterprise-grade Microsoft Teams application that secured a $60,000 deal, enhancing workplace collaboration.
+                    </p>
+                    <ul class="feature-list">
+                      <li><i class="fa fa-check"></i> Seamless MS Teams workflow integration</li>
+                      <li><i class="fa fa-check"></i> Real-time notifications system</li>
+                      <li><i class="fa fa-check"></i> Custom bot commands</li>
+                      <li><i class="fa fa-check"></i> Secure authentication</li>
                     </ul>
-                    <p><strong>Technologies:</strong> Node.js, Microsoft Graph API, Azure</p>
+                    <div class="project-links">
+                      <a href="#" class="btn-demo">Live Demo</a>
+                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="video-container">
-                      <iframe width="100%" height="315" 
-                        src="https://www.youtube.com/embed/YOUR_VIDEO_ID" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                        allowfullscreen>
-                      </iframe>
+                  <div class="content-right">
+                    <div class="video-wrapper">
+                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
                     </div>
                   </div>
                 </div>
               </div>
             </article>
 
-            <!-- Add custom CSS for video container -->
-            <style>
-              .video-container {
-                position: relative;
-                padding-bottom: 56.25%; /* 16:9 aspect ratio */
-                height: 0;
-                overflow: hidden;
-                margin-bottom: 20px;
-              }
-              .video-container iframe {
-                position: absolute;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-              }
-              .portfolio-item {
-                padding: 20px;
-                margin-bottom: 30px;
-                background: #f9f9f9;
-                border-radius: 8px;
-              }
-              .portfolio-item h3 {
-                color: #333;
-                margin-bottom: 15px;
-              }
-              .portfolio-item ul {
-                margin-bottom: 15px;
-              }
-            </style>
+            <!-- Project 3 -->
+            <article class="col-sm-12 isotopeItem web mobile">
+              <div class="card portfolio-item">
+                <div class="card-content">
+                  <div class="content-left">
+                    <span class="project-number">03</span>
+                    <h3>E-Commerce Platform</h3>
+                    <div class="tech-stack">
+                      <span>React</span>
+                      <span>Node.js</span>
+                      <span>MongoDB</span>
+                      <span>AWS</span>
+                    </div>
+                    <p class="project-description">
+                      Full-stack e-commerce solution with advanced features and seamless payment integration.
+                    </p>
+                    <ul class="feature-list">
+                      <li><i class="fa fa-check"></i> Responsive product catalog</li>
+                      <li><i class="fa fa-check"></i> Secure payment processing</li>
+                      <li><i class="fa fa-check"></i> Real-time inventory management</li>
+                      <li><i class="fa fa-check"></i> Analytics dashboard</li>
+                    </ul>
+                    <div class="project-links">
+                      <a href="#" class="btn-demo">Live Demo</a>
+                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
+                    </div>
+                  </div>
+                  <div class="content-right">
+                    <div class="video-wrapper">
+                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 4 -->
+            <article class="col-sm-12 isotopeItem ml">
+              <div class="card portfolio-item">
+                <div class="card-content">
+                  <div class="content-left">
+                    <span class="project-number">04</span>
+                    <h3>AI Image Recognition</h3>
+                    <div class="tech-stack">
+                      <span>Python</span>
+                      <span>TensorFlow</span>
+                      <span>OpenCV</span>
+                      <span>Flask</span>
+                    </div>
+                    <p class="project-description">
+                      Advanced image recognition system using deep learning for real-time object detection.
+                    </p>
+                    <ul class="feature-list">
+                      <li><i class="fa fa-check"></i> Real-time object detection</li>
+                      <li><i class="fa fa-check"></i> Custom model training</li>
+                      <li><i class="fa fa-check"></i> REST API integration</li>
+                      <li><i class="fa fa-check"></i> Mobile-friendly interface</li>
+                    </ul>
+                    <div class="project-links">
+                      <a href="#" class="btn-demo">Live Demo</a>
+                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
+                    </div>
+                  </div>
+                  <div class="content-right">
+                    <div class="video-wrapper">
+                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Project 5 -->
+            <article class="col-sm-12 isotopeItem mobile cloud">
+              <div class="card portfolio-item">
+                <div class="card-content">
+                  <div class="content-left">
+                    <span class="project-number">05</span>
+                    <h3>Cross-Platform Mobile App</h3>
+                    <div class="tech-stack">
+                      <span>Flutter</span>
+                      <span>Firebase</span>
+                      <span>Google Maps API</span>
+                      <span>Stripe</span>
+                    </div>
+                    <p class="project-description">
+                      Feature-rich mobile application for both iOS and Android platforms with real-time location tracking.
+                    </p>
+                    <ul class="feature-list">
+                      <li><i class="fa fa-check"></i> Cross-platform compatibility</li>
+                      <li><i class="fa fa-check"></i> Real-time location tracking</li>
+                      <li><i class="fa fa-check"></i> Push notifications</li>
+                      <li><i class="fa fa-check"></i> Offline support</li>
+                    </ul>
+                    <div class="project-links">
+                      <a href="#" class="btn-demo">Live Demo</a>
+                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
+                    </div>
+                  </div>
+                  <div class="content-right">
+                    <div class="video-wrapper">
+                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_5" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <style>
+    .portfolio-filter {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin: 30px 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .portfolio-filter .btn-filter {
+        padding: 8px 20px;
+        border-radius: 25px;
+        background: #f5f5f5;
+        color: #666;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        border: none;
+    }
+
+    .portfolio-filter .btn-filter.current {
+        background: #3498db;
+        color: white;
+    }
+
+    .isotopeWrapper {
+        margin-top: 30px;
+    }
+
+    .card {
+        margin-bottom: 30px;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        overflow: hidden;
+        transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card-content {
+        display: flex;
+        padding: 30px;
+        gap: 30px;
+    }
+
+    .content-left {
+        flex: 1;
+        position: relative;
+    }
+
+    .content-right {
+        flex: 1;
+    }
+
+    /* Project number styling */
+    .project-number {
+        font-size: 48px;
+        font-weight: bold;
+        color: rgba(52, 152, 219, 0.1);
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+
+    /* Tech stack tags */
+    .tech-stack {
+        margin: 15px 0;
+    }
+
+    .tech-stack span {
+        display: inline-block;
+        padding: 5px 10px;
+        background: rgba(52, 152, 219, 0.1);
+        color: #3498db;
+        border-radius: 15px;
+        margin: 0 5px 5px 0;
+        font-size: 14px;
+    }
+
+    /* Feature list */
+    .feature-list {
+        list-style: none;
+        padding: 0;
+        margin: 15px 0;
+    }
+
+    .feature-list li {
+        margin: 10px 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .feature-list i {
+        color: #2ecc71;
+        margin-right: 10px;
+    }
+
+    /* Project links/buttons */
+    .project-links {
+        margin-top: 20px;
+        display: flex;
+        gap: 15px;
+    }
+
+    .btn-demo, .btn-github {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 10px 25px;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .btn-demo {
+        background: #3498db;
+        color: white !important;
+        border: 2px solid #3498db;
+    }
+
+    .btn-github {
+        background: transparent;
+        border: 2px solid #3498db;
+        color: #3498db !important;
+    }
+
+    .btn-demo:hover, .btn-github:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+        text-decoration: none;
+    }
+
+    .btn-github i {
+        margin-right: 8px;
+    }
+
+    /* Video container */
+    .video-wrapper {
+        position: relative;
+        padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        height: 0;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+
+    .video-wrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Project description */
+    .project-description {
+        color: #666;
+        line-height: 1.6;
+        margin: 15px 0;
+    }
+
+    /* Headings */
+    .card h3 {
+        color: #2c3e50;
+        margin-bottom: 15px;
+        font-size: 24px;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .card-content {
+            flex-direction: column;
+        }
+        
+        .content-right {
+            margin-top: 20px;
+        }
+
+        .project-links {
+            flex-direction: column;
+        }
+
+        .btn-demo, .btn-github {
+            width: 100%;
+            text-align: center;
+        }
+    }
+  </style>
 </section>
 
 <!--Contact -->
