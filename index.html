@@ -112,45 +112,274 @@
 <!--Skills-->
 <section id="skills" class="secPad white">
   <div class="container">
-    <div class="heading">
+    <div class="heading text-center">
       <h2>My Skills</h2>
-      <p>Proficient in multiple programming languages and frameworks with extensive experience in both frontend and backend development.</p>
-    </div>
-    <div class="row">
-      <div class="col-sm-6">
-        <h2>Technical Skills</h2>
-        <p>Languages: C, C++, Python, Bash, Verilog, LaTeX, HTML<br>
-           Utilities: Git, Linux, Docker, Jenkins, Nginx, CCS<br>
-           Frameworks: Django, React.js, Flask, TensorFlow</p>
+      <p>Proficient in multiple programming languages and frameworks</p>
+      <div class="separator">
+        <span class="separator-line"></span>
+        <span class="separator-icon"><i class="fa fa-code"></i></span>
+        <span class="separator-line"></span>
       </div>
-      <div class="col-sm-6">
-        <div class="row">
-          <div class="col-md-2 skilltitle"><b>Python</b></div>
-          <div class="col-md-10">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 95%;"></div>
+    </div>
+
+    <div class="skills-container">
+      <!-- Programming Languages -->
+      <div class="skill-category">
+        <h3><i class="fa fa-code"></i> Programming Languages</h3>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon python">
+              <i class="fa fa-python"></i>
+            </div>
+            <h4>Python</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 95%"></div>
+              </div>
+              <span>95%</span>
+            </div>
+            <div class="skill-tags">
+              <span>Django</span>
+              <span>Flask</span>
+              <span>ML</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon cpp">
+              <i class="fa fa-code"></i>
+            </div>
+            <h4>C++</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+              <span>90%</span>
+            </div>
+            <div class="skill-tags">
+              <span>STL</span>
+              <span>OOP</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon ruby">
+              <i class="fa fa-gem"></i>
+            </div>
+            <h4>Ruby</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 85%"></div>
+              </div>
+              <span>85%</span>
+            </div>
+            <div class="skill-tags">
+              <span>Rails</span>
+              <span>Web</span>
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-2 skilltitle"><b>C++</b></div>
-          <div class="col-md-10">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 90%;"></div>
+      </div>
+
+      <!-- Frameworks & Tools -->
+      <div class="skill-category">
+        <h3><i class="fa fa-tools"></i> Frameworks & Tools</h3>
+        <div class="skills-grid">
+          <div class="skill-card">
+            <div class="skill-icon django">
+              <i class="fa fa-server"></i>
+            </div>
+            <h4>Django</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 92%"></div>
+              </div>
+              <span>92%</span>
+            </div>
+            <div class="skill-tags">
+              <span>REST</span>
+              <span>MVC</span>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-2 skilltitle"><b>Django</b></div>
-          <div class="col-md-10">
-            <div class="progress">
-              <div class="progress-bar" role="progressbar" style="width: 85%;"></div>
+
+          <div class="skill-card">
+            <div class="skill-icon docker">
+              <i class="fa fa-docker"></i>
+            </div>
+            <h4>Docker</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 88%"></div>
+              </div>
+              <span>88%</span>
+            </div>
+            <div class="skill-tags">
+              <span>Container</span>
+              <span>DevOps</span>
+            </div>
+          </div>
+
+          <div class="skill-card">
+            <div class="skill-icon git">
+              <i class="fa fa-git-alt"></i>
+            </div>
+            <h4>Git</h4>
+            <div class="skill-level">
+              <div class="progress-bar">
+                <div class="progress" style="width: 90%"></div>
+              </div>
+              <span>90%</span>
+            </div>
+            <div class="skill-tags">
+              <span>Version Control</span>
+              <span>CI/CD</span>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <style>
+    .skills-container {
+      padding: 40px 0;
+    }
+
+    .skill-category {
+      margin-bottom: 40px;
+    }
+
+    .skill-category h3 {
+      color: #2c3e50;
+      margin-bottom: 25px;
+      font-size: 1.8em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .skill-category h3 i {
+      color: #3498db;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 10px;
+    }
+
+    .skill-card {
+      background: white;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .skill-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 15px;
+      font-size: 28px;
+      color: white;
+      transition: transform 0.3s ease;
+    }
+
+    .skill-card:hover .skill-icon {
+      transform: rotate(10deg);
+    }
+
+    .python { background: linear-gradient(135deg, #3498db, #2980b9); }
+    .cpp { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .ruby { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .django { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+    .docker { background: linear-gradient(135deg, #2980b9, #3498db); }
+    .git { background: linear-gradient(135deg, #e67e22, #d35400); }
+
+    .skill-level {
+      margin: 15px 0;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #eee;
+      border-radius: 4px;
+      overflow: hidden;
+      margin-bottom: 5px;
+    }
+
+    .progress {
+      height: 100%;
+      background: linear-gradient(90deg, #3498db, #2980b9);
+      border-radius: 4px;
+      transition: width 1s ease;
+    }
+
+    .skill-level span {
+      font-size: 0.9em;
+      color: #666;
+    }
+
+    .skill-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 15px;
+    }
+
+    .skill-tags span {
+      background: rgba(52, 152, 219, 0.1);
+      color: #3498db;
+      padding: 4px 12px;
+      border-radius: 15px;
+      font-size: 0.85em;
+    }
+
+    @media (max-width: 768px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-card {
+        padding: 20px;
+      }
+    }
+
+    /* Animation for progress bars */
+    @keyframes fillProgress {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    .progress {
+      animation: fillProgress 1.5s ease-out forwards;
+    }
+  </style>
+
+  <script>
+    // Add animation when skills section comes into view
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.progress').forEach(progress => {
+            progress.style.width = progress.parentElement.nextElementSibling.textContent;
+          });
+        }
+      });
+    }, { threshold: 0.1 });
+
+    observer.observe(document.querySelector('.skills-container'));
+  </script>
 </section>
 
 <!--Experience-->
