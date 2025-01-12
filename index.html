@@ -156,36 +156,233 @@
 <!--Experience-->
 <section id="experience" class="secPad">
 <div class="container">
-<div class="heading">
-  <h2>Experience</h2>
-  <h4>Professional Experience in Software Development and Machine Learning</h4>
+  <div class="heading text-center">
+    <h2>Experience</h2>
+    <p>Professional Journey in Software Development and AI</p>
+    <div class="separator">
+      <span class="separator-line"></span>
+      <span class="separator-icon"><i class="fa fa-code"></i></span>
+      <span class="separator-line"></span>
+    </div>
+  </div>
+
+  <div class="experience-cards">
+    <!-- Tridev.ai -->
+    <div class="exp-card">
+      <div class="exp-card-header">
+        <img src="images/logos/tridev.png" alt="Tridev.ai" class="company-logo">
+        <div class="exp-meta">
+          <h3>Founder & CEO</h3>
+          <h4>Tridev.ai</h4>
+          <span class="exp-duration">
+            <i class="fa fa-calendar"></i> Dec 2023 - Present
+          </span>
+          <span class="exp-location">
+            <i class="fa fa-map-marker"></i> Remote
+          </span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <ul class="exp-achievements">
+          <li>Leading AI consultancy firm providing end-to-end engineering solutions</li>
+          <li>Expertise in Python, Django, Ruby on Rails, and Machine Learning</li>
+          <li>Specialized in Generative AI and Full Stack Development</li>
+          <li>Delivering custom software solutions and technical consultancy</li>
+        </ul>
+        <div class="tech-stack">
+          <span>Python</span>
+          <span>Django</span>
+          <span>Ruby on Rails</span>
+          <span>ML</span>
+          <span>AI</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Abacus.ai -->
+    <div class="exp-card">
+      <div class="exp-card-header">
+        <img src="images/logos/abacus.png" alt="Abacus.ai" class="company-logo">
+        <div class="exp-meta">
+          <h3>Machine Learning Platform Engineer</h3>
+          <h4>Abacus.ai</h4>
+          <span class="exp-duration">
+            <i class="fa fa-calendar"></i> Jan 2023 - Present
+          </span>
+          <span class="exp-location">
+            <i class="fa fa-map-marker"></i> Remote
+          </span>
+        </div>
+      </div>
+      <div class="exp-card-body">
+        <ul class="exp-achievements">
+          <li>Led development of production-level Data and Application Connectors</li>
+          <li>Developed connectors for Confluence, MongoDB, Zendesk, Sharepoint</li>
+          <li>Secured $60,000 deal through MS Teams App development</li>
+        </ul>
+        <div class="tech-stack">
+          <span>Python</span>
+          <span>MongoDB</span>
+          <span>APIs</span>
+          <span>Docker</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add more exp-cards for other experiences -->
+  </div>
 </div>
-<div class="row">
-	<div class="col-md-12">
-		<h3>Abacus.ai - Machine Learning Platform Engineer</h3>
-		<p>Jan 2023 - Present | Remote</p>
-		<ul>
-			<li>Spearheaded projects using Python, leading a team to develop and maintain production-level Data and Application Connectors</li>
-			<li>Developed data connectors for Confluence, MongoDB, Zendesk, Sharepoint, Google Drive, and One Drive</li>
-			<li>Designed asynchronous LLM APIs and bots, enabling ChatGPT-like group conversations</li>
-			<li>Secured a $60,000 deal through MS Teams App development</li>
-		</ul>
-		
-		<h3>Texas Instruments - Embedded Software Engineering Intern</h3>
-		<p>May 2022 - July 2022 | Bangalore</p>
-		<ul>
-			<li>Developed AM61x Public ROM prototype using ARM cortex-A core</li>
-			<li>Implemented boot pipeline and memory management systems</li>
-		</ul>
-		
-		<h3>Securonix - Software Engineering Intern</h3>
-		<p>Aug 2021 - May 2022 | Texas, USA</p>
-		<ul>
-			<li>Led multiple Python projects with end-to-end ownership</li>
-			<li>Automated 400+ test cases and developed QA-Accelerator</li>
-		</ul>
-	</div>
-</div>		
+
+<style>
+  .experience-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+  }
+
+  .exp-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .exp-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .exp-card-header {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    padding: 25px;
+    color: white;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .company-logo {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: white;
+    padding: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .exp-card:hover .company-logo {
+    transform: rotate(5deg);
+  }
+
+  .exp-meta h3 {
+    margin: 0;
+    font-size: 1.2em;
+    font-weight: 600;
+  }
+
+  .exp-meta h4 {
+    margin: 5px 0;
+    font-size: 1em;
+    opacity: 0.9;
+  }
+
+  .exp-duration, .exp-location {
+    display: inline-block;
+    font-size: 0.9em;
+    margin-right: 15px;
+    opacity: 0.8;
+  }
+
+  .exp-duration i, .exp-location i {
+    margin-right: 5px;
+  }
+
+  .exp-card-body {
+    padding: 25px;
+  }
+
+  .exp-achievements {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+  }
+
+  .exp-achievements li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .exp-achievements li:before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: #3498db;
+  }
+
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+  }
+
+  .tech-stack span {
+    background: rgba(52, 152, 219, 0.1);
+    color: #3498db;
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+  }
+
+  .separator-line {
+    height: 2px;
+    width: 100px;
+    background: linear-gradient(90deg, transparent, #3498db, transparent);
+  }
+
+  .separator-icon {
+    margin: 0 20px;
+    width: 40px;
+    height: 40px;
+    background: #3498db;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  @media (max-width: 768px) {
+    .experience-cards {
+      grid-template-columns: 1fr;
+      padding: 15px;
+    }
+
+    .exp-card-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .company-logo {
+      margin: 0 auto 15px;
+    }
+  }
+</style>
 </section>
 
 <!--Experience Timeline-->
