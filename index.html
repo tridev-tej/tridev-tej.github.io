@@ -201,9 +201,14 @@
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <div class="timeline-date">Jan 2023 - Present</div>
-          <h3>Machine Learning Platform Engineer</h3>
-          <h4>Abacus.ai | Remote</h4>
+          <div class="timeline-header">
+            <img src="images/logos/abacus.png" alt="Abacus.ai" class="company-logo">
+            <div>
+              <div class="timeline-date">Jan 2023 - Present</div>
+              <h3>Machine Learning Platform Engineer</h3>
+              <h4>Abacus.ai | Remote</h4>
+            </div>
+          </div>
           <ul>
             <li>Led development of production-level Data and Application Connectors</li>
             <li>Developed connectors for Confluence, MongoDB, Zendesk, Sharepoint</li>
@@ -216,9 +221,14 @@
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <div class="timeline-date">Aug 2022 - Nov 2022</div>
-          <h3>Server Performance Intern</h3>
-          <h4>AMD | Bangalore</h4>
+          <div class="timeline-header">
+            <img src="images/logos/amd.png" alt="AMD" class="company-logo">
+            <div>
+              <div class="timeline-date">Aug 2022 - Nov 2022</div>
+              <h3>Server Performance Intern</h3>
+              <h4>AMD | Bangalore</h4>
+            </div>
+          </div>
           <ul>
             <li>Analyzed server performance and hardware reports</li>
             <li>Identified performance bottlenecks in server workloads</li>
@@ -230,9 +240,14 @@
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <div class="timeline-date">May 2022 - Jul 2022</div>
-          <h3>Embedded Software Engineering Intern</h3>
-          <h4>Texas Instruments | Bangalore</h4>
+          <div class="timeline-header">
+            <img src="images/logos/ti.png" alt="Texas Instruments" class="company-logo">
+            <div>
+              <div class="timeline-date">May 2022 - Jul 2022</div>
+              <h3>Embedded Software Engineering Intern</h3>
+              <h4>Texas Instruments | Bangalore</h4>
+            </div>
+          </div>
           <ul>
             <li>Developed AM61x Public ROM prototype using ARM cortex-A core</li>
             <li>Implemented boot pipeline and memory management systems</li>
@@ -240,13 +255,18 @@
         </div>
       </div>
 
-      <!-- Education -->
+      <!-- Education - IITK -->
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <div class="timeline-date">2019 - 2023</div>
-          <h3>B.Tech in Computer Science</h3>
-          <h4>Indian Institute of Technology Kanpur</h4>
+          <div class="timeline-header">
+            <img src="images/logos/iitk.png" alt="IIT Kanpur" class="company-logo">
+            <div>
+              <div class="timeline-date">2019 - 2023</div>
+              <h3>B.Tech in Computer Science</h3>
+              <h4>Indian Institute of Technology Kanpur</h4>
+            </div>
+          </div>
           <ul>
             <li>CGPA: 9.14/10</li>
             <li>Received Academic Excellence Award (Top 5%)</li>
@@ -259,9 +279,14 @@
       <div class="timeline-item">
         <div class="timeline-dot"></div>
         <div class="timeline-content">
-          <div class="timeline-date">2018</div>
-          <h3>Class XII (ISC)</h3>
-          <h4>St. Paul's College, Lucknow</h4>
+          <div class="timeline-header">
+            <img src="images/logos/spc.png" alt="St. Paul's College" class="company-logo">
+            <div>
+              <div class="timeline-date">2018</div>
+              <h3>Class XII (ISC)</h3>
+              <h4>St. Paul's College, Lucknow</h4>
+            </div>
+          </div>
           <ul>
             <li>Percentage: 98%</li>
             <li>AIR 127 in JEE Advanced</li>
@@ -421,6 +446,34 @@
 
       .timeline-item:nth-child(even) .timeline-dot {
         left: 23px;
+      }
+    }
+
+    .timeline-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .company-logo {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      border-radius: 8px;
+      background: white;
+      padding: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .timeline-header > div {
+      flex: 1;
+    }
+
+    @media screen and (max-width: 768px) {
+      .company-logo {
+        width: 40px;
+        height: 40px;
       }
     }
   </style>
