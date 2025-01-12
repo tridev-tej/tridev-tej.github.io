@@ -27,6 +27,11 @@
 <link rel="stylesheet" href="css/styles.css" />
 <!-- Font Awesome -->
 <link href="css/font-awesome.min.css" rel="stylesheet">
+
+<!-- Favicon settings -->
+<link rel="icon" type="image/png" href="images/tejesh.png">
+<link rel="shortcut icon" type="image/png" href="images/tejesh.png">
+<link rel="apple-touch-icon" href="images/tejesh.png">
 </head>
 
 <body>
@@ -1951,6 +1956,142 @@
             }
         }
     </style>
+</section>
+
+<!-- Family Section -->
+<section id="family" class="secPad">
+  <div class="container">
+    <div class="heading text-center">
+      <h2>My Family</h2>
+      <p>The pillars of my strength and success</p>
+      <div class="separator">
+        <span class="separator-line"></span>
+        <span class="separator-icon"><i class="fa fa-heart"></i></span>
+        <span class="separator-line"></span>
+      </div>
+    </div>
+
+    <div class="family-grid">
+      <!-- Father -->
+      <div class="family-card">
+        <div class="family-img">
+          <img src="images/family/rajesh.png" alt="My Father">
+        </div>
+        <div class="family-content">
+          <h3>Rajesh Vaish</h3>
+          <h4>Father</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+
+      <!-- Mother -->
+      <div class="family-card">
+        <div class="family-img">
+          <img src="images/family/seema.png" alt="My Mother">
+        </div>
+        <div class="family-content">
+          <h3>Seema Vaish</h3>
+          <h4>Mother</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+
+      <!-- Me -->
+      <div class="family-card">
+        <div class="family-img">
+          <img src="images/tejesh.png" alt="Me">
+        </div>
+        <div class="family-content">
+          <h3>Tejesh Vaish</h3>
+          <h4>Myself</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+
+      <!-- Sister -->
+      <div class="family-card">
+        <div class="family-img">
+          <img src="images/family/tanisha.png" alt="My Sister">
+        </div>
+        <div class="family-content">
+          <h3>Tanisha Vaish</h3>
+          <h4>Sister</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .family-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      padding: 20px 0;
+    }
+
+    .family-card {
+      background: var(--bg-card);
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .family-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--hover-shadow);
+    }
+
+    .family-img {
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+    }
+
+    .family-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .family-card:hover .family-img img {
+      transform: scale(1.05);
+    }
+
+    .family-content {
+      padding: 20px;
+    }
+
+    .family-content h3 {
+      color: var(--text-primary);
+      margin: 0;
+      font-size: 1.5em;
+    }
+
+    .family-content h4 {
+      color: var(--accent-primary);
+      margin: 5px 0 15px;
+      font-size: 1.1em;
+    }
+
+    .family-content p {
+      color: var(--text-secondary);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .family-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .family-img {
+        height: 250px;
+      }
+    }
+  </style>
 </section>
 
 <!--/.page-section-->
