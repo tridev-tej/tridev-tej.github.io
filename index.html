@@ -291,7 +291,7 @@
             <!-- Project 3 -->
             <article class="col-sm-12 isotopeItem web mobile">
               <div class="card portfolio-item">
-                <div class="card-content">
+                <div class="card-content single-column">
                   <div class="content-left">
                     <span class="project-number">03</span>
                     <h3>E-Commerce Platform</h3>
@@ -313,11 +313,6 @@
                     <div class="project-links">
                       <a href="#" class="btn-demo">Live Demo</a>
                       <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
-                    </div>
-                  </div>
-                  <div class="content-right">
-                    <div class="video-wrapper">
-                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_3" frameborder="0" allowfullscreen></iframe>
                     </div>
                   </div>
                 </div>
@@ -412,6 +407,10 @@
         list-style: none;
     }
 
+    .portfolio-filter li {
+        margin: 5px;
+    }
+
     .portfolio-filter .btn-filter {
         padding: 8px 20px;
         border-radius: 25px;
@@ -420,11 +419,46 @@
         text-decoration: none;
         transition: all 0.3s ease;
         border: none;
+        white-space: nowrap;
+        display: inline-block;
+        font-size: 14px;
     }
 
     .portfolio-filter .btn-filter.current {
         background: #3498db;
         color: white;
+    }
+
+    /* Mobile responsive styles */
+    @media (max-width: 768px) {
+        .portfolio-filter {
+            flex-direction: row;
+            justify-content: flex-start;
+            overflow-x: auto;
+            padding: 10px 0;
+            -webkit-overflow-scrolling: touch;
+            margin: 20px -15px; /* Negative margin to allow full-width scrolling */
+            padding: 10px 15px; /* Add padding on sides */
+        }
+
+        .portfolio-filter::-webkit-scrollbar {
+            display: none; /* Hide scrollbar for Chrome/Safari */
+        }
+
+        .portfolio-filter {
+            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
+            scrollbar-width: none;  /* Hide scrollbar for Firefox */
+        }
+
+        .portfolio-filter li {
+            margin: 0 5px;
+            flex: 0 0 auto;
+        }
+
+        .portfolio-filter .btn-filter {
+            padding: 8px 15px;
+            font-size: 13px;
+        }
     }
 
     .isotopeWrapper {
@@ -592,6 +626,147 @@
             width: 100%;
             text-align: center;
         }
+    }
+
+    .project-preview {
+        height: 100%;
+        min-height: 300px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .preview-placeholder {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .preview-placeholder i {
+        font-size: 40px;
+        color: #3498db;
+        margin-bottom: 15px;
+    }
+
+    .preview-placeholder p {
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .preview-images {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .preview-images img {
+        width: 100%;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .preview-images img:hover {
+        transform: scale(1.02);
+    }
+
+    @media (max-width: 768px) {
+        .project-preview {
+            min-height: 200px;
+        }
+    }
+
+    .no-media-placeholder {
+        height: 100%;
+        min-height: 300px;
+        background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .placeholder-content {
+        text-align: center;
+        padding: 30px;
+    }
+
+    .placeholder-content i.fa-code {
+        font-size: 48px;
+        color: #3498db;
+        margin-bottom: 15px;
+        animation: pulse 2s infinite;
+    }
+
+    .placeholder-text {
+        color: #2c3e50;
+        font-size: 20px;
+        font-weight: 500;
+        margin: 15px 0;
+    }
+
+    .placeholder-details {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        color: #666;
+        font-size: 14px;
+    }
+
+    .placeholder-details span {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    .placeholder-details i {
+        color: #3498db;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .no-media-placeholder {
+            min-height: 200px;
+        }
+        
+        .placeholder-content i.fa-code {
+            font-size: 36px;
+        }
+        
+        .placeholder-text {
+            font-size: 18px;
+        }
+    }
+
+    .card-content.single-column {
+        display: block;  /* Override the flex display */
+        max-width: 800px;  /* Limit the width for better readability */
+        margin: 0 auto;  /* Center the content */
+    }
+
+    .card-content.single-column .content-left {
+        width: 100%;
     }
   </style>
 </section>
