@@ -61,47 +61,206 @@
 <!--/.header-->
 <div id="#top"></div>
 <section id="home">
-  <div class="banner-container"> <img src="images/banner-bg.png" alt="banner" />
-    <div class="container banner-content"> 
-            <div class="row">
-                <header class="centered">
-                    <h1>Tejesh Vaish</h1>
-                    <p>MACHINE LEARNING PLATFORM ENGINEER</p>
-                </header>
-                <div class="social-icons">
-                    <a href="https://www.linkedin.com/in/tejesh-vaish-381bab187/"><i class="fa fa-linkedin-square"></i></a>
-                    <a href="mailto:tvaish96@gmail.com"><i class="fa fa-envelope"></i></a>
-                    <a href="https://github.com/tejeshvaish"><i class="fa fa-github"></i></a>
-                </div>
-            </div>
+  <div class="banner-container"> 
+    <img src="images/banner-bg.png" alt="banner" />
+    <div class="banner-content"> 
+      <div class="profile-section">
+        <div class="profile-photo">
+          <img src="images/tejesh.png" alt="Tejesh Vaish">
         </div>
-    </div>
-</section>
-<section id="introText">
-  <div class="container">
-    <div>
-      <h1>Machine Learning Platform Engineer at Abacus.ai</h1>
-      <p>Graduate from Indian Institute of Technology Kanpur with a major in Computer Science & Engineering. Experienced in developing production-level Data and Application Connectors, with expertise in Python, C++, and various frameworks including Django, React.js, and Flask.</p>
-    </div>
-  </div>
-</section>
-<!--About-->
-<section id="aboutUs">
-  <div class="container">
-    <div class="row"> 
-      <!-- item -->
-      <div class="col-md-8 tileBox"> <img src="images/tejesh.png" alt="me"/> </div>
-      <div class="col-md-8 tileBox">
-        <div class="txtHead">
-          <h2>Hello, I am Tejesh Vaish...</h2>
-          <h3>Machine Learning Platform Engineer Based in Lucknow, India</h3>
+        <div class="profile-info">
+          <h1>Tejesh Vaish</h1>
+          <p>MACHINE LEARNING PLATFORM ENGINEER</p>
+          <div class="intro-text">
+            <p>Graduate from Indian Institute of Technology Kanpur with a major in Computer Science & Engineering. Experienced in developing production-level Data and Application Connectors, with expertise in Python, C++, and various frameworks including Django, React.js, and Flask.</p>
+          </div>
+          <div class="social-icons">
+            <a href="https://www.linkedin.com/in/tejesh-vaish-381bab187/"><i class="fa fa-linkedin-square"></i></a>
+            <a href="mailto:tvaish96@gmail.com"><i class="fa fa-envelope"></i></a>
+            <a href="https://github.com/tejeshvaish"><i class="fa fa-github"></i></a>
+          </div>
         </div>
-        <p>Currently working at Abacus.ai as a Machine Learning Platform Engineer, leading development of production-level Data and Application Connectors. Graduate from Indian Institute of Technology Kanpur with a CGPA of 9.14/10 in Computer Science & Engineering. Secured AIR 9 in UP-JEE and AIR 127 in JEE Advanced among 250,000+ candidates.</p>
       </div>
-      <!-- end: --> 
+      
+      <div id="quote-box" class="quote-box">
+        <p id="quote">Test Quote</p>
+      </div>
     </div>
   </div>
+
+  <style>
+    #home {
+      margin: 0;
+      padding: 0;
+    }
+
+    .banner-container {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .banner-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .banner-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .profile-section {
+      text-align: center;
+      color: white;
+      max-width: 800px;
+      padding: 0 20px;
+    }
+
+    .profile-photo {
+      width: 200px;
+      height: 200px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 4px solid white;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .profile-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .profile-info h1 {
+      font-size: 3.5em;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .profile-info > p {
+      font-size: 1.5em;
+      margin: 10px 0;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .intro-text {
+      margin: 20px auto;
+      max-width: 600px;
+    }
+
+    .intro-text p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    .social-icons {
+      margin-top: 20px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 24px;
+      margin: 0 10px;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      transform: translateY(-3px);
+    }
+
+    @media (max-width: 768px) {
+      .profile-photo {
+        width: 150px;
+        height: 150px;
+      }
+
+      .profile-info h1 {
+        font-size: 2.5em;
+      }
+
+      .profile-info > p {
+        font-size: 1.2em;
+      }
+
+      .intro-text p {
+        font-size: 1em;
+      }
+    }
+
+    .quote-box {
+      position: absolute;
+      bottom: 50px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    #quote {
+      color: white;
+      font-size: 1.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .quote-box {
+        bottom: 30px;
+      }
+      
+      #quote {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+
+  <script>
+    const quotes = [
+      '"Dreams are extremely important. You can\'t do it unless you imagine it." - George Lucas',
+      '"The only way to do great work is to love what you do." - Steve Jobs',
+      '"Innovation distinguishes between a leader and a follower." - Steve Jobs',
+      '"Code is like humor. When you have to explain it, it\'s bad." - Cory House',
+      '"First, solve the problem. Then, write the code." - John Johnson'
+    ];
+
+    let currentQuote = 0;
+    const quoteElement = document.getElementById('quote');
+
+    function showQuote() {
+      quoteElement.style.opacity = '0';
+      
+      setTimeout(() => {
+        quoteElement.textContent = quotes[currentQuote];
+        quoteElement.style.opacity = '1';
+        
+        currentQuote = (currentQuote + 1) % quotes.length;
+        
+        setTimeout(showQuote, 5000); // Change quote every 5 seconds
+      }, 1000);
+    }
+
+    // Start the animation when page loads
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', showQuote);
+    } else {
+      showQuote();
+    }
+  </script>
 </section>
+
 <!--Quote-->
 <section id="quote" class="bg-parlex">
   <div class="parlex-back">
@@ -650,7 +809,7 @@
         <ul class="exp-achievements">
           <li>Led 4 projects on Python tech stack with end-to-end ownership of 2 projects</li>
           <li>Spearheaded RIN-Harness development, automated 400+ test cases</li>
-          <li>Developed QA-Accelerator full-stack application using React.js and Flask</li>
+          <li>Developed QA-Accelerator full-stack application using React.js</li>
           <li>Created multi-threaded Incident-Creation-Framework with Redis</li>
           <li>Developed Test-Harness using Django with Jenkins integration</li>
           <li>Closed 50+ JIRA tickets (P3+ priority) in 10 months</li>
@@ -2431,5 +2590,38 @@ window.addEventListener('scroll', () => {
   }
 }
 </style>
+
+<!-- Add this at the end of your file, just before </body> -->
+<script>
+  window.onload = function() {
+    const quotes = [
+      '"Dreams are extremely important. You can\'t do it unless you imagine it." - George Lucas',
+      '"The only way to do great work is to love what you do." - Steve Jobs',
+      '"Innovation distinguishes between a leader and a follower." - Steve Jobs',
+      '"Code is like humor. When you have to explain it, it's bad." - Cory House',
+      '"First, solve the problem. Then, write the code." - John Johnson'
+    ];
+
+    let currentQuote = 0;
+    const quoteElement = document.getElementById('quote');
+
+    if (quoteElement) {
+      function showQuote() {
+        quoteElement.style.opacity = '0';
+        
+        setTimeout(() => {
+          quoteElement.textContent = quotes[currentQuote];
+          quoteElement.style.opacity = '1';
+          
+          currentQuote = (currentQuote + 1) % quotes.length;
+          
+          setTimeout(showQuote, 5000);
+        }, 1000);
+      }
+
+      showQuote();
+    }
+  };
+</script>
 </body>
 </html>
