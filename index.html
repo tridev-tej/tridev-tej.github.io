@@ -2359,5 +2359,212 @@ window.addEventListener('scroll', () => {
     }
   };
 </script>
+
+<section id="customers" class="secPad">
+  <div class="container">
+    <div class="heading text-center">
+      <h2>Our Clients</h2>
+      <p>Proud to work with industry leaders</p>
+      <div class="separator">
+        <span class="separator-line"></span>
+        <span class="separator-icon"><i class="fa fa-handshake-o"></i></span>
+        <span class="separator-line"></span>
+      </div>
+    </div>
+
+    <!-- Client Logos -->
+    <div class="client-logos">
+      <div class="client-logo">
+        <img src="images/logos/simbian.png" alt="Simbian">
+      </div>
+      <!-- Add more client logos here as needed -->
+    </div>
+
+    <!-- Featured Projects -->
+    <div class="featured-projects">
+      <h3 class="text-center">Featured Work</h3>
+      
+      <div class="project-grid">
+        <!-- Simbian Project 1 -->
+        <div class="featured-project-card">
+          <div class="project-content">
+            <div class="client-tag">
+              <img src="images/logos/simbian-small.png" alt="Simbian" class="client-icon">
+              <span>Simbian</span>
+            </div>
+            <h4>Data Connector Suite</h4>
+            <p>Developed production-level Data and Application Connectors for various platforms including Confluence, MongoDB, Zendesk, Sharepoint, Google Drive, and OneDrive.</p>
+            <div class="project-highlights">
+              <div class="highlight">
+                <i class="fa fa-check-circle"></i>
+                <span>High Reliability & Scalability</span>
+              </div>
+              <div class="highlight">
+                <i class="fa fa-check-circle"></i>
+                <span>Enterprise Integration</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simbian Project 2 -->
+        <div class="featured-project-card">
+          <div class="project-content">
+            <div class="client-tag">
+              <img src="images/logos/simbian-small.png" alt="Simbian" class="client-icon">
+              <span>Simbian</span>
+            </div>
+            <h4>LLM-Powered Chat Integration</h4>
+            <p>Designed and implemented asynchronous LLM APIs enabling ChatGPT-like conversations in Slack, Microsoft Teams, and Zendesk.</p>
+            <div class="project-highlights">
+              <div class="highlight">
+                <i class="fa fa-check-circle"></i>
+                <span>Real-time Processing</span>
+              </div>
+              <div class="highlight">
+                <i class="fa fa-check-circle"></i>
+                <span>Multi-platform Support</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simbian Project 3 -->
+        <div class="featured-project-card">
+          <div class="project-content">
+            <div class="client-tag">
+              <img src="images/logos/simbian-small.png" alt="Simbian" class="client-icon">
+              <span>Simbian</span>
+            </div>
+            <h4>MS Teams Application</h4>
+            <p>Developed and published a custom Microsoft Teams application, resulting in a successful $60,000 client deal.</p>
+            <div class="project-highlights">
+              <div class="highlight">
+                <i class="fa fa-check-circle"></i>
+                <span>Enterprise Solution</span>
+              </div>
+              <div class="highlight">
+                <i class="fa fa-check-circle"></i>
+                <span>Revenue Generation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .client-logos {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+      margin: 40px 0;
+      flex-wrap: wrap;
+    }
+
+    .client-logo {
+      width: 200px;
+      height: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .client-logo:hover {
+      transform: translateY(-5px);
+    }
+
+    .client-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .featured-project-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .featured-project-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .project-content {
+      padding: 25px;
+    }
+
+    .client-tag {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .client-icon {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+
+    .client-tag span {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .featured-project-card h4 {
+      color: #2c3e50;
+      margin: 0 0 15px 0;
+      font-size: 1.3em;
+    }
+
+    .project-highlights {
+      margin-top: 20px;
+    }
+
+    .highlight {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .highlight i {
+      color: #27ae60;
+    }
+
+    .highlight span {
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    @media (max-width: 768px) {
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .client-logo {
+        width: 150px;
+        height: 75px;
+      }
+    }
+  </style>
+</section>
 </body>
 </html>
