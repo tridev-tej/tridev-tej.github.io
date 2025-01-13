@@ -1452,207 +1452,198 @@
 </section>
 
 <!--Portfolio-->
-<section id="portfolio" class="page-section section appear clearfix secPad">
+<section id="portfolio" class="secPad">
   <div class="container">
-    <div class="heading text-center"> 
+    <div class="heading text-center">
       <h2>Portfolio</h2>
-      <p>Discover my latest projects and achievements</p>
+      <p>A showcase of my academic and professional projects</p>
       <div class="separator">
         <span class="separator-line"></span>
         <span class="separator-icon"><i class="fa fa-code"></i></span>
         <span class="separator-line"></span>
       </div>
     </div>
-    
-    <!-- Filter Navigation -->
-    <nav class="primary clearfix">
-      <ul class="portfolio-filter" id="filter">
-        <li><a class="btn-filter current" href="#" data-filter="*">All</a></li>
-        <li><a class="btn-filter" href="#" data-filter=".ml">Machine Learning</a></li>
-        <li><a class="btn-filter" href="#" data-filter=".web">Web Development</a></li>
-        <li><a class="btn-filter" href="#" data-filter=".mobile">Mobile Apps</a></li>
-        <li><a class="btn-filter" href="#" data-filter=".cloud">Cloud Solutions</a></li>
-      </ul>
-    </nav>
 
-    <div class="row">
-      <div class="col-md-12">
-        <div class="row">
-          <div class="portfolio-items isotopeWrapper clearfix" id="3">
-            
-            <!-- Project 1 -->
-            <article class="col-sm-12 isotopeItem ml cloud">
-              <div class="card portfolio-item">
-                <div class="card-content">
-                  <div class="content-left">
-                    <span class="project-number">01</span>
-                    <h3>LLM Chatbot System</h3>
-                    <div class="tech-stack">
-                      <span>Python</span>
-                      <span>FastAPI</span>
-                      <span>Redis</span>
-                      <span>Docker</span>
-                    </div>
-                    <p class="project-description">
-                      A sophisticated chatbot system leveraging Large Language Models.
-                    </p>
-                    <ul class="feature-list">
-                      <li><i class="fa fa-check"></i> Asynchronous API architecture</li>
-                      <li><i class="fa fa-check"></i> Multi-user group conversations</li>
-                      <li><i class="fa fa-check"></i> Context awareness system</li>
-                    </ul>
-                    <div class="project-links">
-                      <a href="#" class="btn-demo">Live Demo</a>
-                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
-                    </div>
-                  </div>
-                  <div class="content-right">
-                    <div class="video-wrapper">
-                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
+    <!-- Portfolio Categories -->
+    <div class="portfolio-filters">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="systems">Systems</button>
+      <button class="filter-btn" data-filter="ml">Machine Learning</button>
+      <button class="filter-btn" data-filter="web">Web Development</button>
+      <button class="filter-btn" data-filter="finance">Finance</button>
+      <button class="filter-btn" data-filter="networks">Networks</button>
+    </div>
 
-            <!-- Project 2 -->
-            <article class="col-sm-12 isotopeItem web cloud">
-              <div class="card portfolio-item">
-                <div class="card-content">
-                  <div class="content-left">
-                    <span class="project-number">02</span>
-                    <h3>MS Teams Integration</h3>
-                    <div class="tech-stack">
-                      <span>Node.js</span>
-                      <span>Microsoft Graph API</span>
-                      <span>Azure</span>
-                      <span>OAuth 2.0</span>
-                    </div>
-                    <p class="project-description">
-                      Enterprise-grade Microsoft Teams application that secured a $60,000 deal, enhancing workplace collaboration.
-                    </p>
-                    <ul class="feature-list">
-                      <li><i class="fa fa-check"></i> Seamless MS Teams workflow integration</li>
-                      <li><i class="fa fa-check"></i> Real-time notifications system</li>
-                      <li><i class="fa fa-check"></i> Custom bot commands</li>
-                      <li><i class="fa fa-check"></i> Secure authentication</li>
-                    </ul>
-                    <div class="project-links">
-                      <a href="#" class="btn-demo">Live Demo</a>
-                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
-                    </div>
-                  </div>
-                  <div class="content-right">
-                    <div class="video-wrapper">
-                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_2" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid">
+      <!-- GemOS Project -->
+      <div class="portfolio-item systems">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>GemOS Operating System Features</h3>
+            <span class="project-tag">Systems Programming</span>
+          </div>
+          <div class="project-body">
+            <p>Enhanced GemOS with multi-level page tables, file archiving utility, and basic thread API implementation.</p>
+            <div class="project-tech">
+              <span>C</span>
+              <span>OS</span>
+              <span>Threading</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="grade"><i class="fa fa-star"></i> Grade: A*</span>
+            <span class="supervisor">Prof. Debadatta Mishra</span>
+          </div>
+        </div>
+      </div>
 
-            <!-- Project 3 -->
-            <article class="col-sm-12 isotopeItem web mobile">
-              <div class="card portfolio-item">
-                <div class="card-content single-column">
-                  <div class="content-left">
-                    <span class="project-number">03</span>
-                    <h3>E-Commerce Platform</h3>
-                    <div class="tech-stack">
-                      <span>React</span>
-                      <span>Node.js</span>
-                      <span>MongoDB</span>
-                      <span>AWS</span>
-                    </div>
-                    <p class="project-description">
-                      Full-stack e-commerce solution with advanced features and seamless payment integration.
-                    </p>
-                    <ul class="feature-list">
-                      <li><i class="fa fa-check"></i> Responsive product catalog</li>
-                      <li><i class="fa fa-check"></i> Secure payment processing</li>
-                      <li><i class="fa fa-check"></i> Real-time inventory management</li>
-                      <li><i class="fa fa-check"></i> Analytics dashboard</li>
-                    </ul>
-                    <div class="project-links">
-                      <a href="#" class="btn-demo">Live Demo</a>
-                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
+      <!-- Neural Wuggy Validation -->
+      <div class="portfolio-item ml">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Neural Wuggy Word Validation</h3>
+            <span class="project-tag">Deep Learning</span>
+          </div>
+          <div class="project-body">
+            <p>7-layer Deep Neural Network to validate non-word generation algorithms for Hindi dataset.</p>
+            <div class="project-tech">
+              <span>TensorFlow</span>
+              <span>Keras</span>
+              <span>NLP</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="grade"><i class="fa fa-star"></i> Grade: A*</span>
+            <span class="supervisor">Prof. Ark Verma</span>
+          </div>
+        </div>
+      </div>
 
-            <!-- Project 4 -->
-            <article class="col-sm-12 isotopeItem ml">
-              <div class="card portfolio-item">
-                <div class="card-content">
-                  <div class="content-left">
-                    <span class="project-number">04</span>
-                    <h3>AI Image Recognition</h3>
-                    <div class="tech-stack">
-                      <span>Python</span>
-                      <span>TensorFlow</span>
-                      <span>OpenCV</span>
-                      <span>Flask</span>
-                    </div>
-                    <p class="project-description">
-                      Advanced image recognition system using deep learning for real-time object detection.
-                    </p>
-                    <ul class="feature-list">
-                      <li><i class="fa fa-check"></i> Real-time object detection</li>
-                      <li><i class="fa fa-check"></i> Custom model training</li>
-                      <li><i class="fa fa-check"></i> REST API integration</li>
-                      <li><i class="fa fa-check"></i> Mobile-friendly interface</li>
-                    </ul>
-                    <div class="project-links">
-                      <a href="#" class="btn-demo">Live Demo</a>
-                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
-                    </div>
-                  </div>
-                  <div class="content-right">
-                    <div class="video-wrapper">
-                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_4" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
+      <!-- C Compiler -->
+      <div class="portfolio-item systems">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>C Compiler Implementation</h3>
+            <span class="project-tag">Compiler Design</span>
+          </div>
+          <div class="project-body">
+            <p>Built a compiler for C subset to MIPS with dynamic memory allocation and multi-level pointers.</p>
+            <div class="project-tech">
+              <span>C++</span>
+              <span>Lex</span>
+              <span>Yacc</span>
+              <span>MIPS</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="supervisor">Prof. Amey Karkare</span>
+          </div>
+        </div>
+      </div>
 
-            <!-- Project 5 -->
-            <article class="col-sm-12 isotopeItem mobile cloud">
-              <div class="card portfolio-item">
-                <div class="card-content">
-                  <div class="content-left">
-                    <span class="project-number">05</span>
-                    <h3>Cross-Platform Mobile App</h3>
-                    <div class="tech-stack">
-                      <span>Flutter</span>
-                      <span>Firebase</span>
-                      <span>Google Maps API</span>
-                      <span>Stripe</span>
-                    </div>
-                    <p class="project-description">
-                      Feature-rich mobile application for both iOS and Android platforms with real-time location tracking.
-                    </p>
-                    <ul class="feature-list">
-                      <li><i class="fa fa-check"></i> Cross-platform compatibility</li>
-                      <li><i class="fa fa-check"></i> Real-time location tracking</li>
-                      <li><i class="fa fa-check"></i> Push notifications</li>
-                      <li><i class="fa fa-check"></i> Offline support</li>
-                    </ul>
-                    <div class="project-links">
-                      <a href="#" class="btn-demo">Live Demo</a>
-                      <a href="#" class="btn-github"><i class="fa fa-github"></i> Source</a>
-                    </div>
-                  </div>
-                  <div class="content-right">
-                    <div class="video-wrapper">
-                      <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID_5" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </article>
+      <!-- Networks Project -->
+      <div class="portfolio-item networks">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Computer Networks Applications</h3>
+            <span class="project-tag">Networking</span>
+          </div>
+          <div class="project-body">
+            <p>GPS localization, multi-threaded chat system, and routing algorithms implementation.</p>
+            <div class="project-tech">
+              <span>Python</span>
+              <span>TCP/IP</span>
+              <span>Routing</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="grade"><i class="fa fa-star"></i> Grade: A*</span>
+            <span class="supervisor">Prof. Amitsanghu Pal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUTRA Model -->
+      <div class="portfolio-item ml">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>SUTRA-Consortium Development</h3>
+            <span class="project-tag">Data Science</span>
+          </div>
+          <div class="project-body">
+            <p>COVID-19 data analysis using SUTRA model with machine learning techniques.</p>
+            <div class="project-tech">
+              <span>Python</span>
+              <span>sklearn</span>
+              <span>Data Analysis</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="supervisor">Prof. Manindra Agrawal</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Economics -->
+      <div class="portfolio-item finance">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Portfolio Optimization</h3>
+            <span class="project-tag">Finance</span>
+          </div>
+          <div class="project-body">
+            <p>Stock portfolio optimization and options pricing using binary state model.</p>
+            <div class="project-tech">
+              <span>Financial Analysis</span>
+              <span>Risk Management</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="grade"><i class="fa fa-star"></i> Grade: A*</span>
+            <span class="supervisor">Prof. Hargungeet Singh</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- DevOps Project -->
+      <div class="portfolio-item web">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>DevOps Techniques</h3>
+            <span class="project-tag">DevOps</span>
+          </div>
+          <div class="project-body">
+            <p>Automation scripts and security vulnerability analysis with test coverage optimization.</p>
+            <div class="project-tech">
+              <span>Python</span>
+              <span>Security</span>
+              <span>Testing</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="supervisor">Prof. Subhajit Roy</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Hangman Solver -->
+      <div class="portfolio-item ml">
+        <div class="project-card">
+          <div class="project-header">
+            <h3>Hangman Solver</h3>
+            <span class="project-tag">ML</span>
+          </div>
+          <div class="project-body">
+            <p>N-gram based Hangman game solver with optimized frequency analysis.</p>
+            <div class="project-tech">
+              <span>ML</span>
+              <span>NLP</span>
+              <span>Python</span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="supervisor">C3iHub, IIT Kanpur</span>
           </div>
         </div>
       </div>
@@ -1660,382 +1651,127 @@
   </div>
 
   <style>
-    .portfolio-filter {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 10px;
-        margin: 30px 0;
-        padding: 0;
-        list-style: none;
+    .portfolio-filters {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
     }
 
-    .portfolio-filter li {
-        margin: 5px;
+    .filter-btn {
+      padding: 8px 20px;
+      border: none;
+      border-radius: 25px;
+      background: #f5f5f5;
+      color: #333;
+      cursor: pointer;
+      transition: all 0.3s ease;
     }
 
-    .portfolio-filter .btn-filter {
-        padding: 8px 20px;
-        border-radius: 25px;
-        background: #f5f5f5;
-        color: #666;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        border: none;
-        white-space: nowrap;
-        display: inline-block;
-        font-size: 14px;
+    .filter-btn.active {
+      background: #3498db;
+      color: white;
     }
 
-    .portfolio-filter .btn-filter.current {
-        background: #3498db;
-        color: white !important;
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
     }
 
-    .portfolio-filter .btn-filter:hover {
-        transform: translateY(-1px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    .project-card {
+      background: white;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease;
     }
 
-    /* Mobile responsive styles */
-    @media (max-width: 768px) {
-        .portfolio-filter {
-            flex-direction: row;
-            justify-content: flex-start;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin: 20px -15px;
-            padding: 10px 15px;
-        }
-
-        .portfolio-filter::-webkit-scrollbar {
-            display: none;
-        }
-
-        .portfolio-filter {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-
-        .portfolio-filter li {
-            margin: 0 5px;
-            flex: 0 0 auto;
-        }
-
-        .portfolio-filter .btn-filter {
-            padding: 8px 15px;
-            font-size: 13px;
-        }
+    .project-card:hover {
+      transform: translateY(-5px);
     }
 
-    .isotopeWrapper {
-        margin-top: 30px;
+    .project-header {
+      padding: 20px;
+      background: #f8f9fa;
+      border-bottom: 1px solid #eee;
     }
 
-    .card {
-        margin-bottom: 30px;
-        background: white;
-        border-radius: 15px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        overflow: hidden;
-        transition: transform 0.3s ease;
+    .project-header h3 {
+      margin: 0;
+      color: #2c3e50;
+      font-size: 1.2em;
     }
 
-    .card:hover {
-        transform: translateY(-5px);
+    .project-tag {
+      display: inline-block;
+      padding: 4px 12px;
+      background: #e1f0fa;
+      color: #3498db;
+      border-radius: 15px;
+      font-size: 0.8em;
+      margin-top: 8px;
     }
 
-    .card-content {
-        display: flex;
-        padding: 30px;
-        gap: 30px;
+    .project-body {
+      padding: 20px;
     }
 
-    .content-left {
-        flex: 1;
-        position: relative;
+    .project-tech {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 15px;
     }
 
-    .content-right {
-        flex: 1;
+    .project-tech span {
+      padding: 4px 12px;
+      background: #f8f9fa;
+      border-radius: 15px;
+      font-size: 0.8em;
+      color: #666;
     }
 
-    /* Project number styling */
-    .project-number {
-        font-size: 48px;
-        font-weight: bold;
-        color: rgba(52, 152, 219, 0.1);
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-    /* Tech stack tags */
-    .tech-stack {
-        margin: 15px 0;
-    }
-
-    .tech-stack span {
-        display: inline-block;
-        padding: 5px 10px;
-        background: rgba(52, 152, 219, 0.1);
-        color: #3498db;
-        border-radius: 15px;
-        margin: 0 5px 5px 0;
-        font-size: 14px;
-    }
-
-    /* Feature list */
-    .feature-list {
-        list-style: none;
-        padding: 0;
-        margin: 15px 0;
-    }
-
-    .feature-list li {
-        margin: 10px 0;
-        display: flex;
-        align-items: center;
-    }
-
-    .feature-list i {
-        color: #2ecc71;
-        margin-right: 10px;
-    }
-
-    /* Project links/buttons */
-    .project-links {
-        margin-top: 20px;
-        display: flex;
-        gap: 15px;
-    }
-
-    .btn-demo, .btn-github {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 10px 25px;
-        border-radius: 25px;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-
-    .btn-demo {
-        background: #3498db;
-        color: white !important;
-        border: 2px solid #3498db;
-    }
-
-    .btn-github {
-        background: transparent;
-        border: 2px solid #3498db;
-        color: #3498db !important;
-    }
-
-    .btn-demo:hover, .btn-github:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        text-decoration: none;
-    }
-
-    .btn-github i {
-        margin-right: 8px;
-    }
-
-    /* Video container */
-    .video-wrapper {
-        position: relative;
-        padding-bottom: 56.25%; /* 16:9 aspect ratio */
-        height: 0;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-
-    .video-wrapper iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    /* Project description */
-    .project-description {
-        color: #666;
-        line-height: 1.6;
-        margin: 15px 0;
-    }
-
-    /* Headings */
-    .card h3 {
-        color: #2c3e50;
-        margin-bottom: 15px;
-        font-size: 24px;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .card-content {
-            flex-direction: column;
-        }
-        
-        .content-right {
-            margin-top: 20px;
-        }
-
-        .project-links {
-            flex-direction: column;
-        }
-
-        .btn-demo, .btn-github {
-            width: 100%;
-            text-align: center;
-        }
-    }
-
-    .project-preview {
-        height: 100%;
-        min-height: 300px;
-        background: #f8f9fa;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .preview-placeholder {
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-        text-align: center;
-    }
-
-    .preview-placeholder i {
-        font-size: 40px;
-        color: #3498db;
-        margin-bottom: 15px;
-    }
-
-    .preview-placeholder p {
-        color: #666;
-        margin-bottom: 20px;
-    }
-
-    .preview-images {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        width: 100%;
-    }
-
-    .preview-images img {
-        width: 100%;
-        border-radius: 8px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .preview-images img:hover {
-        transform: scale(1.02);
+    .project-footer {
+      padding: 15px 20px;
+      background: #f8f9fa;
+      border-top: 1px solid #eee;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9em;
+      color: #666;
     }
 
     @media (max-width: 768px) {
-        .project-preview {
-            min-height: 200px;
-        }
-    }
-
-    .no-media-placeholder {
-        height: 100%;
-        min-height: 300px;
-        background: linear-gradient(145deg, #f8f9fa, #e9ecef);
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 20px;
-    }
-
-    .placeholder-content {
-        text-align: center;
-        padding: 30px;
-    }
-
-    .placeholder-content i.fa-code {
-        font-size: 48px;
-        color: #3498db;
-        margin-bottom: 15px;
-        animation: pulse 2s infinite;
-    }
-
-    .placeholder-text {
-        color: #2c3e50;
-        font-size: 20px;
-        font-weight: 500;
-        margin: 15px 0;
-    }
-
-    .placeholder-details {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        color: #666;
-        font-size: 14px;
-    }
-
-    .placeholder-details span {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-    }
-
-    .placeholder-details i {
-        color: #3498db;
-    }
-
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-            opacity: 0.6;
-        }
-        50% {
-            transform: scale(1.1);
-            opacity: 0.7;
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .no-media-placeholder {
-            min-height: 200px;
-        }
-        
-        .placeholder-content i.fa-code {
-            font-size: 36px;
-        }
-        
-        .placeholder-text {
-            font-size: 18px;
-        }
-    }
-
-    .card-content.single-column {
-        display: block;  /* Override the flex display */
-        max-width: 800px;  /* Limit the width for better readability */
-        margin: 0 auto;  /* Center the content */
-    }
-
-    .card-content.single-column .content-left {
-        width: 100%;
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
+
+  <script>
+    // Portfolio filtering
+    document.querySelectorAll('.filter-btn').forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        
+        const filter = button.getAttribute('data-filter');
+        
+        document.querySelectorAll('.portfolio-item').forEach(item => {
+          if (filter === 'all' || item.classList.contains(filter)) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
 </section>
 
 <!--Contact-->
