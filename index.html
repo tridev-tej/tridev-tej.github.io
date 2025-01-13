@@ -83,7 +83,7 @@
       </div>
       
       <div id="quote-box" class="quote-box">
-        <p id="quote">Test Quote</p>
+        <p id="quote" class="scramble-text"></p>
       </div>
     </div>
   </div>
@@ -210,10 +210,13 @@
       padding: 0 20px;
     }
 
-    #quote {
+    .scramble-text {
       color: white;
       font-size: 1.5em;
       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+      min-height: 60px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
     }
 
     @media (max-width: 768px) {
@@ -221,13 +224,77 @@
         bottom: 30px;
       }
       
-      #quote {
+      .scramble-text {
         font-size: 1.2em;
       }
     }
   </style>
 
   <script>
+    class TextScramble {
+      constructor(el) {
+        this.el = el;
+        this.chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        this.update = this.update.bind(this);
+      }
+      
+      setText(newText) {
+        const oldText = this.el.innerText;
+        const length = Math.max(oldText.length, newText.length);
+        const promise = new Promise((resolve) => this.resolve = resolve);
+        this.queue = [];
+        
+        for (let i = 0; i < length; i++) {
+          const from = oldText[i] || '';
+          const to = newText[i] || '';
+          const start = Math.floor(Math.random() * 40);
+          const end = start + Math.floor(Math.random() * 40);
+          this.queue.push({ from, to, start, end });
+        }
+        
+        cancelAnimationFrame(this.frameRequest);
+        this.frame = 0;
+        this.update();
+        return promise;
+      }
+      
+      update() {
+        let output = '';
+        let complete = 0;
+        
+        for (let i = 0, n = this.queue.length; i < n; i++) {
+          let { from, to, start, end, char } = this.queue[i];
+          
+          if (this.frame >= end) {
+            complete++;
+            output += to;
+          } else if (this.frame >= start) {
+            if (!char || Math.random() < 0.28) {
+              char = this.randomChar();
+              this.queue[i].char = char;
+            }
+            output += `<span class="scramble">${char}</span>`;
+          } else {
+            output += from;
+          }
+        }
+        
+        this.el.innerHTML = output;
+        
+        if (complete === this.queue.length) {
+          this.resolve();
+        } else {
+          this.frameRequest = requestAnimationFrame(this.update);
+          this.frame++;
+        }
+      }
+      
+      randomChar() {
+        return this.chars[Math.floor(Math.random() * this.chars.length)];
+      }
+    }
+
+    // Quotes array
     const quotes = [
       '"Dreams are extremely important. You can\'t do it unless you imagine it." - George Lucas',
       '"The only way to do great work is to love what you do." - Steve Jobs',
@@ -236,27 +303,24 @@
       '"First, solve the problem. Then, write the code." - John Johnson'
     ];
 
-    let currentQuote = 0;
-    const quoteElement = document.getElementById('quote');
+    // Initialize the text scramble effect
+    const el = document.querySelector('#quote');
+    const fx = new TextScramble(el);
 
-    function showQuote() {
-      quoteElement.style.opacity = '0';
-      
-      setTimeout(() => {
-        quoteElement.textContent = quotes[currentQuote];
-        quoteElement.style.opacity = '1';
-        
-        currentQuote = (currentQuote + 1) % quotes.length;
-        
-        setTimeout(showQuote, 5000); // Change quote every 5 seconds
-      }, 1000);
-    }
+    let counter = 0;
+    
+    const next = () => {
+      fx.setText(quotes[counter]).then(() => {
+        setTimeout(next, 5000);
+      });
+      counter = (counter + 1) % quotes.length;
+    };
 
     // Start the animation when page loads
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', showQuote);
+      document.addEventListener('DOMContentLoaded', next);
     } else {
-      showQuote();
+      next();
     }
   </script>
 </section>
