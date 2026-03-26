@@ -935,39 +935,35 @@
         </div>
     </section>
 
-    <!-- SLIDE 9: EVOLUTION -->
+    <!-- SLIDE 9: APPROACH -->
     <section class="slide grid-bg">
         <div class="slide-content">
-            <p class="reveal slide-label">08 // design evolution</p>
-            <h2 class="reveal slide-title">How the Approach Evolved</h2>
-            <p class="reveal slide-subtitle">Started with per-investigation ORM copy. Realized full schema copy is simpler and better.</p>
-            <div class="reveal" style="display: grid; grid-template-columns: 1fr auto 1fr; gap: clamp(1rem, 2vw, 2rem); width: 100%; max-width: 900px; align-items: start; margin-top: 0.5rem;">
-                <div class="card" style="border-top: 2px solid var(--warn); border-left: none;">
-                    <h3 style="color: var(--warn); font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.1em;">v1: ORM-level copy</h3>
-                    <ul>
-                        <li>Per-investigation, per-model clone</li>
-                        <li>UUID remapping with uuid_map dict</li>
-                        <li>NFRReplicatedRecord for idempotency</li>
-                        <li>copy_finding() for each investigation</li>
-                        <li>Context lake + entity store via APIs</li>
-                    </ul>
-                    <p style="color: var(--warn); margin-top: 0.5rem; font-size: var(--small-size);">Problem: fragile FK ordering, missed tables, slow for 200+ investigations</p>
+            <p class="reveal slide-label">08 // the approach</p>
+            <h2 class="reveal slide-title">Full Schema Copy</h2>
+            <p class="reveal slide-subtitle">Direct SQL cross-schema replication. No per-model logic, no missed data.</p>
+            <div class="reveal card-grid" style="max-width: 900px; margin-top: 0.5rem;">
+                <div class="card card-blue">
+                    <h3>Direct SQL</h3>
+                    <p>INSERT INTO dest SELECT FROM source - copies every table in one pass. No ORM overhead, no model-by-model iteration.</p>
                 </div>
-                <div style="display: flex; align-items: center; padding-top: 2rem;">
-                    <svg width="40" height="24" viewBox="0 0 40 24"><path d="M0 12h34M28 6l8 6-8 6" stroke="#335CFF" stroke-width="2" fill="none"/></svg>
+                <div class="card card-blue">
+                    <h3>Column-safe</h3>
+                    <p>Queries column names from information_schema. Handles schemas with different column ordering gracefully.</p>
                 </div>
-                <div class="card" style="border-top: 2px solid var(--accent-2); border-left: none;">
-                    <h3 style="color: var(--accent-2); font-size: var(--small-size); text-transform: uppercase; letter-spacing: 0.1em;">v2: Full schema copy</h3>
-                    <ul>
-                        <li>Direct SQL INSERT INTO ... SELECT</li>
-                        <li>Copies all tables automatically</li>
-                        <li>Column name matching (order-safe)</li>
-                        <li>Table intersection (drift-safe)</li>
-                        <li>No per-model logic needed</li>
-                    </ul>
-                    <p style="color: var(--accent-2); margin-top: 0.5rem; font-size: var(--small-size);">Result: simpler code, faster execution, complete fidelity, no missed data</p>
+                <div class="card card-blue">
+                    <h3>Drift-safe</h3>
+                    <p>Intersects source and destination tables. Orphaned tables from deleted migrations are skipped automatically.</p>
                 </div>
             </div>
+            <div class="reveal ascii-box" style="margin-top: clamp(0.5rem, 1vw, 1rem);">
+<span class="bright">  How it works:</span>
+
+<span class="dim">  1.</span> <span class="hl">Get tables</span>        <span class="dim">intersect(source_tables, dest_tables)</span>
+<span class="dim">  2.</span> <span class="hl">For each table:</span>
+<span class="dim">       a.</span> <span class="hl2">Get columns</span>    <span class="dim">intersect(source_cols, dest_cols)</span>
+<span class="dim">       b.</span> <span class="hl2">Truncate</span>       <span class="dim">TRUNCATE dest.table CASCADE</span>
+<span class="dim">       c.</span> <span class="hl2">Copy</span>          <span class="dim">INSERT INTO dest.table(cols) SELECT cols FROM source.table</span>
+<span class="dim">  3.</span> <span class="hl">Done</span>              <span class="dim">complete fidelity, all relationships preserved</span></div>
         </div>
     </section>
 
