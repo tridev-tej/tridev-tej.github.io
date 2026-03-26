@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Usage Quota System - Per-Tenant LLM Cost Control</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.85);
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            --accent: #0A95F5;
+            --accent-dim: rgba(10, 149, 245, 0.12);
+            --accent-glow: rgba(10, 149, 245, 0.4);
+            --accent-2: #1FC16B;
+            --accent-2-dim: rgba(31, 193, 107, 0.12);
+            --warn: #FF9147;
+            --warn-dim: rgba(255, 145, 71, 0.12);
+            --border: rgba(73, 73, 73, 0.5);
+            --red: #EF4444;
+            --red-dim: rgba(239, 68, 68, 0.12);
+
+            --font-display: 'Abhaya Libre', Georgia, serif;
+            --font-body: 'Inter', 'Instrument Sans', sans-serif;
+            --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+            --title-size: clamp(1.8rem, 5vw, 3.5rem);
+            --h2-size: clamp(1.3rem, 3.5vw, 2.2rem);
+            --h3-size: clamp(1rem, 2vw, 1.4rem);
+            --body-size: clamp(0.75rem, 1.3vw, 1.05rem);
+            --small-size: clamp(0.65rem, 1vw, 0.85rem);
+            --mono-size: clamp(0.55rem, 0.95vw, 0.82rem);
+
+            --slide-padding: clamp(1.5rem, 4vw, 4rem);
+            --content-gap: clamp(0.75rem, 2vw, 1.5rem);
+
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --duration: 0.6s;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-snap-type: y mandatory;
+            height: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            padding: var(--slide-padding);
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-height: 100%;
+            max-width: min(95vw, 1100px);
+            overflow: hidden;
+            width: 100%;
+            gap: var(--content-gap);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(ellipse at 50% 0%, rgba(10, 149, 245, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(10, 149, 245, 0.03) 0%, transparent 40%);
+            pointer-events: none;
+        }
+
+        .grid-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .slide-label {
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+
+        .slide-title {
+            font-family: var(--font-display);
+            font-size: var(--h2-size);
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
+        }
+
+        .slide-subtitle {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.5;
+        }
+
+        .ascii-box {
+            font-family: var(--font-mono);
+            font-size: var(--mono-size);
+            line-height: 1.55;
+            color: var(--text-primary);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: clamp(0.75rem, 2vw, 1.5rem);
+            white-space: pre;
+            overflow: hidden;
+            max-width: 100%;
+            width: fit-content;
+            position: relative;
+        }
+
+        .ascii-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            opacity: 0.6;
+        }
+
+        .ascii-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(180deg, rgba(10, 149, 245, 0.04), transparent);
+            pointer-events: none;
+        }
+
+        .ascii-box .hl { color: var(--accent); }
+        .ascii-box .hl2 { color: var(--accent-2); }
+        .ascii-box .warn { color: var(--warn); }
+        .ascii-box .dim { color: var(--text-muted); }
+        .ascii-box .bright { color: #ffffff; font-weight: 500; }
+        .ascii-box .red { color: var(--red); }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            width: 100%;
+        }
+
+        .card-grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(0.5rem, 1.5vw, 1rem);
+            width: 100%;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: clamp(0.75rem, 1.5vw, 1.25rem);
+            overflow: hidden;
+        }
+
+        .card-accent { border-left: 2px solid var(--accent); }
+        .card-blue { border-left: 2px solid var(--accent-2); }
+        .card-warn { border-left: 2px solid var(--warn); }
+        .card-red { border-left: 2px solid var(--red); }
+
+        .card h3 {
+            font-family: var(--font-body);
+            font-size: var(--h3-size);
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
+        }
+
+        .card p, .card li {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .card li::before {
+            content: '>';
+            color: var(--accent);
+            margin-right: 0.5em;
+            font-family: var(--font-mono);
+        }
+
+        .title-slide .main-title {
+            font-family: var(--font-display);
+            font-size: var(--title-size);
+            font-weight: 800;
+            color: #ffffff;
+            text-align: center;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .title-slide .main-title span {
+            color: var(--accent);
+        }
+
+        .title-meta {
+            display: flex;
+            gap: clamp(1rem, 3vw, 2rem);
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+        }
+
+        .title-meta span { color: var(--text-secondary); }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity var(--duration) var(--ease-out-expo),
+                        transform var(--duration) var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal,
+        .slide.visible .reveal-scale {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.15s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.25s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.35s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.45s; }
+
+        .ascii-box {
+            opacity: 0;
+            transform: scale(0.97);
+            transition: opacity 0.8s var(--ease-out-expo),
+                        transform 0.8s var(--ease-out-expo);
+        }
+
+        .slide.visible .ascii-box {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent);
+            z-index: 100;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        .nav-dots {
+            position: fixed;
+            right: clamp(0.5rem, 1.5vw, 1.5rem);
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            z-index: 50;
+        }
+
+        .nav-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .nav-dot.active {
+            background: var(--accent);
+            box-shadow: 0 0 8px var(--accent-glow);
+            transform: scale(1.4);
+        }
+
+        .nav-dot:hover {
+            background: var(--text-secondary);
+            transform: scale(1.3);
+        }
+
+        .slide-counter {
+            position: fixed;
+            bottom: clamp(0.5rem, 1.5vw, 1.5rem);
+            right: clamp(0.5rem, 2vw, 2rem);
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            z-index: 50;
+        }
+
+        .slide-counter .current { color: var(--accent); }
+
+        .simbian-badge {
+            position: fixed;
+            top: clamp(0.5rem, 1.5vw, 1.5rem);
+            left: clamp(0.5rem, 2vw, 2rem);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .simbian-badge svg {
+            opacity: 0.7;
+        }
+
+        .slide-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
+        }
+
+        .stat-desc {
+            font-size: var(--small-size);
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            line-height: 1.4;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: clamp(1rem, 3vw, 2rem);
+            width: 100%;
+            max-width: 900px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: clamp(0.55rem, 0.8vw, 0.7rem);
+            padding: 0.15em 0.5em;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .badge-green { background: var(--accent-dim); color: var(--accent); }
+        .badge-blue { background: var(--accent-2-dim); color: var(--accent-2); }
+        .badge-warn { background: var(--warn-dim); color: var(--warn); }
+        .badge-red { background: var(--red-dim); color: var(--red); }
+
+        @media (max-height: 700px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
+                --content-gap: clamp(0.5rem, 1.5vw, 1rem);
+                --mono-size: clamp(0.5rem, 0.85vw, 0.72rem);
+            }
+        }
+
+        @media (max-height: 600px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2.5vw, 1.5rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --h2-size: clamp(1.1rem, 3vw, 1.6rem);
+                --mono-size: clamp(0.45rem, 0.75vw, 0.65rem);
+            }
+            .nav-dots { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.5rem, 2vw, 1rem);
+                --title-size: clamp(1.2rem, 4vw, 2rem);
+                --h2-size: clamp(1rem, 2.5vw, 1.4rem);
+            }
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --mono-size: clamp(0.42rem, 1.8vw, 0.65rem);
+            }
+            .card-grid { grid-template-columns: 1fr; }
+            .card-grid-3 { grid-template-columns: 1fr; }
+            .stats-row { grid-template-columns: 1fr; }
+            .title-meta { flex-direction: column; gap: 0.25rem; align-items: center; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progressBar"></div>
+    <nav class="nav-dots" id="navDots"></nav>
+    <div class="slide-counter"><span class="current" id="currentSlide">1</span> / <span id="totalSlides">5</span></div>
+    <div class="simbian-badge">
+        <img src="simbian-logo.png" alt="Simbian" style="height: 20px;">
+    </div>
+
+    <!-- SLIDE 1: TITLE -->
+    <section class="slide title-slide grid-bg">
+        <div class="slide-content">
+            <img class="reveal" src="simbian-logo.png" alt="Simbian" style="height: clamp(2rem, 4vw, 3.5rem); opacity: 0.95; margin-bottom: clamp(0.5rem, 1vw, 1rem);">
+            <div class="reveal ascii-box" style="margin-bottom: clamp(1rem, 2vw, 2rem); font-size: clamp(0.45rem, 0.8vw, 0.7rem);">
+<span class="dim">  .    .    .    .    .    .    .    .    .    .    .    .    .    .</span>
+<span class="dim">  .                                                              .</span>
+<span class="dim">  .    </span><span class="hl">[TENANT]</span><span class="dim"> --> </span><span class="bright">[LLM REQUEST]</span><span class="dim"> --> </span><span class="warn">[QUOTA CHECK]</span><span class="dim"> --> </span><span class="hl2">[ALLOW/BLOCK]</span>
+<span class="dim">  .                                    </span><span class="dim">|</span>
+<span class="dim">  .                               </span><span class="warn">usage < limit?</span>
+<span class="dim">  .                                 </span><span class="hl2">YES</span><span class="dim"> --> proceed</span>
+<span class="dim">  .                                 </span><span class="red">NO</span><span class="dim">  --> block + alert</span>
+<span class="dim">  .                                                              .</span>
+<span class="dim">  .    .    .    .    .    .    .    .    .    .    .    .    .    .</span></div>
+            <h1 class="reveal main-title">Usage Quota System<br><span>Per-Tenant LLM Cost Control</span></h1>
+            <p class="reveal slide-subtitle">Predictable LLM spend per tenant with real-time tracking, smart blocking, and auto-recovery</p>
+            <div class="reveal title-meta">
+                <span>Mar - Jul 2025</span>
+                <span>12+ PRs</span>
+                <span>SimbianOS</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 2: THE PROBLEM -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <p class="reveal slide-label">01 // the cost problem</p>
+            <h2 class="reveal slide-title">One Runaway Tenant Can Blow the Budget</h2>
+            <div class="reveal stats-row" style="margin: clamp(0.5rem, 1.5vw, 1.5rem) 0;">
+                <div>
+                    <div class="stat-number" style="color: var(--warn);">1000+</div>
+                    <div class="stat-label">alerts/day per tenant</div>
+                    <div class="stat-desc">each triggering LLM calls</div>
+                </div>
+                <div>
+                    <div class="stat-number" style="color: var(--red);">$X</div>
+                    <div class="stat-label">per investigation</div>
+                    <div class="stat-desc">multiple LLM calls each</div>
+                </div>
+                <div>
+                    <div class="stat-number" style="color: var(--accent);">0</div>
+                    <div class="stat-label">cost caps before</div>
+                    <div class="stat-desc">completely unbounded spend</div>
+                </div>
+            </div>
+            <div class="reveal card-grid" style="max-width: 900px;">
+                <div class="card card-red">
+                    <h3>Unbounded LLM costs</h3>
+                    <p>Every alert investigation uses multiple LLM calls. No per-tenant limits meant unpredictable infrastructure spend.</p>
+                </div>
+                <div class="card card-red">
+                    <h3>No visibility</h3>
+                    <p>Couldn't tell which tenant was consuming how much. Billing was a guessing game.</p>
+                </div>
+                <div class="card card-red">
+                    <h3>No graceful degradation</h3>
+                    <p>When budget ran out, everything just... kept running. No alerting, no blocking.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 3: WHAT WE BUILT -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <p class="reveal slide-label">02 // the solution</p>
+            <h2 class="reveal slide-title">Quota Service: Check Before Every LLM Call</h2>
+            <div class="reveal card-grid" style="max-width: 900px;">
+                <div class="card card-accent">
+                    <h3>Per-tenant quotas</h3>
+                    <p>Monthly LLM cost limits per tenant. Configurable by plan tier.</p>
+                </div>
+                <div class="card card-blue">
+                    <h3>Real-time tracking</h3>
+                    <p>Every LLM call logged with model, tokens, cost. Daily aggregation for dashboards.</p>
+                </div>
+                <div class="card card-warn">
+                    <h3>Smart blocking</h3>
+                    <p>When quota exceeded: block new investigations, alert admins, auto-unblock when reset.</p>
+                </div>
+                <div class="card card-accent">
+                    <h3>Global quota</h3>
+                    <p>Platform-wide safety net. Even if individual quotas are generous, global cap prevents runaway.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SLIDE 4: PERFORMANCE -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <p class="reveal slide-label">03 // performance</p>
+            <h2 class="reveal slide-title">Checked on Every LLM Call. Can't Be Slow.</h2>
+            <div class="reveal card-grid" style="max-width: 900px;">
+                <div class="card card-accent">
+                    <h3>In-memory caching</h3>
+                    <p>Cache quota state. Check cache first, DB second. Reduces DB queries by 90%.</p>
+                </div>
+                <div class="card card-blue">
+                    <h3>DB-level daily aggregation</h3>
+                    <p>Don't SUM on every check. Pre-aggregate daily totals.</p>
+                </div>
+                <div class="card card-warn">
+                    <h3>Throttled alerts</h3>
+                    <p>Don't spam email on every blocked request. Throttle to one alert per threshold breach.</p>
+                </div>
+                <div class="card card-accent">
+                    <h3>Cost quota scalability</h3>
+                    <p>Optimized the hot path for tenants with 1000+ daily investigations.</p>
+                </div>
+            </div>
+            <div class="reveal ascii-box" style="margin-top: clamp(0.5rem, 1vw, 1rem); font-size: clamp(0.45rem, 0.8vw, 0.7rem);">
+<span class="bright">LLM Request</span><span class="dim"> --> </span><span class="hl">[CACHE HIT?]</span><span class="dim"> --</span><span class="hl2">YES</span><span class="dim">--> quota_remaining > 0? --> </span><span class="hl2">ALLOW</span>
+<span class="dim">                       |</span>
+<span class="dim">                      </span><span class="red">NO</span>
+<span class="dim">                       |</span>
+<span class="dim">                  </span><span class="warn">[DB LOOKUP]</span><span class="dim"> --> update cache --> check --> </span><span class="hl2">ALLOW</span><span class="dim">/</span><span class="red">BLOCK</span></div>
+        </div>
+    </section>
+
+    <!-- SLIDE 5: IMPACT -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <p class="reveal slide-label">04 // results</p>
+            <h2 class="reveal slide-title">Impact</h2>
+            <div class="reveal stats-row" style="margin: clamp(0.5rem, 1.5vw, 1.5rem) 0;">
+                <div>
+                    <div class="stat-number" style="color: var(--accent);">90%</div>
+                    <div class="stat-label">fewer DB queries</div>
+                    <div class="stat-desc">in-memory caching</div>
+                </div>
+                <div>
+                    <div class="stat-number" style="color: var(--accent-2);">$0</div>
+                    <div class="stat-label">surprise overages</div>
+                    <div class="stat-desc">predictable spend per tenant</div>
+                </div>
+                <div>
+                    <div class="stat-number" style="color: var(--warn);">Real-time</div>
+                    <div class="stat-label">cost visibility</div>
+                    <div class="stat-desc">per tenant, per model</div>
+                </div>
+            </div>
+            <div class="reveal card-grid" style="max-width: 900px;">
+                <div class="card card-accent" style="grid-column: 1 / -1;">
+                    <h3>Predictable costs, zero manual intervention</h3>
+                    <p>Every tenant now has predictable LLM costs. Platform team has global visibility. Auto-blocking prevents budget blowouts while auto-unblocking ensures no manual intervention needed. Enabled usage-based pricing for new tier launches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        class SlidePresentation {
+            constructor() {
+                this.slides = document.querySelectorAll('.slide');
+                this.totalSlides = this.slides.length;
+                this.currentIndex = 0;
+
+                document.getElementById('totalSlides').textContent = this.totalSlides;
+
+                this.createNavDots();
+                this.setupObserver();
+                this.setupKeyboard();
+                this.setupScrollTracking();
+            }
+
+            createNavDots() {
+                const nav = document.getElementById('navDots');
+                this.slides.forEach((_, i) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'nav-dot' + (i === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Go to slide ${i + 1}`);
+                    dot.addEventListener('click', () => {
+                        this.slides[i].scrollIntoView({ behavior: 'smooth' });
+                    });
+                    nav.appendChild(dot);
+                });
+                this.dots = nav.querySelectorAll('.nav-dot');
+            }
+
+            setupObserver() {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+                            const index = Array.from(this.slides).indexOf(entry.target);
+                            this.updateCurrent(index);
+                        }
+                    });
+                }, { threshold: 0.5 });
+
+                this.slides.forEach(slide => observer.observe(slide));
+            }
+
+            setupKeyboard() {
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowDown' || e.key === 'ArrowRight' || e.key === ' ') {
+                        e.preventDefault();
+                        this.goTo(this.currentIndex + 1);
+                    } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                        e.preventDefault();
+                        this.goTo(this.currentIndex - 1);
+                    }
+                });
+            }
+
+            setupScrollTracking() {
+                window.addEventListener('scroll', () => {
+                    const scrollTop = window.scrollY;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    document.getElementById('progressBar').style.width = progress + '%';
+                }, { passive: true });
+            }
+
+            updateCurrent(index) {
+                this.currentIndex = index;
+                document.getElementById('currentSlide').textContent = index + 1;
+                this.dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+            }
+
+            goTo(index) {
+                if (index >= 0 && index < this.totalSlides) {
+                    this.slides[index].scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new SlidePresentation();
+            document.querySelector('.slide').classList.add('visible');
+        });
+    </script>
+</body>
+</html>
