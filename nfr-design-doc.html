@@ -541,7 +541,7 @@
 <body>
     <div class="progress-bar" id="progressBar"></div>
     <nav class="nav-dots" id="navDots"></nav>
-    <div class="slide-counter"><span class="current" id="currentSlide">1</span> / <span id="totalSlides">7</span></div>
+    <div class="slide-counter"><span class="current" id="currentSlide">1</span> / <span id="totalSlides">8</span></div>
     <div class="simbian-badge">
         <img src="simbian-logo.png" alt="Simbian" style="height: 20px;">
     </div>
@@ -782,10 +782,52 @@
         </div>
     </section>
 
-    <!-- SLIDE 7: WHAT'S NEXT + END -->
+    <!-- SLIDE 7: LLM CONNECTIVITY CHECK -->
     <section class="slide grid-bg">
         <div class="slide-content">
-            <p class="reveal slide-label">06 // looking ahead</p>
+            <p class="reveal slide-label">06 // llm connectivity check</p>
+            <h2 class="reveal slide-title">Verifying LLM Config Actually Works</h2>
+            <p class="reveal slide-subtitle">Invoke every configured model with a minimal prompt. Report pass/fail per model with latency.</p>
+            <div class="reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 2rem); width: 100%; max-width: 900px;">
+                <div class="card card-accent">
+                    <h3>What it does</h3>
+                    <ul>
+                        <li>Collects all models from SOC, Threat Hunt, Pentest configs</li>
+                        <li>Falls back to default config if no custom setup</li>
+                        <li>Deduplicates - same model checked once</li>
+                        <li>Checks primary + fallback + embedding models</li>
+                        <li>Runs all checks in parallel (asyncio.gather)</li>
+                    </ul>
+                </div>
+                <div class="card card-blue">
+                    <h3>What you get</h3>
+                    <ul>
+                        <li>Pass/fail per model with latency (ms)</li>
+                        <li>Error details when a model fails</li>
+                        <li>Which features and agents use each model</li>
+                        <li>Provider breakdown (Bedrock, OpenAI, Azure)</li>
+                        <li>One-click button in internal dashboard</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="reveal ascii-box" style="margin-top: clamp(0.5rem, 1vw, 1rem); font-size: clamp(0.45rem, 0.8vw, 0.7rem);">
+<span class="dim">  .</span>    <span class="hl">POST</span> <span class="bright">/api/accounts/{id}/llm-connectivity-check/</span>
+<span class="dim">  .</span>
+<span class="dim">  .    </span><span class="hl2">8/14 models passed</span>    <span class="warn">6 failed</span>
+<span class="dim">  .    </span><span class="dim">+-----------------------------------------+</span>
+<span class="dim">  .    </span><span class="hl2"> PASS </span> Claude 4.5 Haiku (Bedrock)    <span class="dim">1230ms</span>
+<span class="dim">  .    </span><span class="hl2"> PASS </span> Claude 4.5 Sonnet (Bedrock)   <span class="dim"> 890ms</span>
+<span class="dim">  .    </span><span class="hl2"> PASS </span> text-embedding-3-small (Azure) <span class="dim"> 340ms</span>
+<span class="dim">  .    </span><span class="warn"> FAIL </span> GPT-4o (Azure)                <span class="warn">not found</span>
+<span class="dim">  .    </span><span class="dim">+-----------------------------------------+</span>
+<span class="dim">  .</span></div>
+        </div>
+    </section>
+
+    <!-- SLIDE 8: WHAT'S NEXT + END -->
+    <section class="slide grid-bg">
+        <div class="slide-content">
+            <p class="reveal slide-label">07 // looking ahead</p>
             <h2 class="reveal slide-title">Phase 1 Done. What's Next?</h2>
             <div class="reveal" style="width: 100%; max-width: 800px;">
                 <div class="timeline" style="margin: clamp(0.5rem, 1.5vw, 1.5rem) 0;">
