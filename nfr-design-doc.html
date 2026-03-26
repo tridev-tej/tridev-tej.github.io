@@ -6,28 +6,28 @@
     <title>NFR Broadcast - Scaling Partner Demos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Abhaya+Libre:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0E121B;
-            --bg-secondary: #181B25;
-            --bg-card: rgba(34, 37, 48, 0.85);
-            --text-primary: #CACFD8;
-            --text-secondary: #99A0AE;
-            --text-muted: #525866;
-            --accent: #335CFF;
-            --accent-dim: rgba(51, 92, 255, 0.15);
-            --accent-glow: rgba(51, 92, 255, 0.4);
+            --bg-primary: #000000;
+            --bg-secondary: #0a0a0a;
+            --bg-card: rgba(15, 15, 15, 0.85);
+            --text-primary: rgba(255, 255, 255, 0.9);
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --text-muted: rgba(255, 255, 255, 0.3);
+            --accent: #0A95F5;
+            --accent-dim: rgba(10, 149, 245, 0.12);
+            --accent-glow: rgba(10, 149, 245, 0.4);
             --accent-2: #1FC16B;
-            --accent-2-dim: rgba(31, 193, 107, 0.15);
+            --accent-2-dim: rgba(31, 193, 107, 0.12);
             --warn: #FF9147;
-            --warn-dim: rgba(255, 145, 71, 0.15);
-            --border: rgba(43, 48, 59, 0.8);
+            --warn-dim: rgba(255, 145, 71, 0.12);
+            --border: rgba(73, 73, 73, 0.5);
             --red: #EF4444;
-            --red-dim: rgba(239, 68, 68, 0.15);
+            --red-dim: rgba(239, 68, 68, 0.12);
 
-            --font-display: 'Inter', 'Clash Display', sans-serif;
-            --font-body: 'Inter', 'Satoshi', sans-serif;
+            --font-display: 'Abhaya Libre', Georgia, serif;
+            --font-body: 'Inter', 'Instrument Sans', sans-serif;
             --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
             --title-size: clamp(1.8rem, 5vw, 3.5rem);
@@ -93,8 +93,8 @@
             position: absolute;
             inset: 0;
             background:
-                radial-gradient(ellipse at 15% 85%, rgba(0, 229, 160, 0.04) 0%, transparent 50%),
-                radial-gradient(ellipse at 85% 15%, rgba(88, 166, 255, 0.03) 0%, transparent 50%);
+                radial-gradient(ellipse at 50% 0%, rgba(10, 149, 245, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 50% 100%, rgba(10, 149, 245, 0.03) 0%, transparent 40%);
             pointer-events: none;
         }
 
@@ -103,9 +103,9 @@
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(rgba(48, 54, 61, 0.15) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(48, 54, 61, 0.15) 1px, transparent 1px);
-            background-size: 40px 40px;
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
             pointer-events: none;
         }
 
@@ -121,10 +121,11 @@
         .slide-title {
             font-family: var(--font-display);
             font-size: var(--h2-size);
-            font-weight: 600;
-            color: #e6edf3;
+            font-weight: 800;
+            color: #ffffff;
             text-align: center;
-            line-height: 1.2;
+            line-height: 1.15;
+            letter-spacing: -0.02em;
         }
 
         .slide-subtitle {
@@ -159,14 +160,25 @@
             right: 0;
             height: 1px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
-            opacity: 0.5;
+            opacity: 0.6;
+        }
+
+        .ascii-box::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background: linear-gradient(180deg, rgba(10, 149, 245, 0.04), transparent);
+            pointer-events: none;
         }
 
         .ascii-box .hl { color: var(--accent); }
         .ascii-box .hl2 { color: var(--accent-2); }
         .ascii-box .warn { color: var(--warn); }
         .ascii-box .dim { color: var(--text-muted); }
-        .ascii-box .bright { color: #e6edf3; font-weight: 500; }
+        .ascii-box .bright { color: #ffffff; font-weight: 500; }
 
         .card-grid {
             display: grid;
@@ -196,10 +208,10 @@
         .card-red { border-left: 2px solid var(--red); }
 
         .card h3 {
-            font-family: var(--font-display);
+            font-family: var(--font-body);
             font-size: var(--h3-size);
             font-weight: 600;
-            color: #e6edf3;
+            color: #ffffff;
             margin-bottom: clamp(0.25rem, 0.5vw, 0.5rem);
         }
 
@@ -224,10 +236,11 @@
         .title-slide .main-title {
             font-family: var(--font-display);
             font-size: var(--title-size);
-            font-weight: 700;
-            color: #e6edf3;
+            font-weight: 800;
+            color: #ffffff;
             text-align: center;
-            line-height: 1.15;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
         }
 
         .title-slide .main-title span {
@@ -337,6 +350,31 @@
         }
 
         .slide-counter .current { color: var(--accent); }
+
+        .simbian-badge {
+            position: fixed;
+            top: clamp(0.5rem, 1.5vw, 1.5rem);
+            left: clamp(0.5rem, 2vw, 2rem);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--font-body);
+            font-size: clamp(0.6rem, 0.9vw, 0.8rem);
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .simbian-badge svg {
+            opacity: 0.7;
+        }
+
+        .slide-divider {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+        }
 
         .stat-number {
             font-family: var(--font-display);
@@ -503,6 +541,14 @@
     <div class="progress-bar" id="progressBar"></div>
     <nav class="nav-dots" id="navDots"></nav>
     <div class="slide-counter"><span class="current" id="currentSlide">1</span> / <span id="totalSlides">10</span></div>
+    <div class="simbian-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 7v10l9 5 9-5V7l-9-5z" stroke="#0A95F5" stroke-width="1.5" fill="rgba(10,149,245,0.1)"/>
+            <path d="M12 6l-5 3v6l5 3 5-3V9l-5-3z" stroke="#0A95F5" stroke-width="1" fill="rgba(10,149,245,0.15)"/>
+            <circle cx="12" cy="12" r="2" fill="#0A95F5"/>
+        </svg>
+        simbian
+    </div>
 
     <!-- SLIDE 1: TITLE -->
     <section class="slide title-slide grid-bg">
@@ -610,42 +656,42 @@
             <div class="reveal arch-diagram">
                 <svg viewBox="0 0 900 420" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- Background -->
-                    <rect width="900" height="420" rx="12" fill="#181B25" stroke="rgba(43,48,59,0.8)" stroke-width="1"/>
+                    <rect width="900" height="420" rx="12" fill="#0a0a0a" stroke="rgba(73,73,73,0.5)" stroke-width="1"/>
                     <rect width="900" height="1" fill="url(#topGlow)"/>
                     <defs>
                         <linearGradient id="topGlow" x1="0" y1="0" x2="900" y2="0">
                             <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="50%" stop-color="#335CFF" stop-opacity="0.5"/>
+                            <stop offset="50%" stop-color="#0A95F5" stop-opacity="0.5"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                         <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stop-color="#335CFF"/>
+                            <stop offset="0%" stop-color="#0A95F5"/>
                             <stop offset="100%" stop-color="#1FC16B"/>
                         </linearGradient>
                     </defs>
 
                     <!-- Master Account Box -->
-                    <rect x="40" y="30" width="260" height="360" rx="8" fill="rgba(51,92,255,0.08)" stroke="#335CFF" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <text x="170" y="60" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" letter-spacing="0.1em">MASTER DEMO ACCOUNT</text>
+                    <rect x="40" y="30" width="260" height="360" rx="8" fill="rgba(10,149,245,0.08)" stroke="#0A95F5" stroke-width="1.5" stroke-dasharray="4 2"/>
+                    <text x="170" y="60" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" letter-spacing="0.1em">MASTER DEMO ACCOUNT</text>
 
                     <!-- Master data boxes -->
-                    <rect x="60" y="80" width="220" height="40" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="170" y="104" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="500">200+ Investigations</text>
+                    <rect x="60" y="80" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="170" y="104" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">200+ Investigations</text>
 
-                    <rect x="60" y="130" width="220" height="40" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="170" y="154" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="500">Context Lake</text>
+                    <rect x="60" y="130" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="170" y="154" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Context Lake</text>
 
-                    <rect x="60" y="180" width="220" height="40" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="170" y="204" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="500">Entity Store</text>
+                    <rect x="60" y="180" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="170" y="204" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Entity Store</text>
 
-                    <rect x="60" y="230" width="220" height="40" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="170" y="254" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="500">Hypotheses & Results</text>
+                    <rect x="60" y="230" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="170" y="254" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Hypotheses & Results</text>
 
-                    <rect x="60" y="280" width="220" height="40" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="170" y="304" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="500">Response Actions</text>
+                    <rect x="60" y="280" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="170" y="304" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Response Actions</text>
 
-                    <rect x="60" y="330" width="220" height="40" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="170" y="354" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="500">Dashboard Metrics</text>
+                    <rect x="60" y="330" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="170" y="354" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Dashboard Metrics</text>
 
                     <!-- Broadcast Arrow -->
                     <line x1="320" y1="140" x2="420" y2="80" stroke="url(#arrowGrad)" stroke-width="2" stroke-dasharray="6 3">
@@ -664,35 +710,35 @@
                     <polygon points="420,340 412,336 414,344" fill="#1FC16B"/>
 
                     <!-- Center label -->
-                    <rect x="335" y="190" width="70" height="40" rx="6" fill="rgba(51,92,255,0.15)" stroke="#335CFF" stroke-width="1"/>
-                    <text x="370" y="207" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500">SCHEMA</text>
-                    <text x="370" y="222" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500">COPY</text>
+                    <rect x="335" y="190" width="70" height="40" rx="6" fill="rgba(10,149,245,0.15)" stroke="#0A95F5" stroke-width="1"/>
+                    <text x="370" y="207" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500">SCHEMA</text>
+                    <text x="370" y="222" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500">COPY</text>
 
                     <!-- NFR Account 1 -->
                     <rect x="440" y="30" width="200" height="110" rx="8" fill="rgba(31,193,107,0.06)" stroke="#1FC16B" stroke-width="1"/>
                     <text x="540" y="55" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">NFR: ACME CORP</text>
-                    <text x="540" y="75" text-anchor="middle" fill="#99A0AE" font-family="Inter, sans-serif" font-size="11">acme.simbian.ai</text>
-                    <text x="540" y="95" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
-                    <text x="540" y="115" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
+                    <text x="540" y="75" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="11">acme.simbian.ai</text>
+                    <text x="540" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
+                    <text x="540" y="115" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
 
                     <!-- NFR Account 2 -->
                     <rect x="440" y="160" width="200" height="110" rx="8" fill="rgba(31,193,107,0.06)" stroke="#1FC16B" stroke-width="1"/>
                     <text x="540" y="185" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">NFR: WAYNE TECH</text>
-                    <text x="540" y="205" text-anchor="middle" fill="#99A0AE" font-family="Inter, sans-serif" font-size="11">wayne.simbian.ai</text>
-                    <text x="540" y="225" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
-                    <text x="540" y="245" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
+                    <text x="540" y="205" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="11">wayne.simbian.ai</text>
+                    <text x="540" y="225" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
+                    <text x="540" y="245" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
 
                     <!-- NFR Account 3 -->
                     <rect x="440" y="290" width="200" height="110" rx="8" fill="rgba(31,193,107,0.06)" stroke="#1FC16B" stroke-width="1"/>
                     <text x="540" y="315" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">NFR: STARK IND</text>
-                    <text x="540" y="335" text-anchor="middle" fill="#99A0AE" font-family="Inter, sans-serif" font-size="11">stark.simbian.ai</text>
-                    <text x="540" y="355" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
-                    <text x="540" y="375" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
+                    <text x="540" y="335" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="11">stark.simbian.ai</text>
+                    <text x="540" y="355" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
+                    <text x="540" y="375" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
 
                     <!-- More indicator -->
-                    <rect x="660" y="160" width="200" height="110" rx="8" fill="rgba(43,48,59,0.4)" stroke="rgba(43,48,59,0.8)" stroke-width="1" stroke-dasharray="4 2"/>
-                    <text x="760" y="210" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="12">+ N more partners</text>
-                    <text x="760" y="230" text-anchor="middle" fill="#525866" font-family="JetBrains Mono, monospace" font-size="10">one click each</text>
+                    <rect x="660" y="160" width="200" height="110" rx="8" fill="rgba(30,30,30,0.5)" stroke="rgba(73,73,73,0.5)" stroke-width="1" stroke-dasharray="4 2"/>
+                    <text x="760" y="210" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="12">+ N more partners</text>
+                    <text x="760" y="230" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="10">one click each</text>
                 </svg>
             </div>
             <p class="reveal slide-subtitle">Direct SQL cross-schema copy. Every table, every relationship, complete fidelity. No manual work.</p>
@@ -740,70 +786,70 @@
             <h2 class="reveal slide-title">Self-Service Internal Tool</h2>
             <div class="reveal arch-diagram">
                 <svg viewBox="0 0 900 380" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="900" height="380" rx="12" fill="#181B25" stroke="rgba(43,48,59,0.8)" stroke-width="1"/>
+                    <rect width="900" height="380" rx="12" fill="#0a0a0a" stroke="rgba(73,73,73,0.5)" stroke-width="1"/>
                     <rect width="900" height="1" fill="url(#topGlow2)"/>
                     <defs>
                         <linearGradient id="topGlow2" x1="0" y1="0" x2="900" y2="0">
                             <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="50%" stop-color="#335CFF" stop-opacity="0.5"/>
+                            <stop offset="50%" stop-color="#0A95F5" stop-opacity="0.5"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                     </defs>
 
                     <!-- Dashboard mockup -->
-                    <rect x="40" y="30" width="820" height="320" rx="8" fill="rgba(14,18,27,0.9)" stroke="rgba(43,48,59,0.8)" stroke-width="1"/>
+                    <rect x="40" y="30" width="820" height="320" rx="8" fill="rgba(0,0,0,0.9)" stroke="rgba(73,73,73,0.5)" stroke-width="1"/>
 
                     <!-- Title bar -->
-                    <rect x="40" y="30" width="820" height="36" rx="8" fill="rgba(34,37,48,0.9)"/>
-                    <rect x="40" y="58" width="820" height="8" fill="rgba(14,18,27,0.9)"/>
+                    <rect x="40" y="30" width="820" height="36" rx="8" fill="rgba(15,15,15,0.9)"/>
+                    <rect x="40" y="58" width="820" height="8" fill="rgba(0,0,0,0.9)"/>
                     <circle cx="60" cy="48" r="5" fill="#EF4444" opacity="0.8"/>
                     <circle cx="78" cy="48" r="5" fill="#FF9147" opacity="0.8"/>
                     <circle cx="96" cy="48" r="5" fill="#1FC16B" opacity="0.8"/>
-                    <text x="450" y="53" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="11">Internal Dashboard - NFR Broadcast</text>
+                    <text x="450" y="53" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="11">Internal Dashboard - NFR Broadcast</text>
 
                     <!-- Sidebar tabs -->
-                    <rect x="50" y="76" width="150" height="30" rx="4" fill="rgba(34,37,48,0.5)"/>
-                    <text x="125" y="95" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="10">Tenant Management</text>
-                    <rect x="50" y="110" width="150" height="30" rx="4" fill="rgba(34,37,48,0.5)"/>
-                    <text x="125" y="129" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="10">Integration Health</text>
-                    <rect x="50" y="144" width="150" height="30" rx="4" fill="rgba(51,92,255,0.15)" stroke="#335CFF" stroke-width="1"/>
-                    <text x="125" y="163" text-anchor="middle" fill="#335CFF" font-family="Inter, sans-serif" font-size="10" font-weight="600">NFR Broadcast</text>
+                    <rect x="50" y="76" width="150" height="30" rx="4" fill="rgba(15,15,15,0.6)"/>
+                    <text x="125" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="10">Tenant Management</text>
+                    <rect x="50" y="110" width="150" height="30" rx="4" fill="rgba(15,15,15,0.6)"/>
+                    <text x="125" y="129" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="10">Integration Health</text>
+                    <rect x="50" y="144" width="150" height="30" rx="4" fill="rgba(10,149,245,0.15)" stroke="#0A95F5" stroke-width="1"/>
+                    <text x="125" y="163" text-anchor="middle" fill="#0A95F5" font-family="Inter, sans-serif" font-size="10" font-weight="600">NFR Broadcast</text>
 
                     <!-- Main content area -->
-                    <rect x="215" y="76" width="635" height="264" rx="6" fill="rgba(34,37,48,0.3)"/>
+                    <rect x="215" y="76" width="635" height="264" rx="6" fill="rgba(15,15,15,0.4)"/>
 
                     <!-- Account cards -->
-                    <text x="235" y="100" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="600">Partner Accounts</text>
+                    <text x="235" y="100" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="600">Partner Accounts</text>
 
-                    <rect x="235" y="110" width="190" height="65" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
+                    <rect x="235" y="110" width="190" height="65" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
                     <text x="253" y="132" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10">Acme Corp</text>
-                    <text x="253" y="148" fill="#525866" font-family="JetBrains Mono, monospace" font-size="8">acme.simbian.ai</text>
-                    <text x="253" y="164" fill="#99A0AE" font-family="Inter, sans-serif" font-size="8">Last sync: 2h ago</text>
+                    <text x="253" y="148" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="8">acme.simbian.ai</text>
+                    <text x="253" y="164" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="8">Last sync: 2h ago</text>
 
-                    <rect x="435" y="110" width="190" height="65" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
+                    <rect x="435" y="110" width="190" height="65" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
                     <text x="453" y="132" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10">Wayne Tech</text>
-                    <text x="453" y="148" fill="#525866" font-family="JetBrains Mono, monospace" font-size="8">wayne.simbian.ai</text>
-                    <text x="453" y="164" fill="#99A0AE" font-family="Inter, sans-serif" font-size="8">Last sync: 1d ago</text>
+                    <text x="453" y="148" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="8">wayne.simbian.ai</text>
+                    <text x="453" y="164" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="8">Last sync: 1d ago</text>
 
-                    <rect x="635" y="110" width="190" height="65" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)" stroke-dasharray="4 2"/>
-                    <text x="730" y="145" text-anchor="middle" fill="#335CFF" font-family="Inter, sans-serif" font-size="10">+ Add Partner</text>
+                    <rect x="635" y="110" width="190" height="65" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)" stroke-dasharray="4 2"/>
+                    <text x="730" y="145" text-anchor="middle" fill="#0A95F5" font-family="Inter, sans-serif" font-size="10">+ Add Partner</text>
 
                     <!-- Broadcast button -->
-                    <rect x="235" y="195" width="200" height="38" rx="6" fill="#335CFF"/>
+                    <rect x="235" y="195" width="200" height="38" rx="6" fill="#0A95F5"/>
                     <text x="335" y="219" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-size="12" font-weight="600">Broadcast to All</text>
 
                     <!-- Job status -->
-                    <text x="235" y="260" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="600">Recent Jobs</text>
+                    <text x="235" y="260" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="600">Recent Jobs</text>
 
                     <rect x="235" y="270" width="595" height="28" rx="4" fill="rgba(31,193,107,0.06)" stroke="rgba(31,193,107,0.3)"/>
                     <text x="253" y="289" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="9">COMPLETED</text>
-                    <text x="345" y="289" fill="#99A0AE" font-family="Inter, sans-serif" font-size="9">Broadcast to 3 accounts - 200 investigations - 2m 14s</text>
-                    <text x="725" y="289" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">Mar 25, 2026</text>
+                    <text x="345" y="289" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="9">Broadcast to 3 accounts - 200 investigations - 2m 14s</text>
+                    <text x="725" y="289" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">Mar 25, 2026</text>
 
                     <rect x="235" y="302" width="595" height="28" rx="4" fill="rgba(31,193,107,0.06)" stroke="rgba(31,193,107,0.3)"/>
                     <text x="253" y="321" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="9">COMPLETED</text>
-                    <text x="345" y="321" fill="#99A0AE" font-family="Inter, sans-serif" font-size="9">Broadcast to 1 account - 200 investigations - 48s</text>
-                    <text x="725" y="321" fill="#525866" font-family="JetBrains Mono, monospace" font-size="9">Mar 24, 2026</text>
+                    <text x="345" y="321" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="9">Broadcast to 1 account - 200 investigations - 48s</text>
+                    <text x="725" y="321" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">Mar 24, 2026</text>
                 </svg>
             </div>
             <p class="reveal slide-subtitle">New tab in the Internal Dashboard. Admin-only. Manage accounts, trigger broadcasts, monitor jobs.</p>
@@ -817,65 +863,65 @@
             <h2 class="reveal slide-title">Simple by Design</h2>
             <div class="reveal arch-diagram">
                 <svg viewBox="0 0 900 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="900" height="340" rx="12" fill="#181B25" stroke="rgba(43,48,59,0.8)" stroke-width="1"/>
+                    <rect width="900" height="340" rx="12" fill="#0a0a0a" stroke="rgba(73,73,73,0.5)" stroke-width="1"/>
                     <rect width="900" height="1" fill="url(#topGlow3)"/>
                     <defs>
                         <linearGradient id="topGlow3" x1="0" y1="0" x2="900" y2="0">
                             <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="50%" stop-color="#335CFF" stop-opacity="0.5"/>
+                            <stop offset="50%" stop-color="#0A95F5" stop-opacity="0.5"/>
                             <stop offset="100%" stop-color="transparent"/>
                         </linearGradient>
                     </defs>
 
                     <!-- Step 1 -->
-                    <rect x="40" y="50" width="180" height="100" rx="8" fill="rgba(51,92,255,0.08)" stroke="#335CFF" stroke-width="1"/>
-                    <text x="130" y="80" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">1. ADMIN CLICKS</text>
-                    <text x="130" y="100" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="11">"Broadcast to All"</text>
-                    <text x="130" y="120" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">from internal dashboard</text>
-                    <text x="130" y="135" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">selects target accounts</text>
+                    <rect x="40" y="50" width="180" height="100" rx="8" fill="rgba(10,149,245,0.08)" stroke="#0A95F5" stroke-width="1"/>
+                    <text x="130" y="80" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">1. ADMIN CLICKS</text>
+                    <text x="130" y="100" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="11">"Broadcast to All"</text>
+                    <text x="130" y="120" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">from internal dashboard</text>
+                    <text x="130" y="135" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">selects target accounts</text>
 
                     <!-- Arrow 1 -->
-                    <line x1="230" y1="100" x2="280" y2="100" stroke="#335CFF" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <polygon points="280,100 274,96 274,104" fill="#335CFF"/>
+                    <line x1="230" y1="100" x2="280" y2="100" stroke="#0A95F5" stroke-width="1.5" stroke-dasharray="4 2"/>
+                    <polygon points="280,100 274,96 274,104" fill="#0A95F5"/>
 
                     <!-- Step 2 -->
-                    <rect x="290" y="50" width="180" height="100" rx="8" fill="rgba(51,92,255,0.08)" stroke="#335CFF" stroke-width="1"/>
-                    <text x="380" y="80" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">2. SCHEMA COPY</text>
-                    <text x="380" y="100" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="11">Direct SQL cross-schema</text>
-                    <text x="380" y="120" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">truncate + INSERT INTO</text>
-                    <text x="380" y="135" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">explicit column mapping</text>
+                    <rect x="290" y="50" width="180" height="100" rx="8" fill="rgba(10,149,245,0.08)" stroke="#0A95F5" stroke-width="1"/>
+                    <text x="380" y="80" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">2. SCHEMA COPY</text>
+                    <text x="380" y="100" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="11">Direct SQL cross-schema</text>
+                    <text x="380" y="120" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">truncate + INSERT INTO</text>
+                    <text x="380" y="135" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">explicit column mapping</text>
 
                     <!-- Arrow 2 -->
-                    <line x1="480" y1="100" x2="530" y2="100" stroke="#335CFF" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <polygon points="530,100 524,96 524,104" fill="#335CFF"/>
+                    <line x1="480" y1="100" x2="530" y2="100" stroke="#0A95F5" stroke-width="1.5" stroke-dasharray="4 2"/>
+                    <polygon points="530,100 524,96 524,104" fill="#0A95F5"/>
 
                     <!-- Step 3 -->
                     <rect x="540" y="50" width="180" height="100" rx="8" fill="rgba(31,193,107,0.08)" stroke="#1FC16B" stroke-width="1"/>
                     <text x="630" y="80" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">3. DONE</text>
-                    <text x="630" y="100" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="11">Partner ready to demo</text>
-                    <text x="630" y="120" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">all data replicated</text>
-                    <text x="630" y="135" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">own isolated tenant</text>
+                    <text x="630" y="100" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="11">Partner ready to demo</text>
+                    <text x="630" y="120" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">all data replicated</text>
+                    <text x="630" y="135" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">own isolated tenant</text>
 
                     <!-- Key decisions below -->
-                    <text x="450" y="200" text-anchor="middle" fill="#e6edf3" font-family="Inter, sans-serif" font-size="13" font-weight="600">Key Design Decisions</text>
+                    <text x="450" y="200" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="600">Key Design Decisions</text>
 
-                    <rect x="40" y="220" width="250" height="90" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="165" y="245" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Full schema copy</text>
-                    <text x="165" y="265" text-anchor="middle" fill="#99A0AE" font-family="Inter, sans-serif" font-size="10">vs per-investigation ORM copy</text>
-                    <text x="165" y="285" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">Simpler, faster, complete fidelity</text>
-                    <text x="165" y="300" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">Handles all tables automatically</text>
+                    <rect x="40" y="220" width="250" height="90" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="165" y="245" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Full schema copy</text>
+                    <text x="165" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="10">vs per-investigation ORM copy</text>
+                    <text x="165" y="285" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Simpler, faster, complete fidelity</text>
+                    <text x="165" y="300" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Handles all tables automatically</text>
 
-                    <rect x="320" y="220" width="250" height="90" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="445" y="245" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Table intersection</text>
-                    <text x="445" y="265" text-anchor="middle" fill="#99A0AE" font-family="Inter, sans-serif" font-size="10">Only copies tables in both schemas</text>
-                    <text x="445" y="285" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">Handles orphaned migration tables</text>
-                    <text x="445" y="300" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">Explicit column names (order-safe)</text>
+                    <rect x="320" y="220" width="250" height="90" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="445" y="245" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Table intersection</text>
+                    <text x="445" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="10">Only copies tables in both schemas</text>
+                    <text x="445" y="285" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Handles orphaned migration tables</text>
+                    <text x="445" y="300" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Explicit column names (order-safe)</text>
 
-                    <rect x="600" y="220" width="260" height="90" rx="6" fill="rgba(34,37,48,0.9)" stroke="rgba(43,48,59,0.8)"/>
-                    <text x="730" y="245" text-anchor="middle" fill="#335CFF" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Admin-only via dashboard</text>
-                    <text x="730" y="265" text-anchor="middle" fill="#99A0AE" font-family="Inter, sans-serif" font-size="10">Internal dashboard, not external API</text>
-                    <text x="730" y="285" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">super_admin required</text>
-                    <text x="730" y="300" text-anchor="middle" fill="#525866" font-family="Inter, sans-serif" font-size="9">Progress tracking via job model</text>
+                    <rect x="600" y="220" width="260" height="90" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
+                    <text x="730" y="245" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Admin-only via dashboard</text>
+                    <text x="730" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="10">Internal dashboard, not external API</text>
+                    <text x="730" y="285" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">super_admin required</text>
+                    <text x="730" y="300" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Progress tracking via job model</text>
                 </svg>
             </div>
         </div>
