@@ -540,7 +540,7 @@
 <body>
     <div class="progress-bar" id="progressBar"></div>
     <nav class="nav-dots" id="navDots"></nav>
-    <div class="slide-counter"><span class="current" id="currentSlide">1</span> / <span id="totalSlides">10</span></div>
+    <div class="slide-counter"><span class="current" id="currentSlide">1</span> / <span id="totalSlides">6</span></div>
     <div class="simbian-badge">
         <img src="simbian-logo.png" alt="Simbian" style="height: 20px;">
     </div>
@@ -644,107 +644,10 @@
         </div>
     </section>
 
-    <!-- SLIDE 4: ARCHITECTURE - HOW IT WORKS -->
+    <!-- SLIDE 4: BEFORE/AFTER -->
     <section class="slide grid-bg">
         <div class="slide-content">
-            <p class="reveal slide-label">03 // architecture</p>
-            <h2 class="reveal slide-title">Full Schema Copy - One Click</h2>
-            <div class="reveal arch-diagram">
-                <svg viewBox="0 0 900 420" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Background -->
-                    <rect width="900" height="420" rx="12" fill="#0a0a0a" stroke="rgba(73,73,73,0.5)" stroke-width="1"/>
-                    <rect width="900" height="1" fill="url(#topGlow)"/>
-                    <defs>
-                        <linearGradient id="topGlow" x1="0" y1="0" x2="900" y2="0">
-                            <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="50%" stop-color="#0A95F5" stop-opacity="0.5"/>
-                            <stop offset="100%" stop-color="transparent"/>
-                        </linearGradient>
-                        <linearGradient id="arrowGrad" x1="0" y1="0" x2="1" y2="0">
-                            <stop offset="0%" stop-color="#0A95F5"/>
-                            <stop offset="100%" stop-color="#1FC16B"/>
-                        </linearGradient>
-                    </defs>
-
-                    <!-- Master Account Box -->
-                    <rect x="40" y="30" width="260" height="360" rx="8" fill="rgba(10,149,245,0.08)" stroke="#0A95F5" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <text x="170" y="60" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="11" font-weight="600" letter-spacing="0.1em">MASTER DEMO ACCOUNT</text>
-
-                    <!-- Master data boxes -->
-                    <rect x="60" y="80" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="170" y="104" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">200+ Investigations</text>
-
-                    <rect x="60" y="130" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="170" y="154" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Context Lake</text>
-
-                    <rect x="60" y="180" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="170" y="204" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Entity Store</text>
-
-                    <rect x="60" y="230" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="170" y="254" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Hypotheses & Results</text>
-
-                    <rect x="60" y="280" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="170" y="304" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Response Actions</text>
-
-                    <rect x="60" y="330" width="220" height="40" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="170" y="354" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="500">Dashboard Metrics</text>
-
-                    <!-- Broadcast Arrow -->
-                    <line x1="320" y1="140" x2="420" y2="80" stroke="url(#arrowGrad)" stroke-width="2" stroke-dasharray="6 3">
-                        <animate attributeName="stroke-dashoffset" values="18;0" dur="1.5s" repeatCount="indefinite"/>
-                    </line>
-                    <polygon points="420,80 412,76 414,84" fill="#1FC16B"/>
-
-                    <line x1="320" y1="210" x2="420" y2="210" stroke="url(#arrowGrad)" stroke-width="2" stroke-dasharray="6 3">
-                        <animate attributeName="stroke-dashoffset" values="18;0" dur="1.5s" repeatCount="indefinite"/>
-                    </line>
-                    <polygon points="420,210 412,206 412,214" fill="#1FC16B"/>
-
-                    <line x1="320" y1="280" x2="420" y2="340" stroke="url(#arrowGrad)" stroke-width="2" stroke-dasharray="6 3">
-                        <animate attributeName="stroke-dashoffset" values="18;0" dur="1.5s" repeatCount="indefinite"/>
-                    </line>
-                    <polygon points="420,340 412,336 414,344" fill="#1FC16B"/>
-
-                    <!-- Center label -->
-                    <rect x="335" y="190" width="70" height="40" rx="6" fill="rgba(10,149,245,0.15)" stroke="#0A95F5" stroke-width="1"/>
-                    <text x="370" y="207" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500">SCHEMA</text>
-                    <text x="370" y="222" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="9" font-weight="500">COPY</text>
-
-                    <!-- NFR Account 1 -->
-                    <rect x="440" y="30" width="200" height="110" rx="8" fill="rgba(31,193,107,0.06)" stroke="#1FC16B" stroke-width="1"/>
-                    <text x="540" y="55" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">NFR: ACME CORP</text>
-                    <text x="540" y="75" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="11">acme.simbian.ai</text>
-                    <text x="540" y="95" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
-                    <text x="540" y="115" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
-
-                    <!-- NFR Account 2 -->
-                    <rect x="440" y="160" width="200" height="110" rx="8" fill="rgba(31,193,107,0.06)" stroke="#1FC16B" stroke-width="1"/>
-                    <text x="540" y="185" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">NFR: WAYNE TECH</text>
-                    <text x="540" y="205" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="11">wayne.simbian.ai</text>
-                    <text x="540" y="225" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
-                    <text x="540" y="245" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
-
-                    <!-- NFR Account 3 -->
-                    <rect x="440" y="290" width="200" height="110" rx="8" fill="rgba(31,193,107,0.06)" stroke="#1FC16B" stroke-width="1"/>
-                    <text x="540" y="315" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">NFR: STARK IND</text>
-                    <text x="540" y="335" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="11">stark.simbian.ai</text>
-                    <text x="540" y="355" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">own schema + new UUIDs</text>
-                    <text x="540" y="375" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">full data fidelity</text>
-
-                    <!-- More indicator -->
-                    <rect x="660" y="160" width="200" height="110" rx="8" fill="rgba(30,30,30,0.5)" stroke="rgba(73,73,73,0.5)" stroke-width="1" stroke-dasharray="4 2"/>
-                    <text x="760" y="210" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="12">+ N more partners</text>
-                    <text x="760" y="230" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="10">one click each</text>
-                </svg>
-            </div>
-            <p class="reveal slide-subtitle">Direct SQL cross-schema copy. Every table, every relationship, complete fidelity. No manual work.</p>
-        </div>
-    </section>
-
-    <!-- SLIDE 5: BEFORE/AFTER -->
-    <section class="slide grid-bg">
-        <div class="slide-content">
-            <p class="reveal slide-label">04 // before vs after</p>
+            <p class="reveal slide-label">03 // before vs after</p>
             <h2 class="reveal slide-title">The Transformation</h2>
             <div class="reveal" style="display: grid; grid-template-columns: 1fr 1fr; gap: clamp(1rem, 2vw, 2rem); width: 100%; max-width: 900px;">
                 <div class="card" style="border-left: 2px solid var(--red);">
@@ -778,7 +681,7 @@
     <!-- SLIDE 6: INTERNAL DASHBOARD -->
     <section class="slide grid-bg">
         <div class="slide-content">
-            <p class="reveal slide-label">05 // the dashboard</p>
+            <p class="reveal slide-label">04 // the dashboard</p>
             <h2 class="reveal slide-title">Self-Service Internal Tool</h2>
             <div class="reveal arch-diagram">
                 <svg viewBox="0 0 900 380" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -848,171 +751,14 @@
                     <text x="725" y="321" fill="rgba(255,255,255,0.3)" font-family="JetBrains Mono, monospace" font-size="9">Mar 24, 2026</text>
                 </svg>
             </div>
-            <p class="reveal slide-subtitle">New tab in the Internal Dashboard. Admin-only. Manage accounts, trigger broadcasts, monitor jobs.</p>
+            <p class="reveal slide-subtitle">Anyone on the team can set up a new partner demo. No engineering needed.</p>
         </div>
     </section>
 
-    <!-- SLIDE 7: HOW IT WORKS (simplified) -->
+    <!-- SLIDE 6: WHAT'S NEXT + END -->
     <section class="slide grid-bg">
         <div class="slide-content">
-            <p class="reveal slide-label">06 // under the hood</p>
-            <h2 class="reveal slide-title">Simple by Design</h2>
-            <div class="reveal arch-diagram">
-                <svg viewBox="0 0 900 340" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect width="900" height="340" rx="12" fill="#0a0a0a" stroke="rgba(73,73,73,0.5)" stroke-width="1"/>
-                    <rect width="900" height="1" fill="url(#topGlow3)"/>
-                    <defs>
-                        <linearGradient id="topGlow3" x1="0" y1="0" x2="900" y2="0">
-                            <stop offset="0%" stop-color="transparent"/>
-                            <stop offset="50%" stop-color="#0A95F5" stop-opacity="0.5"/>
-                            <stop offset="100%" stop-color="transparent"/>
-                        </linearGradient>
-                    </defs>
-
-                    <!-- Step 1 -->
-                    <rect x="40" y="50" width="180" height="100" rx="8" fill="rgba(10,149,245,0.08)" stroke="#0A95F5" stroke-width="1"/>
-                    <text x="130" y="80" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">1. ADMIN CLICKS</text>
-                    <text x="130" y="100" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="11">"Broadcast to All"</text>
-                    <text x="130" y="120" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">from internal dashboard</text>
-                    <text x="130" y="135" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">selects target accounts</text>
-
-                    <!-- Arrow 1 -->
-                    <line x1="230" y1="100" x2="280" y2="100" stroke="#0A95F5" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <polygon points="280,100 274,96 274,104" fill="#0A95F5"/>
-
-                    <!-- Step 2 -->
-                    <rect x="290" y="50" width="180" height="100" rx="8" fill="rgba(10,149,245,0.08)" stroke="#0A95F5" stroke-width="1"/>
-                    <text x="380" y="80" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">2. SCHEMA COPY</text>
-                    <text x="380" y="100" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="11">Direct SQL cross-schema</text>
-                    <text x="380" y="120" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">truncate + INSERT INTO</text>
-                    <text x="380" y="135" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">explicit column mapping</text>
-
-                    <!-- Arrow 2 -->
-                    <line x1="480" y1="100" x2="530" y2="100" stroke="#0A95F5" stroke-width="1.5" stroke-dasharray="4 2"/>
-                    <polygon points="530,100 524,96 524,104" fill="#0A95F5"/>
-
-                    <!-- Step 3 -->
-                    <rect x="540" y="50" width="180" height="100" rx="8" fill="rgba(31,193,107,0.08)" stroke="#1FC16B" stroke-width="1"/>
-                    <text x="630" y="80" text-anchor="middle" fill="#1FC16B" font-family="JetBrains Mono, monospace" font-size="10" font-weight="600">3. DONE</text>
-                    <text x="630" y="100" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="11">Partner ready to demo</text>
-                    <text x="630" y="120" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">all data replicated</text>
-                    <text x="630" y="135" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">own isolated tenant</text>
-
-                    <!-- Key decisions below -->
-                    <text x="450" y="200" text-anchor="middle" fill="#ffffff" font-family="Inter, sans-serif" font-size="13" font-weight="600">Key Design Decisions</text>
-
-                    <rect x="40" y="220" width="250" height="90" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="165" y="245" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Full schema copy</text>
-                    <text x="165" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="10">vs per-investigation ORM copy</text>
-                    <text x="165" y="285" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Simpler, faster, complete fidelity</text>
-                    <text x="165" y="300" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Handles all tables automatically</text>
-
-                    <rect x="320" y="220" width="250" height="90" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="445" y="245" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Table intersection</text>
-                    <text x="445" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="10">Only copies tables in both schemas</text>
-                    <text x="445" y="285" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Handles orphaned migration tables</text>
-                    <text x="445" y="300" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Explicit column names (order-safe)</text>
-
-                    <rect x="600" y="220" width="260" height="90" rx="6" fill="rgba(15,15,15,0.9)" stroke="rgba(73,73,73,0.5)"/>
-                    <text x="730" y="245" text-anchor="middle" fill="#0A95F5" font-family="JetBrains Mono, monospace" font-size="10" font-weight="500">Admin-only via dashboard</text>
-                    <text x="730" y="265" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-family="Inter, sans-serif" font-size="10">Internal dashboard, not external API</text>
-                    <text x="730" y="285" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">super_admin required</text>
-                    <text x="730" y="300" text-anchor="middle" fill="rgba(255,255,255,0.3)" font-family="Inter, sans-serif" font-size="9">Progress tracking via job model</text>
-                </svg>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 8: WHAT'S IN THE PR -->
-    <section class="slide grid-bg">
-        <div class="slide-content">
-            <p class="reveal slide-label">07 // what shipped</p>
-            <h2 class="reveal slide-title">PR #4150 - What's Included</h2>
-            <div class="reveal card-grid-3" style="max-width: 950px;">
-                <div class="card card-accent">
-                    <h3>Backend</h3>
-                    <ul>
-                        <li>NFRBroadcastService - full schema copy engine</li>
-                        <li>NFRBroadcastJob model with progress tracking</li>
-                        <li>is_nfr_master / is_nfr_child account flags</li>
-                        <li>5 API endpoints under /nfr/</li>
-                        <li>create_nfr_account management command</li>
-                    </ul>
-                </div>
-                <div class="card card-blue">
-                    <h3>Frontend</h3>
-                    <ul>
-                        <li>NFR Broadcast tab in Internal Dashboard</li>
-                        <li>Account management cards</li>
-                        <li>One-click broadcast trigger</li>
-                        <li>Real-time job monitoring</li>
-                        <li>7 admin API integrations</li>
-                    </ul>
-                </div>
-                <div class="card card-accent">
-                    <h3>Safety</h3>
-                    <ul>
-                        <li>Singleton master constraint (DB-enforced)</li>
-                        <li>Table intersection (handles schema drift)</li>
-                        <li>Explicit column mapping (order-safe)</li>
-                        <li>super_admin gating on all endpoints</li>
-                        <li>Test coverage: lifecycle, failures, access</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="reveal" style="display: flex; gap: clamp(1.5rem, 4vw, 3rem); margin-top: clamp(0.5rem, 1.5vw, 1rem);">
-                <div style="text-align: center;">
-                    <div class="stat-number" style="color: var(--accent); font-size: clamp(1.5rem, 3vw, 2.5rem);">19</div>
-                    <div class="stat-label">files changed</div>
-                </div>
-                <div style="text-align: center;">
-                    <div class="stat-number" style="color: var(--accent-2); font-size: clamp(1.5rem, 3vw, 2.5rem);">+1337</div>
-                    <div class="stat-label">lines added</div>
-                </div>
-                <div style="text-align: center;">
-                    <div class="stat-number" style="color: var(--warn); font-size: clamp(1.5rem, 3vw, 2.5rem);">10</div>
-                    <div class="stat-label">commits</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SLIDE 9: APPROACH -->
-    <section class="slide grid-bg">
-        <div class="slide-content">
-            <p class="reveal slide-label">08 // the approach</p>
-            <h2 class="reveal slide-title">Full Schema Copy</h2>
-            <p class="reveal slide-subtitle">Direct SQL cross-schema replication. No per-model logic, no missed data.</p>
-            <div class="reveal card-grid" style="max-width: 900px; margin-top: 0.5rem;">
-                <div class="card card-blue">
-                    <h3>Direct SQL</h3>
-                    <p>INSERT INTO dest SELECT FROM source - copies every table in one pass. No ORM overhead, no model-by-model iteration.</p>
-                </div>
-                <div class="card card-blue">
-                    <h3>Column-safe</h3>
-                    <p>Queries column names from information_schema. Handles schemas with different column ordering gracefully.</p>
-                </div>
-                <div class="card card-blue">
-                    <h3>Drift-safe</h3>
-                    <p>Intersects source and destination tables. Orphaned tables from deleted migrations are skipped automatically.</p>
-                </div>
-            </div>
-            <div class="reveal ascii-box" style="margin-top: clamp(0.5rem, 1vw, 1rem);">
-<span class="bright">  How it works:</span>
-
-<span class="dim">  1.</span> <span class="hl">Get tables</span>        <span class="dim">intersect(source_tables, dest_tables)</span>
-<span class="dim">  2.</span> <span class="hl">For each table:</span>
-<span class="dim">       a.</span> <span class="hl2">Get columns</span>    <span class="dim">intersect(source_cols, dest_cols)</span>
-<span class="dim">       b.</span> <span class="hl2">Truncate</span>       <span class="dim">TRUNCATE dest.table CASCADE</span>
-<span class="dim">       c.</span> <span class="hl2">Copy</span>          <span class="dim">INSERT INTO dest.table(cols) SELECT cols FROM source.table</span>
-<span class="dim">  3.</span> <span class="hl">Done</span>              <span class="dim">complete fidelity, all relationships preserved</span></div>
-        </div>
-    </section>
-
-    <!-- SLIDE 10: WHAT'S NEXT + END -->
-    <section class="slide grid-bg">
-        <div class="slide-content">
-            <p class="reveal slide-label">09 // looking ahead</p>
+            <p class="reveal slide-label">05 // looking ahead</p>
             <h2 class="reveal slide-title">Phase 1 Done. What's Next?</h2>
             <div class="reveal" style="width: 100%; max-width: 800px;">
                 <div class="timeline" style="margin: clamp(0.5rem, 1.5vw, 1.5rem) 0;">
@@ -1021,21 +767,21 @@
                         <div class="timeline-dot done"></div>
                         <div class="timeline-label">Phase 1</div>
                         <div class="timeline-sublabel" style="color: var(--accent-2);">Done - Mar 25</div>
-                        <div class="timeline-sublabel">Full schema broadcast</div>
+                        <div class="timeline-sublabel">One-click broadcast</div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-line"></div>
                         <div class="timeline-dot future"></div>
                         <div class="timeline-label">Phase 2</div>
                         <div class="timeline-sublabel">Selective sync</div>
-                        <div class="timeline-sublabel">Choose which data to push</div>
+                        <div class="timeline-sublabel">Pick specific investigations</div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-line"></div>
                         <div class="timeline-dot future"></div>
                         <div class="timeline-label">Phase 3</div>
                         <div class="timeline-sublabel">Auto-refresh</div>
-                        <div class="timeline-sublabel">Scheduled re-broadcasts</div>
+                        <div class="timeline-sublabel">Keep demos always fresh</div>
                     </div>
                     <div class="timeline-item">
                         <div class="timeline-dot future"></div>
