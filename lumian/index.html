@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumian — Internal Decks</title>
+    <style>
+        :root {
+            --bg: #f5f5f4;
+            --panel: #ffffff;
+            --border: #e7e5e4;
+            --text: #0c0a09;
+            --muted: #78716c;
+            --accent: #f97316;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        .wrap { max-width: 720px; width: 100%; }
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            letter-spacing: -0.025em;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+        h1 .accent { color: var(--accent); }
+        p.lead {
+            color: var(--muted);
+            font-size: 1.05rem;
+            margin-bottom: 2.5rem;
+        }
+        .deck-list { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; }
+        .deck-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--text);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .deck-list a:hover {
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+        .deck-title { font-weight: 600; }
+        .deck-meta { font-size: 0.85rem; color: var(--muted); }
+        .arrow { color: var(--accent); font-weight: 700; }
+        footer {
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <h1>Lumian <span class="accent">Decks</span></h1>
+        <p class="lead">Internal walkthroughs and product demos.</p>
+
+        <ul class="deck-list">
+            <li>
+                <a href="rufus-checker/">
+                    <div>
+                        <div class="deck-title">Rufus Checker</div>
+                        <div class="deck-meta">7-layer Amazon Rufus visibility scorer · April 2026</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </li>
+        </ul>
+
+        <footer>tridev-tej.github.io · last updated April 2026</footer>
+    </div>
+</body>
+</html>
