@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>The Amazon Ecosystem — Concepts, Tools, Problems · Lumian</title>
-<link rel="icon" type="image/svg+xml" href="lumian-mark.svg">
+<link rel="icon" type="image/png" href="lumian-logo.png">
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400,500,700&f[]=satoshi@400,500,700,900&f[]=clash-display@500,600,700&display=swap">
 <style>
 :root{
@@ -190,7 +190,7 @@ p{font-size:var(--body-size);color:var(--muted);line-height:1.5}
   transition:border-color .3s,transform .3s;
 }
 .brand-fixed:hover{border-color:var(--cyan);transform:translateY(-1px)}
-.brand-fixed svg{width:20px;height:auto;flex-shrink:0}
+.brand-fixed img{width:22px;height:auto;flex-shrink:0;border-radius:4px}
 .brand-fixed .word{font-family:var(--font-display);font-weight:600;font-size:.85rem;letter-spacing:-.01em;text-transform:none}
 @media (max-width:600px){.brand-fixed .word{display:none}}
 
@@ -229,15 +229,7 @@ p{font-size:var(--body-size);color:var(--muted);line-height:1.5}
 
 <div class="progress" id="progress"></div>
 <a class="brand-fixed" href="../" title="Lumian decks">
-  <svg viewBox="0 0 26 30" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <defs>
-      <linearGradient id="lg" x1="13.5" y1="4" x2="13" y2="26.16" gradientUnits="userSpaceOnUse">
-        <stop stop-color="#86BDFE"/><stop offset=".57" stop-color="#CBB5FA"/><stop offset=".8" stop-color="#E5D9FF"/><stop offset="1" stop-color="#fff"/>
-      </linearGradient>
-    </defs>
-    <rect x="0" y="4" width="26" height="26" rx="13" fill="url(#lg)"/>
-    <circle cx="13" cy="17" r="13" fill="#CBB5FA"/>
-  </svg>
+  <img src="lumian-logo.png" alt="Lumian">
   <span class="word">Lumian</span>
 </a>
 <nav class="nav-dots" id="navDots"></nav>
