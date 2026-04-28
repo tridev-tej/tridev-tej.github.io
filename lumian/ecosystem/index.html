@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Amazon Ecosystem — Concepts, Tools, Problems</title>
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=jetbrains-mono@400,500,700&f[]=satoshi@400,500,700,900&f[]=clash-display@500,600,700&display=swap">
+<style>
+:root{
+  --bg:#05070d;
+  --bg-2:#0b1020;
+  --panel:#0f1530;
+  --line:rgba(120,160,255,.15);
+  --cyan:#00e5ff;
+  --magenta:#ff3ea5;
+  --yellow:#ffd166;
+  --green:#27e0a5;
+  --violet:#9d7bff;
+  --text:#e6ecff;
+  --muted:#7e89ad;
+  --font-display:'Clash Display',sans-serif;
+  --font-body:'Satoshi',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --title-size:clamp(1.75rem,5vw,3.6rem);
+  --h2-size:clamp(1.25rem,3vw,2.25rem);
+  --h3-size:clamp(.95rem,1.6vw,1.25rem);
+  --body-size:clamp(.72rem,1.05vw,.95rem);
+  --small-size:clamp(.62rem,.85vw,.78rem);
+  --slide-padding:clamp(1rem,3.5vw,3rem);
+  --gap:clamp(.4rem,1vw,1rem);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow-x:hidden}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background:
+    radial-gradient(900px 600px at 80% 0%, rgba(0,229,255,.08), transparent 60%),
+    radial-gradient(700px 500px at 0% 100%, rgba(255,62,165,.07), transparent 55%),
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size:auto,auto,44px 44px,44px 44px;
+  z-index:-1;
+}
+.slide{
+  width:100vw;height:100vh;height:100dvh;
+  padding:var(--slide-padding);
+  scroll-snap-align:start;
+  display:flex;flex-direction:column;justify-content:center;
+  position:relative;overflow:hidden;
+}
+.slide-content{flex:1;display:flex;flex-direction:column;justify-content:center;max-height:100%;overflow:hidden;gap:var(--gap)}
+
+/* Header chip */
+.chip{
+  display:inline-flex;align-items:center;gap:.4rem;
+  font-family:var(--font-mono);font-size:var(--small-size);
+  text-transform:uppercase;letter-spacing:.18em;
+  color:var(--cyan);
+  padding:.3rem .65rem;
+  border:1px solid rgba(0,229,255,.3);
+  border-radius:999px;
+  background:rgba(0,229,255,.05);
+  width:fit-content;
+}
+.chip .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+
+h1{font-family:var(--font-display);font-size:var(--title-size);font-weight:600;line-height:1.05;letter-spacing:-.02em}
+h2{font-family:var(--font-display);font-size:var(--h2-size);font-weight:600;line-height:1.1;letter-spacing:-.01em}
+h3{font-family:var(--font-display);font-size:var(--h3-size);font-weight:500;letter-spacing:-.005em}
+p{font-size:var(--body-size);color:var(--muted);line-height:1.5}
+.mono{font-family:var(--font-mono);font-size:var(--small-size);color:var(--muted)}
+.accent-cyan{color:var(--cyan)}.accent-magenta{color:var(--magenta)}.accent-yellow{color:var(--yellow)}.accent-green{color:var(--green)}.accent-violet{color:var(--violet)}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.slide.visible .reveal{opacity:1;transform:none}
+.slide.visible .reveal.d1{transition-delay:.05s}
+.slide.visible .reveal.d2{transition-delay:.18s}
+.slide.visible .reveal.d3{transition-delay:.32s}
+.slide.visible .reveal.d4{transition-delay:.46s}
+.slide.visible .reveal.d5{transition-delay:.6s}
+
+/* Title slide */
+.title-slide{
+  background:
+    radial-gradient(circle at 20% 50%, rgba(0,229,255,.12), transparent 50%),
+    radial-gradient(circle at 80% 30%, rgba(255,62,165,.1), transparent 55%);
+}
+.title-marquee{
+  font-family:var(--font-mono);font-size:var(--small-size);color:var(--muted);
+  display:flex;gap:1rem;flex-wrap:wrap;
+}
+.title-marquee span{padding:.25rem .55rem;border:1px solid var(--line);border-radius:6px;background:rgba(255,255,255,.02)}
+.title-glow{position:absolute;font-family:var(--font-mono);font-weight:700;font-size:clamp(8rem,24vw,20rem);color:rgba(0,229,255,.04);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;letter-spacing:-.05em;z-index:0}
+.title-slide .slide-content{position:relative;z-index:1}
+
+/* Hub diagram */
+.hub-wrap{display:grid;grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(3,1fr);gap:clamp(.4rem,1vw,1rem);height:100%;align-items:stretch}
+.hub-cell{
+  border:1px solid var(--line);background:var(--panel);
+  border-radius:14px;padding:clamp(.5rem,1vw,1rem);
+  display:flex;flex-direction:column;gap:.3rem;
+  transition:transform .4s var(--ease),border-color .4s,box-shadow .4s;
+  position:relative;overflow:hidden;
+}
+.hub-cell:hover{transform:translateY(-4px);border-color:var(--cyan);box-shadow:0 8px 30px rgba(0,229,255,.15)}
+.hub-cell .num{font-family:var(--font-mono);font-size:.65rem;color:var(--muted);letter-spacing:.15em}
+.hub-cell h3{font-size:clamp(.85rem,1.4vw,1.1rem);color:var(--text)}
+.hub-cell p{font-size:clamp(.65rem,.95vw,.82rem);line-height:1.4}
+.hub-cell.center{
+  background:linear-gradient(135deg,rgba(255,62,165,.18),rgba(0,229,255,.18));
+  border-color:rgba(255,62,165,.4);
+  align-items:center;justify-content:center;text-align:center;
+}
+.hub-cell.center .core-label{font-family:var(--font-mono);font-size:.65rem;letter-spacing:.3em;color:var(--magenta);text-transform:uppercase}
+.hub-cell.center .core-name{font-family:var(--font-display);font-size:clamp(1.5rem,3.2vw,2.4rem);font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
+.hub-cell.center .core-tag{font-size:clamp(.65rem,.9vw,.78rem);color:var(--text);opacity:.75;margin-top:.3rem}
+
+/* Domain detail slides */
+.domain-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(.5rem,1.5vw,1.5rem);flex:1;min-height:0}
+.panel{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0));
+  border-radius:14px;padding:clamp(.7rem,1.4vw,1.2rem);
+  display:flex;flex-direction:column;gap:.5rem;
+  overflow:hidden;
+}
+.panel-title{display:flex;align-items:center;gap:.5rem;font-family:var(--font-mono);font-size:var(--small-size);text-transform:uppercase;letter-spacing:.15em;color:var(--cyan)}
+.panel-title .bullet{width:8px;height:8px;border-radius:50%;background:var(--cyan)}
+.panel.tools .panel-title{color:var(--magenta)}
+.panel.tools .panel-title .bullet{background:var(--magenta)}
+.term-list{display:flex;flex-direction:column;gap:.35rem;overflow:hidden}
+.term{
+  display:grid;grid-template-columns:auto 1fr;gap:.7rem;align-items:baseline;
+  padding:.35rem .5rem;border-radius:8px;
+  background:rgba(255,255,255,.02);
+  border-left:2px solid var(--line);
+  transition:border-color .3s, background .3s;
+}
+.term:hover{border-left-color:var(--cyan);background:rgba(0,229,255,.04)}
+.panel.tools .term:hover{border-left-color:var(--magenta);background:rgba(255,62,165,.04)}
+.term .k{font-family:var(--font-mono);font-size:clamp(.65rem,.9vw,.8rem);color:var(--text);font-weight:500;white-space:nowrap}
+.term .v{font-size:clamp(.62rem,.88vw,.76rem);color:var(--muted);line-height:1.35}
+
+/* Tools landscape grid */
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:clamp(.4rem,1vw,.8rem);flex:1;min-height:0;overflow:hidden;align-content:start}
+.tool-card{
+  border:1px solid var(--line);border-radius:10px;padding:.6rem .75rem;
+  background:var(--panel);
+  display:flex;flex-direction:column;gap:.25rem;
+  transition:transform .3s var(--ease),border-color .3s;
+}
+.tool-card:hover{transform:translateY(-2px);border-color:var(--magenta)}
+.tool-card .name{font-family:var(--font-display);font-size:clamp(.78rem,1.1vw,.95rem);font-weight:600}
+.tool-card .role{font-family:var(--font-mono);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan)}
+.tool-card .desc{font-size:clamp(.6rem,.85vw,.74rem);color:var(--muted);line-height:1.35}
+
+/* Footer mini-nav */
+.slide-footer{
+  position:absolute;bottom:.7rem;left:var(--slide-padding);right:var(--slide-padding);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font-mono);font-size:.65rem;color:var(--muted);letter-spacing:.15em;
+  pointer-events:none;
+}
+.slide-num{color:var(--cyan)}
+
+/* Progress bar */
+.progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--magenta));width:0%;z-index:100;transition:width .2s linear}
+
+/* Nav dots */
+.nav-dots{position:fixed;right:1rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.5rem;z-index:50}
+.nav-dot{width:8px;height:8px;border-radius:50%;background:var(--line);border:none;cursor:pointer;transition:all .3s}
+.nav-dot.active{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.nav-dot:hover{background:var(--cyan);opacity:.7}
+
+/* Keyboard hint */
+.kbd-hint{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.65rem;color:var(--muted);letter-spacing:.15em;z-index:50;display:flex;gap:.5rem;align-items:center;background:rgba(5,7,13,.7);padding:.4rem .8rem;border-radius:999px;border:1px solid var(--line);backdrop-filter:blur(8px)}
+.kbd{padding:.1rem .35rem;border:1px solid var(--line);border-radius:4px;background:rgba(255,255,255,.04)}
+
+/* Responsive */
+@media (max-height:700px){
+  :root{--slide-padding:clamp(.7rem,2.5vw,1.8rem);--gap:.5rem}
+  .hub-cell h3{font-size:.95rem}
+  .hub-cell p{font-size:.7rem}
+}
+@media (max-height:600px){
+  .nav-dots,.kbd-hint{display:none}
+}
+@media (max-width:760px){
+  .hub-wrap{grid-template-columns:repeat(2,1fr);grid-template-rows:repeat(5,1fr)}
+  .hub-cell.center{grid-column:1/-1}
+  .domain-grid{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+  .nav-dots{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.2s!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<nav class="nav-dots" id="navDots"></nav>
+<div class="kbd-hint"><span class="kbd">↓</span> scroll · <span class="kbd">→</span> next · <span class="kbd">←</span> prev</div>
+
+<!-- =================== SLIDE 1: TITLE =================== -->
+<section class="slide title-slide" data-title="Cover">
+  <div class="title-glow">AMZN</div>
+  <div class="slide-content">
+    <div class="chip reveal d1"><span class="dot"></span> Lumian Slack — Engineering map · 2026</div>
+    <h1 class="reveal d2">The Amazon<br>Ecosystem<span class="accent-cyan">.</span></h1>
+    <p class="reveal d3" style="max-width:60ch;font-size:clamp(.85rem,1.3vw,1.05rem);color:var(--text);opacity:.85">
+      Every term, fee, dashboard, and third-party tool that came up across <span class="accent-cyan">25 channels</span> — mapped to the problem each one actually solves.
+    </p>
+    <div class="title-marquee reveal d4">
+      <span>ASIN</span><span>FBA</span><span>ACoS</span><span>Brand Registry</span><span>SP-API</span><span>Buy Box</span><span>BSR</span><span>Vine</span><span>FNSKU</span><span>A+ Content</span><span>DSP</span><span>NCX</span>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">01 / 11</span><span>Scroll to begin</span></div>
+</section>
+
+<!-- =================== SLIDE 2: HUB DIAGRAM =================== -->
+<section class="slide" data-title="The Hub">
+  <div class="slide-content">
+    <div class="reveal d1" style="display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap">
+      <div>
+        <div class="chip"><span class="dot"></span> The Hub</div>
+        <h2 style="margin-top:.4rem">Eight problem domains orbit Amazon<span class="accent-magenta">.</span></h2>
+      </div>
+      <p class="mono" style="max-width:32ch">Each is a discrete revenue, risk, or growth lever. Sellers and agencies (like Lumian) compete tool-by-tool.</p>
+    </div>
+    <div class="hub-wrap reveal d2">
+      <div class="hub-cell"><span class="num">01 · CATALOG</span><h3>Listings</h3><p>ASINs, parent/child variants, A+, images, copy.</p></div>
+      <div class="hub-cell"><span class="num">02 · LOGISTICS</span><h3>Fulfillment</h3><p>FBA / FBM, FCs, AWD, restock, removals.</p></div>
+      <div class="hub-cell"><span class="num">03 · GROWTH</span><h3>Advertising</h3><p>SP / SB / SD, DSP, ACoS, ROAS, bidding.</p></div>
+      <div class="hub-cell"><span class="num">04 · SEARCH</span><h3>Ranking</h3><p>BSR, indexing, keywords, Rufus, SEO.</p></div>
+      <div class="hub-cell center">
+        <div class="core-label">core platform</div>
+        <div class="core-name">amazon</div>
+        <div class="core-tag">Seller Central + SP-API + Brand Registry</div>
+      </div>
+      <div class="hub-cell"><span class="num">05 · TRUST</span><h3>Reviews</h3><p>Stars, NCX, courtesy refunds, removals.</p></div>
+      <div class="hub-cell"><span class="num">06 · COMPLIANCE</span><h3>Account Health</h3><p>Suppression, hazmat, IP, policy violations.</p></div>
+      <div class="hub-cell"><span class="num">07 · INTEL</span><h3>Reports & Data</h3><p>SQPR, Business Reports, AMC, BigQuery.</p></div>
+      <div class="hub-cell"><span class="num">08 · ECONOMICS</span><h3>Pricing & Fees</h3><p>FBA fees, MAP, coupons, GMV, refunds.</p></div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">02 / 11</span><span>Hub & Spokes</span></div>
+</section>
+
+<!-- =================== SLIDE 3: LISTINGS =================== -->
+<section class="slide" data-title="Listings">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 01 · Catalog</span><h2 style="margin-top:.4rem">Listings &amp; Catalog<span class="accent-cyan">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— What the customer actually sees.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">ASIN</span><span class="v">10-char product ID. Universe of records.</span></div>
+          <div class="term"><span class="k">SKU / FNSKU</span><span class="v">Seller's internal ID / Amazon's barcode for FBA units.</span></div>
+          <div class="term"><span class="k">Parent / Child</span><span class="v">Variation tree (size, color). "Parenting" = grouping them.</span></div>
+          <div class="term"><span class="k">PDP</span><span class="v">Product Detail Page — the buy page.</span></div>
+          <div class="term"><span class="k">A+ Content</span><span class="v">Brand-owned modules below the fold.</span></div>
+          <div class="term"><span class="k">Brand Store</span><span class="v">Mini-website inside Amazon, brand-only.</span></div>
+          <div class="term"><span class="k">Brand Registry</span><span class="v">Trademark gate that unlocks A+, Stores, IP tools.</span></div>
+          <div class="term"><span class="k">Flat file</span><span class="v">Bulk catalog upload spreadsheet.</span></div>
+          <div class="term"><span class="k">Suppressed</span><span class="v">Listing hidden — usually missing required attribute.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Lumian Optimizer</span><span class="v">AI rewrite of titles + bullets + A+ images per brand.</span></div>
+          <div class="term"><span class="k">Helium 10</span><span class="v">Keyword + listing audit suite.</span></div>
+          <div class="term"><span class="k">Kapoq</span><span class="v">Catalog ops automation; 0.3% GMV pricing.</span></div>
+          <div class="term"><span class="k">SmartScout AI</span><span class="v">"AI Listing Architect" competitor product.</span></div>
+          <div class="term"><span class="k">Pomelli (Google)</span><span class="v">Image / A+ generation labs experiment.</span></div>
+          <div class="term"><span class="k">Nano Banana</span><span class="v">Gemini image gen — strong on lifestyle shots.</span></div>
+          <div class="term"><span class="k">gpt-image-1</span><span class="v">OpenAI image gen — better main images, ~$0.60/img.</span></div>
+          <div class="term"><span class="k">KEEPA</span><span class="v">Historical price + catalog change tracker.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">03 / 11</span><span>Domain · Listings</span></div>
+</section>
+
+<!-- =================== SLIDE 4: FULFILLMENT =================== -->
+<section class="slide" data-title="Fulfillment">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 02 · Logistics</span><h2 style="margin-top:.4rem">Fulfillment &amp; Inventory<span class="accent-yellow">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— Where the boxes actually live.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">FBA / FBM</span><span class="v">Fulfilled by Amazon vs Merchant.</span></div>
+          <div class="term"><span class="k">FC</span><span class="v">Fulfillment Center — the warehouse.</span></div>
+          <div class="term"><span class="k">AWD</span><span class="v">Amazon Warehousing &amp; Distribution — bulk tier.</span></div>
+          <div class="term"><span class="k">Inbound shipment</span><span class="v">Units en route from seller to FC.</span></div>
+          <div class="term"><span class="k">Stranded inventory</span><span class="v">In FC, but listing inactive → can't sell.</span></div>
+          <div class="term"><span class="k">Removal Order</span><span class="v">Return / dispose units to clear stranded.</span></div>
+          <div class="term"><span class="k">Restock limits</span><span class="v">Per-account inbound caps Amazon enforces.</span></div>
+          <div class="term"><span class="k">Days of Supply</span><span class="v">On-hand ÷ velocity — restock signal.</span></div>
+          <div class="term"><span class="k">Vine</span><span class="v">Invite-only review program for new launches.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">SP-API</span><span class="v">Official inventory + orders API. $1,400/yr in 2026.</span></div>
+          <div class="term"><span class="k">ScanPower</span><span class="v">Inventory tooling Robin flagged for resellers.</span></div>
+          <div class="term"><span class="k">Streamline</span><span class="v">Forecasting / ops platform Lumian uses.</span></div>
+          <div class="term"><span class="k">Kapoq Datalink</span><span class="v">API surface for restock + catalog data.</span></div>
+          <div class="term"><span class="k">Quo / OpenPhone</span><span class="v">Virtual phone numbers for FC + 2FA.</span></div>
+          <div class="term"><span class="k">Lumian PIM</span><span class="v">Internal Product Information Mgmt sheet.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">04 / 11</span><span>Domain · Fulfillment</span></div>
+</section>
+
+<!-- =================== SLIDE 5: ADVERTISING =================== -->
+<section class="slide" data-title="Advertising">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 03 · Growth</span><h2 style="margin-top:.4rem">Advertising &amp; PPC<span class="accent-magenta">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— Where the budget gets burned (or earned).</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">SP / SB / SD</span><span class="v">Sponsored Products / Brands / Display.</span></div>
+          <div class="term"><span class="k">DSP</span><span class="v">Demand Side Platform — programmatic, off-Amazon.</span></div>
+          <div class="term"><span class="k">AMC</span><span class="v">Amazon Marketing Cloud — clean-room attribution.</span></div>
+          <div class="term"><span class="k">ACoS / TACoS</span><span class="v">Spend ÷ Sales / total Sales. The margin lever.</span></div>
+          <div class="term"><span class="k">ROAS</span><span class="v">Sales ÷ Spend — inverse of ACoS.</span></div>
+          <div class="term"><span class="k">CTR / CVR / CPC</span><span class="v">Click-through / Conversion / Cost-per-click.</span></div>
+          <div class="term"><span class="k">Match types</span><span class="v">Exact / Phrase / Broad keyword targeting.</span></div>
+          <div class="term"><span class="k">Negative kws</span><span class="v">Excluding wasteful search terms.</span></div>
+          <div class="term"><span class="k">Buy Box</span><span class="v">Featured-seller slot — ads only serve when you own it.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Pacvue</span><span class="v">DSP + PPC mgmt. 3% of ad spend cut.</span></div>
+          <div class="term"><span class="k">Adbrew</span><span class="v">PPC automation, Lumian's backup option.</span></div>
+          <div class="term"><span class="k">Profasee</span><span class="v">Dynamic pricing + ads optimisation.</span></div>
+          <div class="term"><span class="k">Eva / CommerceIQ</span><span class="v">Enterprise-tier full-suite competitors.</span></div>
+          <div class="term"><span class="k">Amazon Ads MCP</span><span class="v">Model Context Protocol — agent access to ad data.</span></div>
+          <div class="term"><span class="k">CloseIQ (Synapse)</span><span class="v">Instant PPC audit + AI chatbot.</span></div>
+          <div class="term"><span class="k">Lumian PPC</span><span class="v">Per-brand budget split, day-parting, Aman's logic.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">05 / 11</span><span>Domain · Advertising</span></div>
+</section>
+
+<!-- =================== SLIDE 6: REVIEWS =================== -->
+<section class="slide" data-title="Reviews">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 04 · Trust</span><h2 style="margin-top:.4rem">Reviews &amp; Reputation<span class="accent-green">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— Stars buy clicks.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Request a Review</span><span class="v">Native button to ping the buyer once.</span></div>
+          <div class="term"><span class="k">VoC / NCX</span><span class="v">Voice of the Customer — Amazon's defect signal.</span></div>
+          <div class="term"><span class="k">Courtesy refund</span><span class="v">Pre-emptive refund to flip a 1-star.</span></div>
+          <div class="term"><span class="k">Policy violation</span><span class="v">Profanity, off-topic, hate, etc — removable.</span></div>
+          <div class="term"><span class="k">Sock-puppet</span><span class="v">Coordinated review-bombing patterns.</span></div>
+          <div class="term"><span class="k">Seller Feedback</span><span class="v">Distinct from product reviews — about the seller.</span></div>
+          <div class="term"><span class="k">A-to-z claim</span><span class="v">Buyer protection escalation.</span></div>
+          <div class="term"><span class="k">INAD</span><span class="v">"Item Not As Described" return reason.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Lumian Reputation</span><span class="v">$99/mo + $50/removed review. Auto-file in 24h.</span></div>
+          <div class="term"><span class="k">Tracefuse</span><span class="v">Pioneer in compliant review removals (~10% rate).</span></div>
+          <div class="term"><span class="k">eCom Triage</span><span class="v">Pay-for-performance, manual case filing.</span></div>
+          <div class="term"><span class="k">Helium 10 Review Req</span><span class="v">Mass review-request automation.</span></div>
+          <div class="term"><span class="k">Lumian Triage LLM</span><span class="v">JSON-output classifier: label + confidence + case text.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">06 / 11</span><span>Domain · Reviews</span></div>
+</section>
+
+<!-- =================== SLIDE 7: ACCOUNT HEALTH =================== -->
+<section class="slide" data-title="Account Health">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 05 · Compliance</span><h2 style="margin-top:.4rem">Account Health &amp; Risk<span class="accent-yellow">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— One wrong attribute = listing dead.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Account Health</span><span class="v">Dashboard with ODR, late-shipment, policy hits.</span></div>
+          <div class="term"><span class="k">Restricted Product</span><span class="v">e.g. shark oil, growth-hormone implication.</span></div>
+          <div class="term"><span class="k">Hazmat / Dangerous Goods</span><span class="v">Needs SDS or exemption sheet to sell.</span></div>
+          <div class="term"><span class="k">Laser Class II</span><span class="v">"&lt;1mW power output" must appear on listing.</span></div>
+          <div class="term"><span class="k">Marine Mammal Act</span><span class="v">Why shark-derived supplements are banned.</span></div>
+          <div class="term"><span class="k">KYB / KYC</span><span class="v">Verification — bank, tax, identity.</span></div>
+          <div class="term"><span class="k">Bilingual labels</span><span class="v">Canada — French required or listing dies.</span></div>
+          <div class="term"><span class="k">Brand Registry IP</span><span class="v">Trademark + counterfeit takedowns.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Lumian Account Health</span><span class="v">Sai's framework: ingest → score → agent.</span></div>
+          <div class="term"><span class="k">Seller Forums</span><span class="v">Taxonomy + error-code source of truth.</span></div>
+          <div class="term"><span class="k">Amazon Helper bot</span><span class="v">Internal assistant — SOPs + case templates.</span></div>
+          <div class="term"><span class="k">My Amazon Guy SOPs</span><span class="v">External SOP library; basis for Lumian RAG.</span></div>
+          <div class="term"><span class="k">SPP / SPN</span><span class="v">Solution Provider Portal / Network — agency whitelisting.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">07 / 11</span><span>Domain · Account Health</span></div>
+</section>
+
+<!-- =================== SLIDE 8: REPORTS =================== -->
+<section class="slide" data-title="Reports & Data">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 06 · Intel</span><h2 style="margin-top:.4rem">Reports &amp; Data<span class="accent-violet">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— Every decision reduces to a CSV.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Business Report</span><span class="v">Sessions, page views, units, conversion.</span></div>
+          <div class="term"><span class="k">SQPR</span><span class="v">Search Query Performance — Brand Analytics keywords.</span></div>
+          <div class="term"><span class="k">Search Term Report</span><span class="v">Customer queries that triggered your ad.</span></div>
+          <div class="term"><span class="k">Targeting Report</span><span class="v">Performance per keyword / ASIN target.</span></div>
+          <div class="term"><span class="k">Purchased Product</span><span class="v">What clicked-then-bought — variant insight.</span></div>
+          <div class="term"><span class="k">Placement Report</span><span class="v">Top-of-search vs ROS vs PDP slot performance.</span></div>
+          <div class="term"><span class="k">All Orders</span><span class="v">Order-level dump — refunds + shipping.</span></div>
+          <div class="term"><span class="k">SP Prompts Report</span><span class="v">New: what shoppers asked Rufus.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">BigQuery</span><span class="v">Lumian's warehouse — Sahil's pipeline lands here.</span></div>
+          <div class="term"><span class="k">Metabase (brain.lumian.ai)</span><span class="v">Internal BI dashboards on top of BQ.</span></div>
+          <div class="term"><span class="k">Lumian BI app</span><span class="v">React/Recharts custom dashboards (BI-* issues).</span></div>
+          <div class="term"><span class="k">DataDive</span><span class="v">3rd-party keyword + market research.</span></div>
+          <div class="term"><span class="k">Sellersynapse / SellerApp</span><span class="v">PDP audit + reviews API.</span></div>
+          <div class="term"><span class="k">Granola</span><span class="v">AI meeting notes — fed into product specs.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">08 / 11</span><span>Domain · Data</span></div>
+</section>
+
+<!-- =================== SLIDE 9: SEARCH =================== -->
+<section class="slide" data-title="Search & Ranking">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 07 · Search</span><h2 style="margin-top:.4rem">Search, Ranking &amp; AI Surfaces<span class="accent-cyan">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— Discoverability is the new moat.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">BSR</span><span class="v">Best Sellers Rank — category position.</span></div>
+          <div class="term"><span class="k">SERP</span><span class="v">Search engine results page — your real estate.</span></div>
+          <div class="term"><span class="k">Indexing</span><span class="v">Whether a term retrieves your ASIN at all.</span></div>
+          <div class="term"><span class="k">Generic keywords</span><span class="v">Backend search field, invisible to buyers.</span></div>
+          <div class="term"><span class="k">Rufus</span><span class="v">Amazon's AI shopping assistant + answer surface.</span></div>
+          <div class="term"><span class="k">Help Me Decide</span><span class="v">Gen-AI shopping comparison feature.</span></div>
+          <div class="term"><span class="k">Lens Live</span><span class="v">Amazon's AR camera shopping — future ad surface.</span></div>
+          <div class="term"><span class="k">Product Opportunity Explorer</span><span class="v">Internal niche-discovery + "Discover Unmet Demand".</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Lumian Rufus Checker</span><span class="v">Tejesh's prototype: Rufus visibility scorer per ASIN.</span></div>
+          <div class="term"><span class="k">Helium 10 Cerebro</span><span class="v">Reverse-ASIN keyword extraction.</span></div>
+          <div class="term"><span class="k">SellerApp</span><span class="v">Reviews + keyword API. ~$850/mo for 1M tokens.</span></div>
+          <div class="term"><span class="k">Apify scrapers</span><span class="v">Hosted Amazon review + search scrapers.</span></div>
+          <div class="term"><span class="k">Amazon SEO Factors API</span><span class="v">New: official ranking-factor signal.</span></div>
+          <div class="term"><span class="k">Dashboard API</span><span class="v">Unofficial seller-central scrape — internal use.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">09 / 11</span><span>Domain · Search</span></div>
+</section>
+
+<!-- =================== SLIDE 10: ECONOMICS =================== -->
+<section class="slide" data-title="Economics">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> 08 · Economics</span><h2 style="margin-top:.4rem">Pricing, Fees &amp; Margin<span class="accent-magenta">.</span> <span class="mono" style="color:var(--muted);font-size:var(--body-size)">— What's left after Amazon takes its cut.</span></h2></div>
+    <div class="domain-grid reveal d2">
+      <div class="panel">
+        <div class="panel-title"><span class="bullet"></span> Amazon-native concepts</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Referral fee</span><span class="v">Amazon's % of sale per category.</span></div>
+          <div class="term"><span class="k">FBA fee</span><span class="v">Per-unit pick / pack / ship cost.</span></div>
+          <div class="term"><span class="k">Storage fee</span><span class="v">Monthly + long-term-storage on aged units.</span></div>
+          <div class="term"><span class="k">Placement fee</span><span class="v">Charged when not shipping to all FCs.</span></div>
+          <div class="term"><span class="k">GMV</span><span class="v">Gross Merchandise Value — top-line.</span></div>
+          <div class="term"><span class="k">MAP</span><span class="v">Minimum Advertised Price — reseller floor.</span></div>
+          <div class="term"><span class="k">Coupons / Deals / S&amp;S</span><span class="v">Discount mechanics → conversion lever.</span></div>
+          <div class="term"><span class="k">SP-API new pricing</span><span class="v">$1,400/yr + $0.40 per 1K calls (2026).</span></div>
+          <div class="term"><span class="k">Amazon surcharge</span><span class="v">3.5% fuel/logistics — 2026 Iran-war era.</span></div>
+        </div>
+      </div>
+      <div class="panel tools">
+        <div class="panel-title"><span class="bullet"></span> Tools that play here</div>
+        <div class="term-list">
+          <div class="term"><span class="k">Aman's coupon model</span><span class="v">First-principles deal logic — median 15 vs 60.</span></div>
+          <div class="term"><span class="k">Informed Repricer</span><span class="v">Reseller automated price wars.</span></div>
+          <div class="term"><span class="k">ScanUnlimited</span><span class="v">Reseller bulk-list arbitrage scanner.</span></div>
+          <div class="term"><span class="k">Profasee</span><span class="v">Dynamic pricing engine — competitor.</span></div>
+          <div class="term"><span class="k">Lumian fee tracker</span><span class="v">Per-brand fee + ad-spend reconciliation.</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span class="slide-num">10 / 11</span><span>Domain · Economics</span></div>
+</section>
+
+<!-- =================== SLIDE 11: TOOLS LANDSCAPE =================== -->
+<section class="slide" data-title="The Tools Landscape">
+  <div class="slide-content">
+    <div class="reveal d1"><span class="chip"><span class="dot"></span> Map</span><h2 style="margin-top:.4rem">Where everyone is fighting<span class="accent-cyan">.</span></h2><p style="margin-top:.2rem">A field of incumbents (well-funded, slow) and AI-natives (Lumian, Superfuel, Jarvio) — all racing to consolidate the seller stack.</p></div>
+    <div class="tools-grid reveal d2">
+      <div class="tool-card"><span class="role">PPC + DSP</span><span class="name">Pacvue</span><span class="desc">Incumbent. 3% of ad spend.</span></div>
+      <div class="tool-card"><span class="role">Catalog ops</span><span class="name">Kapoq</span><span class="desc">$450 base + 0.3% GMV.</span></div>
+      <div class="tool-card"><span class="role">Forecasting</span><span class="name">Streamline</span><span class="desc">Inventory mgmt SaaS.</span></div>
+      <div class="tool-card"><span class="role">Reviews</span><span class="name">Tracefuse</span><span class="desc">Mature ops engine, manual cases.</span></div>
+      <div class="tool-card"><span class="role">Reviews</span><span class="name">eCom Triage</span><span class="desc">Pay-per-removed review.</span></div>
+      <div class="tool-card"><span class="role">Listings</span><span class="name">Helium 10</span><span class="desc">Keyword + audit suite. The default.</span></div>
+      <div class="tool-card"><span class="role">Listings</span><span class="name">DataDive</span><span class="desc">Search + market research.</span></div>
+      <div class="tool-card"><span class="role">Pricing</span><span class="name">Profasee</span><span class="desc">Dynamic pricing engine.</span></div>
+      <div class="tool-card"><span class="role">All-in-one</span><span class="name">Eva Commerce</span><span class="desc">Ads + analytics enterprise.</span></div>
+      <div class="tool-card"><span class="role">All-in-one</span><span class="name">CommerceIQ</span><span class="desc">Enterprise — heaviest competitor.</span></div>
+      <div class="tool-card"><span class="role">All-in-one</span><span class="name">Amalytix</span><span class="desc">EU-leaning analytics.</span></div>
+      <div class="tool-card"><span class="role">AI-native</span><span class="name">Superfuel</span><span class="desc">AI seller copilot, similar thesis.</span></div>
+      <div class="tool-card"><span class="role">AI-native</span><span class="name">Jarvio</span><span class="desc">"Internal OS for the agency".</span></div>
+      <div class="tool-card"><span class="role">AI-native</span><span class="name">Symphonie</span><span class="desc">AI agent for sellers.</span></div>
+      <div class="tool-card"><span class="role">AI-native</span><span class="name">SmartScout</span><span class="desc">Listing Architect + research.</span></div>
+      <div class="tool-card"><span class="role">AI image</span><span class="name">Pomelli</span><span class="desc">Google Labs — A+ generation.</span></div>
+      <div class="tool-card"><span class="role">Ops bots</span><span class="name">Quo / OpenPhone</span><span class="desc">Virtual numbers for FC + 2FA.</span></div>
+      <div class="tool-card" style="border-color:var(--cyan);background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(255,62,165,.06))"><span class="role" style="color:var(--magenta)">Lumian (us)</span><span class="name">content.lumian.ai</span><span class="desc">Listing + image optimizer with brand ctx.</span></div>
+      <div class="tool-card" style="border-color:var(--cyan);background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(255,62,165,.06))"><span class="role" style="color:var(--magenta)">Lumian (us)</span><span class="name">agents.lumian.ai</span><span class="desc">Seller assistant + reputation mgmt.</span></div>
+      <div class="tool-card" style="border-color:var(--cyan);background:linear-gradient(135deg,rgba(0,229,255,.08),rgba(255,62,165,.06))"><span class="role" style="color:var(--magenta)">Lumian (us)</span><span class="name">Rufus Checker</span><span class="desc">Tejesh's visibility scorer prototype.</span></div>
+    </div>
+    <p class="reveal d3 mono" style="text-align:center;margin-top:.4rem">Built from 8 channels of Slack archaeology · Apr 2026</p>
+  </div>
+  <div class="slide-footer"><span class="slide-num">11 / 11</span><span>End · Press ↑ to revisit</span></div>
+</section>
+
+<script>
+/* =========================================
+   SLIDE PRESENTATION CONTROLLER
+   - Intersection Observer triggers .visible class for entrance animations
+   - Keyboard arrows navigate between slides via scrollIntoView
+   - Progress bar tracks scroll position
+   - Right-side dots reflect + jump to current slide
+   ========================================= */
+class Presentation {
+  constructor(){
+    this.slides=[...document.querySelectorAll('.slide')];
+    this.current=0;
+    this.progress=document.getElementById('progress');
+    this.dotsContainer=document.getElementById('navDots');
+    this.buildDots();
+    this.observe();
+    this.bindKeys();
+    this.bindScroll();
+  }
+  buildDots(){
+    this.slides.forEach((s,i)=>{
+      const d=document.createElement('button');
+      d.className='nav-dot';
+      d.title=s.dataset.title||`Slide ${i+1}`;
+      d.addEventListener('click',()=>this.slides[i].scrollIntoView({behavior:'smooth'}));
+      this.dotsContainer.appendChild(d);
+    });
+    this.dots=[...this.dotsContainer.children];
+  }
+  observe(){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          const i=this.slides.indexOf(e.target);
+          if(i>=0){
+            this.current=i;
+            this.dots.forEach((d,j)=>d.classList.toggle('active',j===i));
+          }
+        }
+      });
+    },{threshold:0.5});
+    this.slides.forEach(s=>io.observe(s));
+  }
+  bindKeys(){
+    document.addEventListener('keydown',e=>{
+      if(['ArrowDown','ArrowRight',' ','PageDown'].includes(e.key)){
+        e.preventDefault();
+        const next=Math.min(this.current+1,this.slides.length-1);
+        this.slides[next].scrollIntoView({behavior:'smooth'});
+      } else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){
+        e.preventDefault();
+        const prev=Math.max(this.current-1,0);
+        this.slides[prev].scrollIntoView({behavior:'smooth'});
+      } else if(e.key==='Home'){
+        this.slides[0].scrollIntoView({behavior:'smooth'});
+      } else if(e.key==='End'){
+        this.slides[this.slides.length-1].scrollIntoView({behavior:'smooth'});
+      }
+    });
+  }
+  bindScroll(){
+    let raf;
+    document.addEventListener('scroll',()=>{
+      cancelAnimationFrame(raf);
+      raf=requestAnimationFrame(()=>{
+        const max=document.documentElement.scrollHeight-window.innerHeight;
+        const pct=max>0?(window.scrollY/max)*100:0;
+        this.progress.style.width=pct+'%';
+      });
+    },{passive:true});
+  }
+}
+document.addEventListener('DOMContentLoaded',()=>new Presentation());
+</script>
+</body>
+</html>
