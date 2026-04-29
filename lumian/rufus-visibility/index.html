@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rufus Visibility — Next Steps</title>
+<link rel="icon" type="image/png" href="lumian-logo.png">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&f[]=jetbrains-mono@500,400&f[]=clash-display@700,600,500&display=swap">
+<style>
+:root{
+  --bg:#070b10;
+  --bg-2:#0c1218;
+  --panel:#10171f;
+  --line:#1d2934;
+  --text:#e6edf3;
+  --mute:#7d8a98;
+  --accent:#00ffa3;
+  --accent-2:#3fa1ff;
+  --warn:#ffb86b;
+  --crit:#ff5d6c;
+  --glow: 0 0 24px rgba(0,255,163,.35);
+  --font-d:'Clash Display','Satoshi',sans-serif;
+  --font-b:'Satoshi',system-ui,sans-serif;
+  --font-m:'JetBrains Mono',ui-monospace,monospace;
+  --title-size:clamp(1.9rem,5.4vw,4.2rem);
+  --h2-size:clamp(1.3rem,3.4vw,2.4rem);
+  --h3-size:clamp(1rem,2.2vw,1.5rem);
+  --body-size:clamp(.78rem,1.4vw,1.05rem);
+  --small-size:clamp(.68rem,1vw,.85rem);
+  --slide-padding:clamp(1.25rem,4.5vw,4rem);
+  --content-gap:clamp(.65rem,1.8vw,1.6rem);
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow-x:hidden}
+html{scroll-snap-type:y mandatory;scroll-behavior:smooth}
+body{
+  font-family:var(--font-b);
+  background:var(--bg);
+  color:var(--text);
+  -webkit-font-smoothing:antialiased;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(63,161,255,.10), transparent 60%),
+    radial-gradient(ellipse 50% 35% at 10% 100%, rgba(0,255,163,.08), transparent 60%);
+}
+/* faint scanline + grid */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  background:
+    linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px) 0 0/100% 4px,
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px) 0 0/64px 100%,
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px) 0 0/100% 64px;
+  pointer-events:none;
+  z-index:1;
+  mix-blend-mode:screen;
+  opacity:.5;
+}
+.slide{
+  width:100vw;
+  height:100vh;
+  height:100dvh;
+  padding:var(--slide-padding);
+  scroll-snap-align:start;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+.slide-content{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  max-width:1180px;
+  width:100%;
+  margin:0 auto;
+  max-height:100%;
+  overflow:hidden;
+  position:relative;
+  z-index:2;
+}
+/* Top status bar */
+.top-bar{
+  position:absolute;top:clamp(.75rem,2vw,1.5rem);
+  left:var(--slide-padding);right:var(--slide-padding);
+  display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--mute);
+  z-index:3;
+  letter-spacing:.05em;
+}
+.top-bar .dot{
+  width:.5rem;height:.5rem;border-radius:50%;
+  background:var(--accent);
+  display:inline-block;margin-right:.4rem;
+  box-shadow:0 0 8px var(--accent);
+  animation:pulse 2s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(.85)}
+}
+.bottom-bar{
+  position:absolute;bottom:clamp(.6rem,1.5vw,1.25rem);
+  left:var(--slide-padding);right:var(--slide-padding);
+  display:flex;justify-content:space-between;
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--mute);
+  z-index:3;
+}
+/* Animations */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.slide.visible .reveal{opacity:1;transform:translateY(0)}
+.reveal:nth-child(1){transition-delay:.1s}
+.reveal:nth-child(2){transition-delay:.2s}
+.reveal:nth-child(3){transition-delay:.3s}
+.reveal:nth-child(4){transition-delay:.4s}
+.reveal:nth-child(5){transition-delay:.5s}
+.reveal:nth-child(6){transition-delay:.6s}
+
+/* Typography */
+h1.title{
+  font-family:var(--font-d);
+  font-weight:600;
+  font-size:var(--title-size);
+  line-height:1.02;
+  letter-spacing:-.025em;
+}
+h2{
+  font-family:var(--font-d);
+  font-weight:500;
+  font-size:var(--h2-size);
+  line-height:1.05;
+  letter-spacing:-.02em;
+  margin-bottom:var(--content-gap);
+}
+h3{
+  font-family:var(--font-d);
+  font-size:var(--h3-size);
+  font-weight:500;
+}
+p{font-size:var(--body-size);line-height:1.55;color:var(--text)}
+.mono{font-family:var(--font-m)}
+.mute{color:var(--mute)}
+.accent{color:var(--accent)}
+.accent2{color:var(--accent-2)}
+
+/* Eyebrow tag */
+.tag{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:var(--accent);
+  border:1px solid rgba(0,255,163,.3);
+  background:rgba(0,255,163,.04);
+  padding:.45rem .75rem;
+  border-radius:2px;
+  width:max-content;
+}
+.tag::before{
+  content:"";width:.4rem;height:.4rem;
+  background:var(--accent);border-radius:50%;
+  box-shadow:0 0 8px var(--accent);
+}
+/* Title slide */
+.title-block{display:flex;flex-direction:column;gap:clamp(1rem,2.5vw,2rem)}
+.title-meta{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--mute);
+  display:flex;gap:1.5rem;flex-wrap:wrap;
+}
+.title-meta span span{color:var(--accent-2)}
+
+/* Stat row */
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  gap:clamp(.5rem,1.5vw,1.25rem);
+}
+.stat{
+  border:1px solid var(--line);
+  background:var(--panel);
+  padding:clamp(.85rem,1.8vw,1.4rem);
+  border-radius:4px;
+  position:relative;
+}
+.stat::before{
+  content:"";position:absolute;top:0;left:0;width:2.5rem;height:2px;background:var(--accent);
+}
+.stat .num{
+  font-family:var(--font-d);
+  font-size:clamp(1.8rem,4.5vw,3rem);
+  font-weight:600;
+  line-height:1;
+  color:var(--accent);
+  letter-spacing:-.02em;
+}
+.stat .label{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--mute);
+  text-transform:uppercase;
+  letter-spacing:.1em;
+  margin-top:.5rem;
+  display:block;
+}
+
+/* Code-ish endpoint card */
+.endpoint{
+  border:1px solid var(--line);
+  background:var(--bg-2);
+  border-radius:6px;
+  padding:clamp(.9rem,2vw,1.5rem);
+  font-family:var(--font-m);
+  font-size:var(--body-size);
+  line-height:1.55;
+  position:relative;
+  overflow:hidden;
+}
+.endpoint::before{
+  content:"// rufus.endpoint.captured";
+  position:absolute;top:.5rem;right:.85rem;
+  font-size:var(--small-size);color:var(--mute);
+}
+.endpoint .verb{color:var(--accent);font-weight:500}
+.endpoint .url{color:var(--text)}
+.endpoint .key{color:var(--accent-2)}
+.endpoint .val{color:var(--warn)}
+.endpoint .cmt{color:var(--mute)}
+
+/* Architecture diagram */
+.arch{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:clamp(.5rem,1.5vw,1.25rem);
+  align-items:stretch;
+}
+.box{
+  border:1px solid var(--line);
+  background:var(--panel);
+  border-radius:4px;
+  padding:clamp(.7rem,1.5vw,1.1rem);
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  gap:.5rem;
+}
+.box .h{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--accent);
+}
+.box .l{
+  font-family:var(--font-d);
+  font-size:var(--h3-size);
+  font-weight:500;
+}
+.box .d{
+  font-size:var(--small-size);
+  color:var(--mute);
+  line-height:1.5;
+}
+.arrow{
+  position:absolute;top:50%;right:-1rem;transform:translateY(-50%);
+  color:var(--accent);font-family:var(--font-m);
+  font-size:1.2rem;font-weight:600;
+}
+@media (max-width:780px){
+  .arch{grid-template-columns:1fr}
+  .arrow{display:none}
+}
+/* Safety grid */
+.grid-6{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));
+  gap:clamp(.5rem,1.4vw,1rem);
+}
+.safe{
+  border:1px solid var(--line);
+  border-left:2px solid var(--accent);
+  background:var(--panel);
+  padding:clamp(.7rem,1.5vw,1.1rem);
+  border-radius:0 4px 4px 0;
+}
+.safe .k{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--mute);
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.safe .v{
+  font-family:var(--font-d);
+  font-size:var(--h3-size);
+  font-weight:500;
+  color:var(--text);
+  margin-top:.3rem;
+}
+.safe .x{
+  font-size:var(--small-size);
+  color:var(--mute);
+  margin-top:.4rem;
+  line-height:1.45;
+}
+
+/* Roadmap */
+.road{
+  display:flex;
+  flex-direction:column;
+  gap:clamp(.5rem,1.4vw,1rem);
+}
+.row{
+  display:grid;
+  grid-template-columns:7rem 1fr auto;
+  gap:1rem;
+  border-bottom:1px solid var(--line);
+  padding:clamp(.6rem,1.4vw,1rem) 0;
+  align-items:center;
+}
+.row:last-child{border-bottom:none}
+.row .day{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--accent);
+  letter-spacing:.05em;
+}
+.row .what{font-family:var(--font-d);font-size:var(--h3-size);font-weight:500}
+.row .what em{color:var(--mute);font-style:normal;font-weight:400;display:block;font-size:var(--small-size);margin-top:.2rem;font-family:var(--font-b)}
+.row .pill{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--mute);
+  border:1px solid var(--line);
+  padding:.25rem .55rem;
+  border-radius:2px;
+}
+@media (max-width:780px){
+  .row{grid-template-columns:5rem 1fr}
+  .row .pill{grid-column:1/-1;justify-self:start}
+}
+/* Moat / vs */
+.vs{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(.6rem,1.5vw,1.25rem);
+}
+.col{
+  border:1px solid var(--line);
+  background:var(--panel);
+  padding:clamp(.9rem,2vw,1.4rem);
+  border-radius:4px;
+}
+.col.bad{border-color:rgba(255,93,108,.25)}
+.col.good{border-color:rgba(0,255,163,.3);box-shadow:0 0 30px rgba(0,255,163,.05)}
+.col h3{margin-bottom:.5rem}
+.col.bad h3{color:var(--crit)}
+.col.good h3{color:var(--accent)}
+.col ul{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.col li{
+  font-size:var(--body-size);
+  color:var(--text);
+  padding-left:1rem;
+  position:relative;
+  line-height:1.5;
+}
+.col.bad li::before{content:"×";color:var(--crit);position:absolute;left:0;font-weight:600}
+.col.good li::before{content:"→";color:var(--accent);position:absolute;left:0}
+@media (max-width:780px){.vs{grid-template-columns:1fr}}
+
+/* CTA slide */
+.cta-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(1rem,3vw,2.5rem);
+  align-items:center;
+}
+.qa-list{display:flex;flex-direction:column;gap:.6rem}
+.qa-list .q{
+  font-family:var(--font-m);
+  font-size:var(--body-size);
+  border-left:2px solid var(--accent-2);
+  padding-left:.75rem;
+  color:var(--text);
+  line-height:1.45;
+}
+.path-card{
+  border:1px solid var(--line);
+  background:linear-gradient(180deg, var(--panel), var(--bg-2));
+  padding:clamp(1rem,2.5vw,2rem);
+  border-radius:6px;
+  position:relative;
+  overflow:hidden;
+}
+.path-card::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at top right, rgba(0,255,163,.08), transparent 50%);
+  pointer-events:none;
+}
+.path-card .label{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--accent);
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  margin-bottom:.5rem;
+}
+.path-card .h{
+  font-family:var(--font-d);
+  font-size:var(--h2-size);
+  font-weight:500;
+  margin-bottom:.75rem;
+  line-height:1.1;
+}
+.path-card .d{font-size:var(--body-size);color:var(--mute);line-height:1.5}
+
+/* Generic chips */
+.chips{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.7rem}
+.chip{
+  font-family:var(--font-m);
+  font-size:var(--small-size);
+  color:var(--accent);
+  border:1px solid rgba(0,255,163,.25);
+  background:rgba(0,255,163,.03);
+  padding:.25rem .55rem;
+  border-radius:2px;
+}
+
+/* Nav dots */
+.dots{
+  position:fixed;right:clamp(.8rem,1.8vw,1.5rem);top:50%;
+  transform:translateY(-50%);
+  z-index:5;
+  display:flex;flex-direction:column;gap:.5rem;
+}
+.dots a{
+  width:.5rem;height:.5rem;border-radius:50%;
+  background:var(--line);
+  display:block;
+  transition:background .25s, transform .25s;
+}
+.dots a.active{background:var(--accent);box-shadow:0 0 8px var(--accent);transform:scale(1.3)}
+
+/* Progress */
+.progress{
+  position:fixed;top:0;left:0;height:2px;
+  background:var(--accent);
+  z-index:6;
+  width:0%;
+  box-shadow:0 0 8px var(--accent);
+  transition:width .15s;
+}
+
+/* Code-block */
+pre.code{
+  font-family:var(--font-m);
+  font-size:clamp(.7rem,1.1vw,.95rem);
+  line-height:1.6;
+  background:var(--bg-2);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:clamp(.7rem,1.5vw,1.2rem);
+  overflow:hidden;
+  white-space:pre;
+}
+pre.code .c{color:var(--mute)}
+pre.code .k{color:var(--accent-2)}
+pre.code .s{color:var(--warn)}
+pre.code .ok{color:var(--accent)}
+
+/* Reduce motion */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important}
+  html{scroll-behavior:auto}
+}
+@media (max-height:700px){
+  :root{
+    --slide-padding:clamp(.75rem,3vw,2rem);
+    --content-gap:clamp(.4rem,1.4vw,1rem);
+    --title-size:clamp(1.4rem,4.6vw,2.6rem);
+  }
+}
+@media (max-height:600px){
+  :root{
+    --slide-padding:clamp(.5rem,2.5vw,1.5rem);
+    --title-size:clamp(1.2rem,4vw,2.2rem);
+    --body-size:clamp(.7rem,1.2vw,.9rem);
+  }
+  .top-bar,.bottom-bar,.dots{display:none}
+}
+</style>
+</head>
+<body>
+
+<div class="progress" id="progress"></div>
+<nav class="dots" id="dots"></nav>
+
+<!-- ========== SLIDE 1: TITLE ========== -->
+<section class="slide" data-title="Title">
+  <div class="top-bar reveal">
+    <span><span class="dot"></span>RUFUS_VISIBILITY.deck</span>
+    <span class="mono">v0.1 · 2026-04-29</span>
+  </div>
+  <div class="slide-content">
+    <div class="title-block">
+      <span class="tag reveal">// Internal · Pre-PoC</span>
+      <h1 class="title reveal">Rufus<br><span class="accent">Visibility</span> — Next Steps</h1>
+      <p class="reveal" style="font-size:var(--h3-size);color:var(--mute);max-width:720px;line-height:1.4">
+        Real-time tracking of how Amazon's AI shopping assistant ranks your ASINs — built on the actual Rufus endpoint, not a report API.
+      </p>
+      <div class="title-meta reveal">
+        <span>Tejesh Vaish · <span>Lumian</span></span>
+        <span>Working code: <span>~/.claude/skills/rufus/</span></span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar reveal"><span>01 / 08</span><span class="mono">↓ scroll</span></div>
+</section>
+
+<!-- ========== SLIDE 2: PROBLEM ========== -->
+<section class="slide" data-title="Problem">
+  <div class="top-bar"><span><span class="dot"></span>01_PROBLEM</span><span class="mono">why now</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">The Black Box</span>
+    <h2 class="reveal">Nobody can see what Rufus actually says.</h2>
+    <p class="reveal" style="max-width:780px;color:var(--mute);margin-bottom:var(--content-gap)">
+      Rufus is changing how shoppers discover products — often before they even hit a SERP.
+      Yet it's a complete black box for 99% of brands and agencies.
+    </p>
+    <div class="stat-grid reveal">
+      <div class="stat"><span class="num">99%</span><span class="label">brands with zero visibility</span></div>
+      <div class="stat"><span class="num">0</span><span class="label">tools tracking it real-time</span></div>
+      <div class="stat"><span class="num">∞</span><span class="label">queries Rufus answers daily</span></div>
+      <div class="stat"><span class="num">??</span><span class="label">ASINs surfaced for your category</span></div>
+    </div>
+  </div>
+  <div class="bottom-bar"><span>02 / 08</span><span class="mono">if you can't see it, you can't rank for it</span></div>
+</section>
+
+<!-- ========== SLIDE 3: WHAT I CRACKED ========== -->
+<section class="slide" data-title="Endpoint">
+  <div class="top-bar"><span><span class="dot"></span>02_BREAKTHROUGH</span><span class="mono">reverse-engineered</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">The Endpoint</span>
+    <h2 class="reveal">I cracked the streaming endpoint Rufus actually uses.</h2>
+    <div class="endpoint reveal">
+      <span class="verb">POST</span> <span class="url">https://www.amazon.com/rufus/cl/streaming</span>
+      <br><span class="cmt">  ?tabId=&lt;uuid&gt;&amp;ref=nl_cl_dsk_csq&amp;programId=NILE_CLASSIC...</span>
+      <br>
+      <br><span class="key">Content-Type</span>: <span class="val">application/json</span>
+      <br><span class="key">Accept</span>: <span class="val">text/event-stream</span>
+      <br><span class="key">anti-csrftoken-a2z</span>: <span class="val">&lt;session-bound&gt;</span>
+      <br><span class="key">Cookie</span>: <span class="val">session-id, ubid-main, at-main, x-main, ...</span>
+      <br>
+      <br><span class="cmt">// Body: {"queryContext":{"query":"&lt;USER_QUERY&gt;",...}}</span>
+      <br><span class="cmt">// Returns: SSE stream, ~150-180KB, 25-45 chunks</span>
+    </div>
+    <p class="reveal mute" style="margin-top:var(--content-gap);font-size:var(--small-size);font-family:var(--font-m)">
+      Hidden in the page subframe — invisible to top-level CDP. Found via browser-level <span class="accent">Target.setAutoAttach</span> auto-attach.
+    </p>
+  </div>
+  <div class="bottom-bar"><span>03 / 08</span><span class="mono">DISCOVERY.md</span></div>
+</section>
+
+<!-- ========== SLIDE 4: PROOF ========== -->
+<section class="slide" data-title="Proof">
+  <div class="top-bar"><span><span class="dot"></span>03_PROOF</span><span class="mono">working python replay</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">It Works</span>
+    <h2 class="reveal">Pure Python. No browser. Live ASINs.</h2>
+    <pre class="code reveal"><span class="c">$ python3 ~/.claude/skills/rufus/query.py "best portable monitor for laptop"</span>
+  ~typing 4.2s for query: 'best portable monitor for laptop'
+  <span class="k">POST</span> -&gt; rufus/cl/streaming
+  <span class="ok">OK</span> status=<span class="ok">200</span> dur=21.0s asins=<span class="ok">11</span>
+  events={'context':1,'affordance':1,'interim':2,'inference':<span class="ok">111</span>,
+          'remove':1,'feedback':1,'close':1}
+  appended to /tmp/rufus_results.jsonl</pre>
+    <div class="stat-grid reveal" style="margin-top:var(--content-gap)">
+      <div class="stat"><span class="num">11</span><span class="label">ASINs / query</span></div>
+      <div class="stat"><span class="num">21s</span><span class="label">end-to-end stream</span></div>
+      <div class="stat"><span class="num">100x</span><span class="label">faster than UI scraping</span></div>
+      <div class="stat"><span class="num">0</span><span class="label">browsers needed</span></div>
+    </div>
+  </div>
+  <div class="bottom-bar"><span>04 / 08</span><span class="mono">replayable with cookies + csrf</span></div>
+</section>
+
+<!-- ========== SLIDE 5: ARCHITECTURE ========== -->
+<section class="slide" data-title="Architecture">
+  <div class="top-bar"><span><span class="dot"></span>04_ARCHITECTURE</span><span class="mono">production shape</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">System Design</span>
+    <h2 class="reveal">Account-pool → Rufus-runner → Dashboard.</h2>
+    <div class="arch reveal">
+      <div class="box">
+        <span class="h">01 · Source</span>
+        <span class="l">Account Pool</span>
+        <span class="d">100s of consumer Amazon accounts. Cookies refreshed daily via headless login. Builds on existing <span class="accent">credential-service</span>.</span>
+        <div class="chips"><span class="chip">postgres</span><span class="chip">credential-service</span></div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="box">
+        <span class="h">02 · Engine</span>
+        <span class="l">Rufus-Runner</span>
+        <span class="d">Reads cookies, fires SSE POST to Rufus, parses ASINs + answer. Stateless workers, BullMQ-driven. Residential proxy per worker.</span>
+        <div class="chips"><span class="chip">python</span><span class="chip">SSE</span><span class="chip">proxy-pool</span></div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="box">
+        <span class="h">03 · Surface</span>
+        <span class="l">Dashboard</span>
+        <span class="d">Per-brand query coverage, ASIN rank over time, "no-good-answer" gap detection, refinement flow tracking.</span>
+        <div class="chips"><span class="chip">BigQuery</span><span class="chip">react</span><span class="chip">recharts</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar"><span>05 / 08</span><span class="mono">reuses 70% of sahil's existing infra</span></div>
+</section>
+
+<!-- ========== SLIDE 6: SAFETY ========== -->
+<section class="slide" data-title="Safety">
+  <div class="top-bar"><span><span class="dot"></span>05_SAFETY</span><span class="mono">don't get banned</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">Anti-Detection</span>
+    <h2 class="reveal">Six layers between us and a captcha.</h2>
+    <div class="grid-6 reveal">
+      <div class="safe">
+        <span class="k">L1 · Pacing</span>
+        <span class="v">Gaussian sleep</span>
+        <span class="x">90-240s between queries, μ=165s, σ=45s. No fixed intervals.</span>
+      </div>
+      <div class="safe">
+        <span class="k">L2 · Cap</span>
+        <span class="v">8 / hour</span>
+        <span class="x">Hard hourly limit per account, persisted across runs.</span>
+      </div>
+      <div class="safe">
+        <span class="k">L3 · Fingerprint</span>
+        <span class="v">Real device match</span>
+        <span class="x">UA, viewport, dpr pulled live from CDP — never hardcoded.</span>
+      </div>
+      <div class="safe">
+        <span class="k">L4 · CSRF</span>
+        <span class="v">Token rotation</span>
+        <span class="x">anti-csrftoken-a2z refreshed every 4 queries from page HTML.</span>
+      </div>
+      <div class="safe">
+        <span class="k">L5 · Typing</span>
+        <span class="v">Human delay</span>
+        <span class="x">0.05-0.15s/char + 0.5-2s think pause before submit.</span>
+      </div>
+      <div class="safe">
+        <span class="k">L6 · Block detect</span>
+        <span class="v">Hard stop</span>
+        <span class="x">Captcha keywords → exit immediately. No retries through blocks.</span>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar"><span>06 / 08</span><span class="mono">retry-through-block = account dies</span></div>
+</section>
+
+<!-- ========== SLIDE 7: MOAT ========== -->
+<section class="slide" data-title="Moat">
+  <div class="top-bar"><span><span class="dot"></span>06_MOAT</span><span class="mono">why this wins</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">Differentiator</span>
+    <h2 class="reveal">Real Rufus sessions. Not Amazon's report API.</h2>
+    <div class="vs reveal">
+      <div class="col bad">
+        <h3>Everyone Else</h3>
+        <ul>
+          <li>SP-API reports — lagging, aggregated, no Rufus signal</li>
+          <li>SERP scraping — wrong surface, Rufus answers come BEFORE SERP</li>
+          <li>Survey panels — slow, expensive, biased</li>
+          <li>Brand Analytics — only your own ASINs</li>
+        </ul>
+      </div>
+      <div class="col good">
+        <h3>Rufus Visibility</h3>
+        <ul>
+          <li>Live SSE stream from the actual Rufus chat surface</li>
+          <li>Real shopper sessions, real answers, real ASIN rank</li>
+          <li>Refinement flows — see what Rufus says when query gets narrower</li>
+          <li>Gap detection — find queries where Rufus has no good answer</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-bar"><span>07 / 08</span><span class="mono">first-mover · brittle but real</span></div>
+</section>
+
+<!-- ========== SLIDE 9: CTA ========== -->
+<section class="slide" data-title="CTA">
+  <div class="top-bar"><span><span class="dot"></span>07_NEXT</span><span class="mono">action items</span></div>
+  <div class="slide-content">
+    <span class="tag reveal">For The Call</span>
+    <h2 class="reveal">Three things to align with Sahil.</h2>
+    <div class="cta-grid">
+      <div class="qa-list reveal">
+        <p class="q">1 · Confirm we can clone <span class="accent">automation-service</span> for consumer Amazon login (different domain, different MFA).</p>
+        <p class="q">2 · Allocate residential proxy budget — Bright Data / IPRoyal, ~$200/mo for PoC.</p>
+        <p class="q">3 · Source 5 burner consumer accounts to start. Account pool grows from there.</p>
+      </div>
+      <div class="path-card reveal">
+        <span class="label">// Working Code</span>
+        <span class="h">Already shipped locally.</span>
+        <p class="d mono" style="margin-bottom:.5rem">~/.claude/skills/rufus/</p>
+        <p class="d">SKILL.md · refresh_session.py · query.py · batch.py · DISCOVERY.md</p>
+        <div class="chips">
+          <span class="chip">tested</span>
+          <span class="chip">11 ASINs verified</span>
+          <span class="chip">safe pacing on</span>
+        </div>
+      </div>
+    </div>
+    <p class="reveal mute mono" style="margin-top:var(--content-gap);font-size:var(--small-size);text-align:center">
+      Tejesh Vaish · tejesh@lumian.ai · 2026-04-29
+    </p>
+  </div>
+  <div class="bottom-bar"><span>08 / 08</span><span class="mono">↑ ship it</span></div>
+</section>
+
+<script>
+/* ============================================
+   Slide controller — nav, dots, progress, animation triggers
+   ============================================ */
+class Deck {
+  constructor(){
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.dots = document.getElementById('dots');
+    this.progress = document.getElementById('progress');
+    this.current = 0;
+    this.buildDots();
+    this.observe();
+    this.bindKeys();
+    this.bindScroll();
+  }
+  buildDots(){
+    this.slides.forEach((s,i)=>{
+      const a=document.createElement('a');
+      a.title=s.dataset.title||`Slide ${i+1}`;
+      a.addEventListener('click',()=>this.go(i));
+      this.dots.appendChild(a);
+    });
+    this.dots.children[0].classList.add('active');
+  }
+  observe(){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          const idx=this.slides.indexOf(e.target);
+          this.current=idx;
+          this.updateDots();
+          this.updateProgress();
+        }
+      });
+    },{threshold:0.5});
+    this.slides.forEach(s=>io.observe(s));
+  }
+  updateDots(){
+    [...this.dots.children].forEach((d,i)=>d.classList.toggle('active',i===this.current));
+  }
+  updateProgress(){
+    const pct=this.slides.length>1?(this.current/(this.slides.length-1))*100:0;
+    this.progress.style.width=pct+'%';
+  }
+  go(i){
+    if(i<0||i>=this.slides.length)return;
+    this.slides[i].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  bindKeys(){
+    addEventListener('keydown',e=>{
+      if(['ArrowDown','ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();this.go(this.current+1);}
+      else if(['ArrowUp','ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();this.go(this.current-1);}
+      else if(e.key==='Home'){e.preventDefault();this.go(0);}
+      else if(e.key==='End'){e.preventDefault();this.go(this.slides.length-1);}
+    });
+  }
+  bindScroll(){
+    // touch swipe
+    let y0=null;
+    addEventListener('touchstart',e=>{y0=e.touches[0].clientY},{passive:true});
+    addEventListener('touchend',e=>{
+      if(y0===null)return;
+      const dy=e.changedTouches[0].clientY-y0;
+      if(Math.abs(dy)>60){this.go(this.current+(dy<0?1:-1));}
+      y0=null;
+    },{passive:true});
+  }
+}
+new Deck();
+/* Mark first slide visible immediately so animation fires on load */
+document.querySelector('.slide').classList.add('visible');
+</script>
+</body>
+</html>
