@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Rufus Visibility — Next Steps</title>
-<link rel="icon" type="image/png" href="lumian-logo.png">
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@900,700,500,400&f[]=jetbrains-mono@500,400&f[]=clash-display@700,600,500&display=swap">
 <style>
 :root{
@@ -598,31 +597,31 @@ pre.code .ok{color:var(--accent)}
   <div class="top-bar"><span><span class="dot"></span>04_ARCHITECTURE</span><span class="mono">production shape</span></div>
   <div class="slide-content">
     <span class="tag reveal">System Design</span>
-    <h2 class="reveal">Account-pool → Rufus-runner → Dashboard.</h2>
+    <h2 class="reveal">SC login → consumer SSO → Rufus → Dashboard.</h2>
     <div class="arch reveal">
       <div class="box">
-        <span class="h">01 · Source</span>
-        <span class="l">Account Pool</span>
-        <span class="d">100s of consumer Amazon accounts. Cookies refreshed daily via headless login. Builds on existing <span class="accent">credential-service</span>.</span>
-        <div class="chips"><span class="chip">postgres</span><span class="chip">credential-service</span></div>
+        <span class="h">01 · Login (TOTP)</span>
+        <span class="l">Seller Central</span>
+        <span class="d">Existing <span class="accent">automation-service</span> logs in via TOTP every 3h. Then navigates to amazon.com — auto-logged in (cookies are domain-scoped). No SMS OTP needed.</span>
+        <div class="chips"><span class="chip">webdriverIO</span><span class="chip">otplib</span></div>
         <div class="arrow">→</div>
       </div>
       <div class="box">
-        <span class="h">02 · Engine</span>
+        <span class="h">02 · Cookies + CSRF</span>
+        <span class="l">credential-service</span>
+        <span class="d">New <code>credentialType=amazon_customer_portal</code>. Cookies + Rufus CSRF (~6h TTL) stored AES-encrypted in Postgres. Same store as SC creds.</span>
+        <div class="chips"><span class="chip">postgres</span><span class="chip">AES-256</span></div>
+        <div class="arrow">→</div>
+      </div>
+      <div class="box">
+        <span class="h">03 · Engine + UI</span>
         <span class="l">Rufus-Runner</span>
-        <span class="d">Reads cookies, fires SSE POST to Rufus, parses ASINs + answer. Stateless workers, BullMQ-driven. Residential proxy per worker.</span>
-        <div class="chips"><span class="chip">python</span><span class="chip">SSE</span><span class="chip">proxy-pool</span></div>
-        <div class="arrow">→</div>
-      </div>
-      <div class="box">
-        <span class="h">03 · Surface</span>
-        <span class="l">Dashboard</span>
-        <span class="d">Per-brand query coverage, ASIN rank over time, "no-good-answer" gap detection, refinement flow tracking.</span>
-        <div class="chips"><span class="chip">BigQuery</span><span class="chip">react</span><span class="chip">recharts</span></div>
+        <span class="d">Stateless worker fires SSE POST to Rufus, parses ASINs, writes BigQuery. Dashboard surfaces rank-over-time + content gaps.</span>
+        <div class="chips"><span class="chip">python</span><span class="chip">SSE</span><span class="chip">BigQuery</span></div>
       </div>
     </div>
   </div>
-  <div class="bottom-bar"><span>05 / 08</span><span class="mono">reuses 70% of sahil's existing infra</span></div>
+  <div class="bottom-bar"><span>05 / 08</span><span class="mono">extends automation-service · zero new login flow</span></div>
 </section>
 
 <!-- ========== SLIDE 6: SAFETY ========== -->
@@ -701,23 +700,23 @@ pre.code .ok{color:var(--accent)}
 <section class="slide" data-title="CTA">
   <div class="top-bar"><span><span class="dot"></span>07_NEXT</span><span class="mono">action items</span></div>
   <div class="slide-content">
-    <span class="tag reveal">For The Call</span>
-    <h2 class="reveal">Three things to align with Sahil.</h2>
+    <span class="tag reveal">Decided On Call</span>
+    <h2 class="reveal">SC → consumer SSO. Three blockers left.</h2>
     <div class="cta-grid">
       <div class="qa-list reveal">
-        <p class="q">1 · Confirm we can clone <span class="accent">automation-service</span> for consumer Amazon login (different domain, different MFA).</p>
-        <p class="q">2 · Allocate residential proxy budget — Bright Data / IPRoyal, ~$200/mo for PoC.</p>
-        <p class="q">3 · Source 5 burner consumer accounts to start. Account pool grows from there.</p>
+        <p class="q">1 · <span class="accent">Provision a Lumian SC account</span> (or attach dedicated email to existing one). Constraint: must be a registered seller.</p>
+        <p class="q">2 · Mint <span class="accent">dedicated email</span> for this credential — isolated from email used by Asana / inventory pipelines so a flag here doesn't break those.</p>
+        <p class="q">3 · Extend <span class="accent">automation-service</span>: after SC login, navigate to amazon.com → open Rufus tab → extract cookies + CSRF. New credentialType <code>amazon_customer_portal</code>.</p>
       </div>
       <div class="path-card reveal">
         <span class="label">// Working Code</span>
-        <span class="h">Already shipped locally.</span>
-        <p class="d mono" style="margin-bottom:.5rem">~/.claude/skills/rufus/</p>
-        <p class="d">SKILL.md · refresh_session.py · query.py · batch.py · DISCOVERY.md</p>
+        <span class="h">PoC shipped, replay verified.</span>
+        <p class="d mono" style="margin-bottom:.5rem">github.com/Lumian-AI/rufus-visibility</p>
+        <p class="d">deck/ · skill/ · demo/ — local dashboard fires live Rufus queries, parses ASINs, surfaces gaps.</p>
         <div class="chips">
-          <span class="chip">tested</span>
-          <span class="chip">11 ASINs verified</span>
-          <span class="chip">safe pacing on</span>
+          <span class="chip">replay 200</span>
+          <span class="chip">11 ASINs/query</span>
+          <span class="chip">safe pacing</span>
         </div>
       </div>
     </div>
