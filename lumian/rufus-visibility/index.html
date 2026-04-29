@@ -629,7 +629,7 @@ pre.code .ok{color:var(--accent)}
   <div class="top-bar"><span><span class="dot"></span>05_SAFETY</span><span class="mono">don't get banned</span></div>
   <div class="slide-content">
     <span class="tag reveal">Anti-Detection</span>
-    <h2 class="reveal">Six layers between us and a captcha.</h2>
+    <h2 class="reveal">Five layers between us and a captcha.</h2>
     <div class="grid-6 reveal">
       <div class="safe">
         <span class="k">L1 · Pacing</span>
@@ -642,22 +642,17 @@ pre.code .ok{color:var(--accent)}
         <span class="x">Hard hourly limit per account, persisted across runs.</span>
       </div>
       <div class="safe">
-        <span class="k">L3 · Fingerprint</span>
-        <span class="v">Login session match</span>
-        <span class="x">UA + viewport captured during SC WebdriverIO login, replayed verbatim for Rufus calls. Cookies and HTTP look like one client.</span>
-      </div>
-      <div class="safe">
-        <span class="k">L4 · CSRF</span>
+        <span class="k">L3 · CSRF</span>
         <span class="v">3h auto-refresh</span>
         <span class="x">anti-csrftoken-a2z extracted on every cookie-refresh cron. Rufus CSRF TTL ~6h — comfortable margin.</span>
       </div>
       <div class="safe">
-        <span class="k">L5 · Jitter</span>
+        <span class="k">L4 · Jitter</span>
         <span class="v">Pre-query delay</span>
         <span class="x">Random 0.5-3s pause before each request. Breaks robotic timing patterns at the runner.</span>
       </div>
       <div class="safe">
-        <span class="k">L6 · Block detect</span>
+        <span class="k">L5 · Block detect</span>
         <span class="v">Hard stop</span>
         <span class="x">Captcha keywords → exit immediately. No retries through blocks.</span>
       </div>
