@@ -643,18 +643,18 @@ pre.code .ok{color:var(--accent)}
       </div>
       <div class="safe">
         <span class="k">L3 · Fingerprint</span>
-        <span class="v">Real device match</span>
-        <span class="x">UA, viewport, dpr pulled live from CDP — never hardcoded.</span>
+        <span class="v">Login session match</span>
+        <span class="x">UA + viewport captured during SC WebdriverIO login, replayed verbatim for Rufus calls. Cookies and HTTP look like one client.</span>
       </div>
       <div class="safe">
         <span class="k">L4 · CSRF</span>
-        <span class="v">Token rotation</span>
-        <span class="x">anti-csrftoken-a2z refreshed every 4 queries from page HTML.</span>
+        <span class="v">3h auto-refresh</span>
+        <span class="x">anti-csrftoken-a2z extracted on every cookie-refresh cron. Rufus CSRF TTL ~6h — comfortable margin.</span>
       </div>
       <div class="safe">
-        <span class="k">L5 · Typing</span>
-        <span class="v">Human delay</span>
-        <span class="x">0.05-0.15s/char + 0.5-2s think pause before submit.</span>
+        <span class="k">L5 · Jitter</span>
+        <span class="v">Pre-query delay</span>
+        <span class="x">Random 0.5-3s pause before each request. Breaks robotic timing patterns at the runner.</span>
       </div>
       <div class="safe">
         <span class="k">L6 · Block detect</span>
