@@ -710,18 +710,18 @@ pre.code .ok{color:var(--accent)}
       <div class="qa-list reveal">
         <p class="q">✓ <span class="accent">Auto query generation</span>. Enter ASIN → scrape title from /dp/&lt;ASIN&gt; → GPT-4o-mini generates 8 plausible shopper queries.</p>
         <p class="q">✓ <span class="accent">Realtime visibility check</span>. SSE streams every product Rufus returns per query as it lands. Target ASIN highlighted in the grid.</p>
-        <p class="q">✓ <span class="accent">Rufus Visibility Score (RVS)</span>. Single 0-100 number per ASIN. Rank-decayed: rank #1 = 10pts, #2 = 9pts ... #10 = 1pt, missing = 0. Normalized so 100 = #1 on every query. Plus top-3 share + win rate + per-query gap view for competitive intel.</p>
+        <p class="q">✓ <span class="accent">Rufus Visibility Score (RVS)</span>. Single 0-100 number per ASIN. Two-part: Coverage (0-40, how often you show up) + Quality (0-60, average position when you do). One #1 hit out of 8 queries = 65/100 — rewards getting picked even rarely. Plus top-3 share + win rate + per-query gap view.</p>
         <p class="q">→ Next: <span class="accent">Cloudflare Access</span> (email-gate @lumian.ai), BigQuery sink for RVS-over-time, multi-account scaling.</p>
       </div>
       <div class="path-card reveal">
         <span class="label">// Score Formula</span>
-        <span class="h">RVS = Σ max(0, 11−rank<sub>i</sub>) / (10·N) · 100</span>
+        <span class="h">RVS = (surfaced/N · 40) + (avg(11−rank) / 10 · 60)</span>
         <p class="d mono" style="margin-bottom:.5rem">rufus.lumian.ai · github.com/Lumian-AI/rufus-visibility</p>
-        <p class="d">100 = #1 on every query. Rank-decay matches Rufus's 7-11 product return — slot 11+ scores zero. Tracks over time, comparable across SKUs, single number a brand can own.</p>
+        <p class="d">100 = always surfaced AND always #1. Coverage rewards showing up; Quality rewards the position when you do. A single rank-1 hit on 8 queries = 65/100, not 12 — because when Rufus does pick you, it picks you first.</p>
         <div class="chips">
           <span class="chip">RVS 0-100</span>
-          <span class="chip">top-3 share</span>
-          <span class="chip">win rate</span>
+          <span class="chip">coverage + quality</span>
+          <span class="chip">top-3 + wins</span>
           <span class="chip">SSE live</span>
         </div>
       </div>
