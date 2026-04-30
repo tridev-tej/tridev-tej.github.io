@@ -596,32 +596,32 @@ pre.code .ok{color:var(--accent)}
 <section class="slide" data-title="Architecture">
   <div class="top-bar"><span><span class="dot"></span>04_ARCHITECTURE</span><span class="mono">production shape</span></div>
   <div class="slide-content">
-    <span class="tag reveal">System Design</span>
-    <h2 class="reveal">Persistent browser → CDP scrape → Rufus → Dashboard.</h2>
+    <span class="tag reveal">Live Architecture · Deployed</span>
+    <h2 class="reveal">Persistent Chrome → app server → public HTTPS.</h2>
     <div class="arch reveal">
       <div class="box">
-        <span class="h">01 · Long-lived session</span>
-        <span class="l">Persistent Chrome</span>
-        <span class="d">Headless Chrome on <code>tejesh-dev-vm</code> (GCP, e2-small, us-central1) with <span class="accent">human-logged-in</span> consumer Amazon. Survives via systemd. SMS OTP eaten once.</span>
-        <div class="chips"><span class="chip">CDP :9222</span><span class="chip">systemd</span><span class="chip">gcp</span></div>
+        <span class="h">01 · Persistent session</span>
+        <span class="l">Headless Chrome</span>
+        <span class="d">On <code>tejesh-dev-vm</code> (GCP, e2-small, us-central1). Human-logged-in once via VNC. CDP exposed loopback-only on :9222. systemd auto-restarts.</span>
+        <div class="chips"><span class="chip">Xvfb :99</span><span class="chip">CDP :9222</span></div>
         <div class="arrow">→</div>
       </div>
       <div class="box">
-        <span class="h">02 · Cookies + CSRF</span>
-        <span class="l">credential-service</span>
-        <span class="d">Cron every 3h: <code>Storage.getCookies</code> via CDP + scrape <code>anti-csrftoken-a2z</code>. PATCH to credential-service, AES-encrypted Postgres.</span>
-        <div class="chips"><span class="chip">postgres</span><span class="chip">AES-256</span></div>
+        <span class="h">02 · App server</span>
+        <span class="l">Python + skill</span>
+        <span class="d">Wraps <code>skill/query.py</code>: cookie refresh every 3h, Rufus query with safety pacing, ASIN parser. API-key gated, CORS enabled.</span>
+        <div class="chips"><span class="chip">:8765</span><span class="chip">x-api-key</span></div>
         <div class="arrow">→</div>
       </div>
       <div class="box">
-        <span class="h">03 · Engine + UI</span>
-        <span class="l">Rufus-Runner</span>
-        <span class="d">Stateless worker fires SSE POST to Rufus, parses ASINs, writes BigQuery. Dashboard surfaces rank-over-time + content gaps. Heartbeat alerts OTP-holder on session loss.</span>
-        <div class="chips"><span class="chip">python</span><span class="chip">SSE</span><span class="chip">BigQuery</span></div>
+        <span class="h">03 · Public surface</span>
+        <span class="l">Cloudflare Tunnel</span>
+        <span class="d">Outbound tunnel from VM → free HTTPS at <code>*.trycloudflare.com</code>. No firewall opening, no public IP exposure. Dashboard = Visibility Check by ASIN.</span>
+        <div class="chips"><span class="chip">HTTPS</span><span class="chip">live</span></div>
       </div>
     </div>
   </div>
-  <div class="bottom-bar"><span>05 / 08</span><span class="mono">same pattern as local PoC · scaled to EC2</span></div>
+  <div class="bottom-bar"><span>05 / 08</span><span class="mono">5 systemd services · auto-recover on reboot</span></div>
 </section>
 
 <!-- ========== SLIDE 6: SAFETY ========== -->
@@ -695,13 +695,13 @@ pre.code .ok{color:var(--accent)}
 <section class="slide" data-title="CTA">
   <div class="top-bar"><span><span class="dot"></span>07_NEXT</span><span class="mono">action items</span></div>
   <div class="slide-content">
-    <span class="tag reveal">Decided On Call</span>
-    <h2 class="reveal">Persistent browser. Three things to ship.</h2>
+    <span class="tag reveal">Shipped + Next</span>
+    <h2 class="reveal">PoC live. Now hardening for clients.</h2>
     <div class="cta-grid">
       <div class="qa-list reveal">
-        <p class="q">1 · Stand up <span class="accent">persistent Chrome on tejesh-dev-vm</span> (GCP, already exists). systemd-managed, CDP on :9222. One consumer Amazon account, manually logged in once.</p>
-        <p class="q">2 · Define <span class="accent">OTP-holder rotation</span> + Slack alert — when heartbeat detects session loss (Rufus 401/403), human gets paged with a one-click VNC URL to re-login.</p>
-        <p class="q">3 · Build <span class="accent">cookie-refresh cron</span> + Rufus runner. CDP scrape every 3h, replay against Rufus, parse ASINs, write to BigQuery <code>staging.rufus_asin_surfaces</code>.</p>
+        <p class="q">✓ <span class="accent">Persistent Chrome live</span> on tejesh-dev-vm. 5 systemd services, auto-recover on reboot. Manual login complete, session persists.</p>
+        <p class="q">✓ <span class="accent">App + dashboard deployed</span>. Public HTTPS via Cloudflare Tunnel. Visibility Check by ASIN works against live Rufus today.</p>
+        <p class="q">→ Next: <span class="accent">named tunnel + Cloudflare Access</span> (stable URL, email-gated to @lumian.ai), heartbeat-driven OTP refresh alert, BigQuery sink for historical visibility.</p>
       </div>
       <div class="path-card reveal">
         <span class="label">// Working Code</span>
