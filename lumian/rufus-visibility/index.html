@@ -608,20 +608,20 @@ pre.code .ok{color:var(--accent)}
       </div>
       <div class="box">
         <span class="h">02 · App server</span>
-        <span class="l">Python + skill</span>
-        <span class="d">Wraps <code>skill/query.py</code>: cookie refresh every 3h, Rufus query with safety pacing, ASIN parser. API-key gated, CORS enabled.</span>
-        <div class="chips"><span class="chip">:8765</span><span class="chip">x-api-key</span></div>
+        <span class="l">Python + skill + SSE</span>
+        <span class="d">Wraps <code>skill/query.py</code>: hourly cookie keepalive (navigates Amazon tab + scrapes session), GPT-4o-mini auto-generates 8 queries from product title, fires Rufus, streams every surface back over SSE.</span>
+        <div class="chips"><span class="chip">:8765</span><span class="chip">SSE</span><span class="chip">openai</span></div>
         <div class="arrow">→</div>
       </div>
       <div class="box">
         <span class="h">03 · Public surface</span>
-        <span class="l">Cloudflare Tunnel</span>
-        <span class="d">Outbound tunnel from VM → free HTTPS at <code>*.trycloudflare.com</code>. No firewall opening, no public IP exposure. Dashboard = Visibility Check by ASIN.</span>
-        <div class="chips"><span class="chip">HTTPS</span><span class="chip">live</span></div>
+        <span class="l">Cloudflare named tunnel</span>
+        <span class="d">Outbound tunnel from VM → stable HTTPS at <code>rufus.lumian.ai</code>. No firewall opening, no public IP. URL persists across restarts. Dashboard auto-generates queries + shows full product grid per query, target ASIN highlighted.</span>
+        <div class="chips"><span class="chip">rufus.lumian.ai</span><span class="chip">stable</span></div>
       </div>
     </div>
   </div>
-  <div class="bottom-bar"><span>05 / 08</span><span class="mono">5 systemd services · auto-recover on reboot</span></div>
+  <div class="bottom-bar"><span>05 / 08</span><span class="mono">6 systemd services · auto-recover on reboot</span></div>
 </section>
 
 <!-- ========== SLIDE 6: SAFETY ========== -->
@@ -634,17 +634,17 @@ pre.code .ok{color:var(--accent)}
       <div class="safe">
         <span class="k">L1 · Pacing</span>
         <span class="v">Gaussian sleep</span>
-        <span class="x">90-240s between queries, μ=165s, σ=45s. No fixed intervals.</span>
+        <span class="x">2-7s between queries, μ=4s, σ=1.5s. Tuned for realtime UX, still gaussian — no robotic intervals.</span>
       </div>
       <div class="safe">
         <span class="k">L2 · Cap</span>
-        <span class="v">8 / hour</span>
-        <span class="x">Hard hourly limit per account, persisted across runs.</span>
+        <span class="v">8 / minute</span>
+        <span class="x">Rolling 60s window cap, persisted across runs. Sahil's tested limit at single IP.</span>
       </div>
       <div class="safe">
-        <span class="k">L3 · CSRF</span>
-        <span class="v">3h auto-refresh</span>
-        <span class="x">anti-csrftoken-a2z extracted on every cookie-refresh cron. Rufus CSRF TTL ~6h — comfortable margin.</span>
+        <span class="k">L3 · Session keepalive</span>
+        <span class="v">1h auto-refresh</span>
+        <span class="x">Hourly systemd timer navigates Amazon tab to a random page (homepage / your-store / buy-again) then scrapes cookies + CSRF. Generates real traffic so Amazon sees the session as active.</span>
       </div>
       <div class="safe">
         <span class="k">L4 · Jitter</span>
@@ -696,22 +696,24 @@ pre.code .ok{color:var(--accent)}
   <div class="top-bar"><span><span class="dot"></span>07_NEXT</span><span class="mono">action items</span></div>
   <div class="slide-content">
     <span class="tag reveal">Shipped + Next</span>
-    <h2 class="reveal">PoC live. Now hardening for clients.</h2>
+    <h2 class="reveal">Live at rufus.lumian.ai. Hardening for clients next.</h2>
     <div class="cta-grid">
       <div class="qa-list reveal">
-        <p class="q">✓ <span class="accent">Persistent Chrome live</span> on tejesh-dev-vm. 5 systemd services, auto-recover on reboot. Manual login complete, session persists.</p>
-        <p class="q">✓ <span class="accent">App + dashboard deployed</span>. Public HTTPS via Cloudflare Tunnel. Visibility Check by ASIN works against live Rufus today.</p>
-        <p class="q">→ Next: <span class="accent">named tunnel + Cloudflare Access</span> (stable URL, email-gated to @lumian.ai), heartbeat-driven OTP refresh alert, BigQuery sink for historical visibility.</p>
+        <p class="q">✓ <span class="accent">Stable URL: rufus.lumian.ai</span>. Cloudflare named tunnel from VM, persists across restarts. 6 systemd services, auto-recover on reboot.</p>
+        <p class="q">✓ <span class="accent">Auto query generation</span>. Enter ASIN → backend scrapes title from amazon.com/dp/&lt;ASIN&gt; → GPT-4o-mini generates 8 plausible shopper queries.</p>
+        <p class="q">✓ <span class="accent">Realtime visibility check</span>. SSE streams every product Rufus returns per query as it lands. Target ASIN highlighted in the grid wherever it appears.</p>
+        <p class="q">→ Next: <span class="accent">Cloudflare Access</span> (email-gate @lumian.ai), heartbeat alert for OTP refresh, BigQuery sink for historical visibility, multi-account scaling.</p>
       </div>
       <div class="path-card reveal">
         <span class="label">// Working Code</span>
-        <span class="h">PoC shipped, replay verified.</span>
-        <p class="d mono" style="margin-bottom:.5rem">github.com/Lumian-AI/rufus-visibility</p>
-        <p class="d">deck/ · skill/ · demo/ — local dashboard fires live Rufus queries, parses ASINs, surfaces gaps.</p>
+        <span class="h">Live + replayable end to end.</span>
+        <p class="d mono" style="margin-bottom:.5rem">rufus.lumian.ai · github.com/Lumian-AI/rufus-visibility</p>
+        <p class="d">deck/ · skill/ · demo/ — auto-gen queries, SSE realtime, target ASIN highlighting, full product grid per query.</p>
         <div class="chips">
-          <span class="chip">replay 200</span>
-          <span class="chip">11 ASINs/query</span>
-          <span class="chip">safe pacing</span>
+          <span class="chip">SSE realtime</span>
+          <span class="chip">openai queries</span>
+          <span class="chip">8/min cap</span>
+          <span class="chip">stable URL</span>
         </div>
       </div>
     </div>
