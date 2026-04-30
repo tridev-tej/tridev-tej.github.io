@@ -602,8 +602,8 @@ pre.code .ok{color:var(--accent)}
       <div class="box">
         <span class="h">01 · Long-lived session</span>
         <span class="l">Persistent Chrome</span>
-        <span class="d">Headless Chrome on EC2 with <span class="accent">human-logged-in</span> consumer Amazon. Survives via systemd. SMS OTP eaten once, then session stays alive.</span>
-        <div class="chips"><span class="chip">CDP :9222</span><span class="chip">systemd</span></div>
+        <span class="d">Headless Chrome on <code>tejesh-dev-vm</code> (GCP, e2-small, us-central1) with <span class="accent">human-logged-in</span> consumer Amazon. Survives via systemd. SMS OTP eaten once.</span>
+        <div class="chips"><span class="chip">CDP :9222</span><span class="chip">systemd</span><span class="chip">gcp</span></div>
         <div class="arrow">→</div>
       </div>
       <div class="box">
@@ -699,7 +699,7 @@ pre.code .ok{color:var(--accent)}
     <h2 class="reveal">Persistent browser. Three things to ship.</h2>
     <div class="cta-grid">
       <div class="qa-list reveal">
-        <p class="q">1 · Stand up <span class="accent">persistent Chrome on EC2</span> with CDP exposed. systemd-managed, auto-restart on crash. One consumer Amazon account, manually logged in once.</p>
+        <p class="q">1 · Stand up <span class="accent">persistent Chrome on tejesh-dev-vm</span> (GCP, already exists). systemd-managed, CDP on :9222. One consumer Amazon account, manually logged in once.</p>
         <p class="q">2 · Define <span class="accent">OTP-holder rotation</span> + Slack alert — when heartbeat detects session loss (Rufus 401/403), human gets paged with a one-click VNC URL to re-login.</p>
         <p class="q">3 · Build <span class="accent">cookie-refresh cron</span> + Rufus runner. CDP scrape every 3h, replay against Rufus, parse ASINs, write to BigQuery <code>staging.rufus_asin_surfaces</code>.</p>
       </div>
