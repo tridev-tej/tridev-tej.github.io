@@ -705,24 +705,24 @@ pre.code .ok{color:var(--accent)}
   <div class="top-bar"><span><span class="dot"></span>07_NEXT</span><span class="mono">action items</span></div>
   <div class="slide-content">
     <span class="tag reveal">Shipped + Next</span>
-    <h2 class="reveal">Live at rufus.lumian.ai. Hardening for clients next.</h2>
+    <h2 class="reveal">Live at rufus.lumian.ai. One number per ASIN: RVS.</h2>
     <div class="cta-grid">
       <div class="qa-list reveal">
-        <p class="q">✓ <span class="accent">Stable URL: rufus.lumian.ai</span>. Cloudflare named tunnel from VM, persists across restarts. 6 systemd services, auto-recover on reboot.</p>
-        <p class="q">✓ <span class="accent">Auto query generation</span>. Enter ASIN → backend scrapes title from amazon.com/dp/&lt;ASIN&gt; → GPT-4o-mini generates 8 plausible shopper queries.</p>
-        <p class="q">✓ <span class="accent">Realtime visibility check</span>. SSE streams every product Rufus returns per query as it lands. Target ASIN highlighted in the grid wherever it appears.</p>
-        <p class="q">→ Next: <span class="accent">Cloudflare Access</span> (email-gate @lumian.ai), heartbeat alert for OTP refresh, BigQuery sink for historical visibility, multi-account scaling.</p>
+        <p class="q">✓ <span class="accent">Auto query generation</span>. Enter ASIN → scrape title from /dp/&lt;ASIN&gt; → GPT-4o-mini generates 8 plausible shopper queries.</p>
+        <p class="q">✓ <span class="accent">Realtime visibility check</span>. SSE streams every product Rufus returns per query as it lands. Target ASIN highlighted in the grid.</p>
+        <p class="q">✓ <span class="accent">Rufus Visibility Score (RVS)</span>. Single 0-100 number per ASIN. Rank-decayed: rank #1 = 10pts, #2 = 9pts ... #10 = 1pt, missing = 0. Normalized so 100 = #1 on every query. Plus top-3 share + win rate + per-query gap view for competitive intel.</p>
+        <p class="q">→ Next: <span class="accent">Cloudflare Access</span> (email-gate @lumian.ai), BigQuery sink for RVS-over-time, multi-account scaling.</p>
       </div>
       <div class="path-card reveal">
-        <span class="label">// Working Code</span>
-        <span class="h">Live + replayable end to end.</span>
+        <span class="label">// Score Formula</span>
+        <span class="h">RVS = Σ max(0, 11−rank<sub>i</sub>) / (10·N) · 100</span>
         <p class="d mono" style="margin-bottom:.5rem">rufus.lumian.ai · github.com/Lumian-AI/rufus-visibility</p>
-        <p class="d">deck/ · skill/ · demo/ — auto-gen queries, SSE realtime, target ASIN highlighting, full product grid per query.</p>
+        <p class="d">100 = #1 on every query. Rank-decay matches Rufus's 7-11 product return — slot 11+ scores zero. Tracks over time, comparable across SKUs, single number a brand can own.</p>
         <div class="chips">
-          <span class="chip">SSE realtime</span>
-          <span class="chip">openai queries</span>
-          <span class="chip">8/min cap</span>
-          <span class="chip">stable URL</span>
+          <span class="chip">RVS 0-100</span>
+          <span class="chip">top-3 share</span>
+          <span class="chip">win rate</span>
+          <span class="chip">SSE live</span>
         </div>
       </div>
     </div>
