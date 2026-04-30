@@ -710,7 +710,7 @@ pre.code .ok{color:var(--accent)}
       <div class="qa-list reveal">
         <p class="q">✓ <span class="accent">Auto query generation</span>. Enter ASIN → scrape title from /dp/&lt;ASIN&gt; → GPT-4o-mini generates 8 plausible shopper queries.</p>
         <p class="q">✓ <span class="accent">Realtime visibility check</span>. SSE streams every product Rufus returns per query as it lands. Target ASIN highlighted in the grid.</p>
-        <p class="q">✓ <span class="accent">Rufus Visibility Score (RVS)</span>. Single 0-100 number per ASIN. Two-part: Coverage (0-40, how often you show up) + Quality (0-60, average position when you do). One #1 hit out of 8 queries = 65/100 — rewards getting picked even rarely. Plus top-3 share + win rate + per-query gap view.</p>
+        <p class="q">✓ <span class="accent">Two scores per ASIN: RVS + Answer Fit</span>. RVS (0-100, deterministic) = Coverage + Quality. Answer Fit (0-100, LLM-judged) asks GPT-4o-mini "does this product belong in the answer set Rufus returned?" — handles multi-correct-answer queries (8 valid iPhone 17 variants) where pure rank scoring is unfair. High Fit + Low RVS = right category, losing position. Low Fit everywhere = category mismatch.</p>
         <p class="q">→ Next: <span class="accent">Cloudflare Access</span> (email-gate @lumian.ai), BigQuery sink for RVS-over-time, multi-account scaling.</p>
       </div>
       <div class="path-card reveal">
