@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools & Approach - Week 1-2 Summary</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0e14;
+            --bg-secondary: #0f1319;
+            --bg-card: rgba(15, 20, 28, 0.8);
+            --text-primary: #e6e6e6;
+            --text-secondary: #6b7280;
+            --text-muted: #4b5563;
+            --accent: #00e5a0;
+            --accent-dim: rgba(0, 229, 160, 0.15);
+            --accent-glow: rgba(0, 229, 160, 0.4);
+            --border: rgba(255, 255, 255, 0.06);
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', -apple-system, sans-serif;
+            --title-size: clamp(1.8rem, 5vw, 3.5rem);
+            --h2-size: clamp(1.4rem, 3.5vw, 2.4rem);
+            --body-size: clamp(0.8rem, 1.4vw, 1.05rem);
+            --small-size: clamp(0.7rem, 1vw, 0.85rem);
+            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --content-gap: clamp(0.75rem, 2vw, 1.5rem);
+            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            height: 100%;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            height: 100%;
+            line-height: 1.5;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            padding: var(--slide-padding);
+            padding-left: clamp(2rem, 8vw, 8rem);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                radial-gradient(ellipse at 10% 90%, rgba(0, 229, 160, 0.03) 0%, transparent 50%),
+                radial-gradient(ellipse at 90% 10%, rgba(0, 100, 200, 0.02) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .slide-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-height: 100%;
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: clamp(1rem, 3vw, 2rem);
+            right: clamp(1.5rem, 4vw, 3rem);
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            z-index: 2;
+        }
+
+        .slide-number::before {
+            content: '//';
+            color: var(--accent);
+            margin-right: 0.25em;
+            opacity: 0.6;
+        }
+
+        h1 {
+            font-family: var(--font-sans);
+            font-size: var(--title-size);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        h1 .accent {
+            color: var(--accent);
+        }
+
+        h2 {
+            font-family: var(--font-sans);
+            font-size: var(--h2-size);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+            margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
+        }
+
+        h2::before {
+            content: '> ';
+            font-family: var(--font-mono);
+            color: var(--accent);
+            font-weight: 400;
+        }
+
+        .subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+            color: var(--text-secondary);
+            font-weight: 300;
+        }
+
+        .points {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(0.4rem, 1.2vh, 0.9rem);
+        }
+
+        .points li {
+            font-size: var(--body-size);
+            color: var(--text-primary);
+            padding-left: 1.5em;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .points li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-family: var(--font-mono);
+            font-weight: 700;
+        }
+
+        .quote {
+            font-family: var(--font-mono);
+            font-size: clamp(0.85rem, 1.3vw, 1.1rem);
+            color: var(--accent);
+            padding: clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.5rem);
+            border-left: 2px solid var(--accent);
+            background: var(--accent-dim);
+            margin-top: clamp(0.5rem, 1.5vw, 1rem);
+            border-radius: 0 4px 4px 0;
+        }
+
+        .tag {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--accent);
+            background: var(--accent-dim);
+            padding: 0.15em 0.5em;
+            border-radius: 3px;
+            margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+        }
+
+        .title-slide {
+            justify-content: center;
+        }
+
+        .title-slide h1 {
+            font-size: clamp(2.2rem, 6vw, 4.5rem);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+            gap: clamp(0.75rem, 2vw, 1.5rem);
+            margin-top: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: clamp(0.75rem, 2vw, 1.25rem);
+        }
+
+        .card-title {
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--accent);
+            margin-bottom: 0.4em;
+            font-weight: 500;
+        }
+
+        .card p {
+            font-size: var(--body-size);
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s var(--ease-out-expo),
+                        transform 0.6s var(--ease-out-expo);
+        }
+
+        .slide.visible .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
+        .slide.visible .reveal:nth-child(2) { transition-delay: 0.12s; }
+        .slide.visible .reveal:nth-child(3) { transition-delay: 0.19s; }
+        .slide.visible .reveal:nth-child(4) { transition-delay: 0.26s; }
+        .slide.visible .reveal:nth-child(5) { transition-delay: 0.33s; }
+        .slide.visible .reveal:nth-child(6) { transition-delay: 0.4s; }
+
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent);
+            z-index: 100;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 8px var(--accent-glow);
+        }
+
+        .nav-hint {
+            position: fixed;
+            bottom: clamp(1rem, 3vw, 2rem);
+            right: clamp(1.5rem, 4vw, 3rem);
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            color: var(--text-muted);
+            z-index: 50;
+        }
+
+        .separator {
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            margin: clamp(0.5rem, 1.5vw, 1rem) 0;
+            opacity: 0.6;
+        }
+
+        @media (max-height: 650px) {
+            :root {
+                --slide-padding: clamp(1rem, 3vw, 2rem);
+                --content-gap: clamp(0.4rem, 1vw, 0.75rem);
+                --title-size: clamp(1.4rem, 4.5vw, 2.5rem);
+                --h2-size: clamp(1.1rem, 3vw, 1.75rem);
+                --body-size: clamp(0.72rem, 1.2vw, 0.9rem);
+            }
+            .points { gap: clamp(0.3rem, 0.8vh, 0.6rem); }
+            .nav-hint { display: none; }
+        }
+
+        @media (max-height: 500px) {
+            :root {
+                --slide-padding: clamp(0.75rem, 2vw, 1.5rem);
+                --title-size: clamp(1.2rem, 4vw, 2rem);
+                --h2-size: clamp(1rem, 2.5vw, 1.4rem);
+                --body-size: clamp(0.65rem, 1vw, 0.82rem);
+            }
+            .quote { display: none; }
+        }
+
+        @media (max-width: 600px) {
+            .slide {
+                padding-left: var(--slide-padding);
+            }
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.2s !important;
+            }
+            html { scroll-behavior: auto; }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+    <div class="nav-hint">scroll / arrows</div>
+
+    <!-- Slide 1: Title -->
+    <section class="slide title-slide">
+        <div class="slide-content">
+            <span class="tag reveal">lumian.ai / engineering</span>
+            <h1 class="reveal">AI Tools & Approach<br><span class="accent">Week 1-2 Summary</span></h1>
+            <p class="subtitle reveal">Points I've raised across team meetings since joining</p>
+            <div class="separator reveal"></div>
+            <p class="subtitle reveal" style="font-family: var(--font-mono); font-size: var(--small-size); color: var(--text-muted);">Tejesh Vaish / Apr 27 - May 5, 2026</p>
+        </div>
+    </section>
+
+    <!-- Slide 2: Context is King -->
+    <section class="slide">
+        <span class="slide-number">02</span>
+        <div class="slide-content">
+            <h2 class="reveal">Context is King</h2>
+            <ul class="points">
+                <li class="reveal">Data + Iteration = great outcomes for customers</li>
+                <li class="reveal">Two hard parts: (1) having the right data, (2) how frequently we can access it</li>
+                <li class="reveal">BigQuery = unlimited access (our own). Amazon API = rate limited but generous</li>
+                <li class="reveal">Three data sources: Amazon account data (BQ), client interactions (Zep), market research (SmartScout)</li>
+            </ul>
+            <div class="quote reveal">"If we have the right data, we can iterate and reach a very good outcome for the customer."</div>
+        </div>
+    </section>
+
+    <!-- Slide 3: I Already Live This Way -->
+    <section class="slide">
+        <span class="slide-number">03</span>
+        <div class="slide-content">
+            <h2 class="reveal">I Already Live This Way</h2>
+            <ul class="points">
+                <li class="reveal">Built my own Amazon shopping agent - opens browser, searches multiple products, reads reviews, tells me the best option</li>
+                <li class="reveal">The agentic approach isn't theoretical for me - it's how I work daily</li>
+                <li class="reveal">Same philosophy applies to everything we build here</li>
+            </ul>
+            <div class="quote reveal">"Doing something manually is the worst way to do it."</div>
+        </div>
+    </section>
+
+    <!-- Slide 4: Unified Agent Interface via Slack -->
+    <section class="slide">
+        <span class="slide-number">04</span>
+        <div class="slide-content">
+            <h2 class="reveal">Unified Agent Interface via Slack</h2>
+            <ul class="points">
+                <li class="reveal">Slack as the single interface for all agents - meet users where they are</li>
+                <li class="reveal">Example: @lumian.ai + ASIN triggers Rufus agent in background, returns results in Slack</li>
+                <li class="reveal">Track usage/adoption natively - see who's using what and how</li>
+                <li class="reveal">One link to full web UI if they need deeper interaction</li>
+            </ul>
+            <div class="quote reveal">"80% of workflows can be met in Slack only."</div>
+        </div>
+    </section>
+
+    <!-- Slide 5: CLI/API for Every Agent -->
+    <section class="slide">
+        <span class="slide-number">05</span>
+        <div class="slide-content">
+            <h2 class="reveal">CLI/API for Every Agent</h2>
+            <ul class="points">
+                <li class="reveal">Problem: code deployed on different VMs, no programmatic way to access other team's agents</li>
+                <li class="reveal">For my own product - built CLI first, then integrated with the agent</li>
+                <li class="reveal">Ask: whatever team is building, also build a tool/API so agents can access it seamlessly</li>
+                <li class="reveal">Agents composing with agents is how we get compounding value</li>
+            </ul>
+            <div class="quote reveal">"For others I would need help from the team - whatever they are building, just build a tool so the agent can access it seamlessly."</div>
+        </div>
+    </section>
+
+    <!-- Slide 6: Compounding Engineering -->
+    <section class="slide">
+        <span class="slide-number">06</span>
+        <div class="slide-content">
+            <h2 class="reveal">Compounding Engineering via Documentation</h2>
+            <ul class="points">
+                <li class="reveal">Amazon has finite edge cases - all solvable if documented</li>
+                <li class="reveal">More than humans, it helps the AGENTS - they won't fall into same loops</li>
+                <li class="reveal">Example: if docs existed when BQ work was done, my agent wouldn't have repeated the same work</li>
+                <li class="reveal">Problem today: 30 scattered repos, no shared documentation</li>
+            </ul>
+            <div class="quote reveal">"The reason - more than two humans, it will help the agents. Agents will not fall into the same loop."</div>
+        </div>
+    </section>
+
+    <!-- Slide 7: Memory Architecture -->
+    <section class="slide">
+        <span class="slide-number">07</span>
+        <div class="slide-content">
+            <h2 class="reveal">Memory Architecture - Deprioritized</h2>
+            <ul class="points">
+                <li class="reveal">Knowledge graph = way for AI to have infinite memory across all company data</li>
+                <li class="reveal">Important but premature - we don't have any product dialed together yet</li>
+                <li class="reveal">Priority: build something team is actually using first, then layer memory on top</li>
+            </ul>
+            <div class="quote reveal">"We were focusing a lot on memory but right now that is not important because we don't have any product dialed together."</div>
+        </div>
+    </section>
+
+    <!-- Slide 8: Build What They're Dying For -->
+    <section class="slide">
+        <span class="slide-number">08</span>
+        <div class="slide-content">
+            <h2 class="reveal">Build Only What They're Dying For</h2>
+            <ul class="points">
+                <li class="reveal">Talk to each account management person individually</li>
+                <li class="reveal">Find their BURNING pain point - only then they will use what we build</li>
+                <li class="reveal">If they feel the pain, they use the tool. If we push it, they won't.</li>
+            </ul>
+            <div class="quote reveal">"It should be their burning pain point - only then they will use it if we build it."</div>
+        </div>
+    </section>
+
+    <!-- Slide 9: Reduce Approval Loops -->
+    <section class="slide">
+        <span class="slide-number">09</span>
+        <div class="slide-content">
+            <h2 class="reveal">Reduce Approval Loops - True Automation</h2>
+            <ul class="points">
+                <li class="reveal">Current state: lots of manual approval steps blocking flow</li>
+                <li class="reveal">Goal: agent does work, drafts change, person approves, auto-applies to Amazon</li>
+                <li class="reveal">Flip the default: agent acts, human vetoes only if needed</li>
+                <li class="reveal">That's when we're truly AI-native</li>
+            </ul>
+            <div class="quote reveal">"Reduce approval to not-approving. Agent acts, human vetoes only if needed."</div>
+        </div>
+    </section>
+
+    <!-- Slide 10: Agent Observability -->
+    <section class="slide">
+        <span class="slide-number">10</span>
+        <div class="slide-content">
+            <h2 class="reveal">Agent Observability</h2>
+            <ul class="points">
+                <li class="reveal">Expose agent metrics on dashboard: edits made, issues flagged, reviews removed</li>
+                <li class="reveal">Show value: Sankey chart from top-line to CM2, with agent contributions highlighted</li>
+                <li class="reveal">Builds trust and proves ROI to leadership and clients</li>
+            </ul>
+            <div class="quote reveal">"They can see the AI doing the magic - which AI agent flagged this, why, and what improved."</div>
+        </div>
+    </section>
+
+    <!-- Slide 11: Infrastructure Hygiene -->
+    <section class="slide">
+        <span class="slide-number">11</span>
+        <div class="slide-content">
+            <h2 class="reveal">Infrastructure Hygiene</h2>
+            <div class="grid-2">
+                <div class="card reveal">
+                    <div class="card-title">single server</div>
+                    <p>All products are lightweight - one server can handle them. Single URL for access.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-title">docker</div>
+                    <p>Containerize everything for easy stop/run/manage. Reproducible deploys.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-title">centralized logs</div>
+                    <p>OpenSearch so agents (and humans) can see all logs in one place.</p>
+                </div>
+                <div class="card reveal">
+                    <div class="card-title">api + workers</div>
+                    <p>API layer always live. Heavy pipelines run in background workers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 12: Littebird -->
+    <section class="slide">
+        <span class="slide-number">12</span>
+        <div class="slide-content">
+            <h2 class="reveal">Littebird - Real Workflow Data</h2>
+            <ul class="points">
+                <li class="reveal">Tool that screenshots your screen periodically, builds memory of what you did</li>
+                <li class="reveal">Daily/weekly summaries of actual work - no self-reporting bias</li>
+                <li class="reveal">For us: get TRUE picture of what team does vs what they say they do</li>
+                <li class="reveal">Verify if they're actually using the tools we built</li>
+            </ul>
+            <div class="quote reveal">"Real data without any filter."</div>
+        </div>
+    </section>
+
+    <!-- Slide 13: GPT for Classification -->
+    <section class="slide">
+        <span class="slide-number">13</span>
+        <div class="slide-content">
+            <h2 class="reveal">GPT for Classification</h2>
+            <ul class="points">
+                <li class="reveal">Use GPT-4 to classify Granola recordings (client calls vs personal) automatically</li>
+                <li class="reveal">Don't need manual folder sorting - define classes, let model classify</li>
+                <li class="reveal">Same approach for email ingestion - tag by client automatically</li>
+                <li class="reveal">Remove manual categorization from every data pipeline</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Slide 14: What's Next -->
+    <section class="slide">
+        <span class="slide-number">14</span>
+        <div class="slide-content">
+            <h2 class="reveal">What's Next</h2>
+            <ul class="points">
+                <li class="reveal">Portal + Rufus + Agent observability = top 3 priorities</li>
+                <li class="reveal">Talk to Todd - where is he blocked? What does he do manually?</li>
+                <li class="reveal">Build one small workflow end-to-end, prove value, then expand</li>
+                <li class="reveal">Design system + components library for consistent UI across all tools</li>
+            </ul>
+            <div class="separator reveal"></div>
+            <p class="reveal" style="font-family: var(--font-mono); font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.5rem, 1vw, 1rem);">Build what they need. Prove it works. Then scale.</p>
+        </div>
+    </section>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const progressBar = document.getElementById('progress');
+        const totalSlides = slides.length;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    const index = Array.from(slides).indexOf(entry.target);
+                    const progress = ((index + 1) / totalSlides) * 100;
+                    progressBar.style.width = progress + '%';
+                }
+            });
+        }, { threshold: 0.3 });
+
+        slides.forEach(slide => observer.observe(slide));
+
+        document.addEventListener('keydown', (e) => {
+            const currentSlide = Array.from(slides).findIndex(s =>
+                s.getBoundingClientRect().top >= -window.innerHeight / 2 &&
+                s.getBoundingClientRect().top < window.innerHeight / 2
+            );
+
+            if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                const next = Math.min(currentSlide + 1, totalSlides - 1);
+                slides[next].scrollIntoView({ behavior: 'smooth' });
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                const prev = Math.max(currentSlide - 1, 0);
+                slides[prev].scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    </script>
+</body>
+</html>
