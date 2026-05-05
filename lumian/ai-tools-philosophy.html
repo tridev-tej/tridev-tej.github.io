@@ -5,35 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Tools & Approach - Week 1-2 Summary</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-primary: #0a0e14;
-            --bg-secondary: #0f1319;
-            --bg-card: rgba(15, 20, 28, 0.8);
-            --text-primary: #e6e6e6;
-            --text-secondary: #6b7280;
-            --text-muted: #4b5563;
-            --accent: #00e5a0;
-            --accent-dim: rgba(0, 229, 160, 0.15);
-            --accent-glow: rgba(0, 229, 160, 0.4);
-            --border: rgba(255, 255, 255, 0.06);
+            --bg-dark: #2D2D3B;
+            --bg-light: #F6F6F6;
+            --bg-white: #FFFFFF;
+            --text-dark: #2D2D3B;
+            --text-muted: rgba(31, 31, 40, 0.6);
+            --text-white: #FFFFFF;
+            --text-light-muted: rgba(255, 255, 255, 0.6);
+            --accent-orange: #FFC57E;
+            --accent-pink: #FD6B82;
+            --accent-green: #059669;
+            --accent-cyan: #00B3FF;
+            --border-light: rgba(45, 45, 59, 0.1);
+            --border-dark: rgba(255, 255, 255, 0.1);
+            --font-primary: 'Inter', -apple-system, sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Inter', -apple-system, sans-serif;
-            --title-size: clamp(1.8rem, 5vw, 3.5rem);
+            --title-size: clamp(2rem, 5.5vw, 4rem);
             --h2-size: clamp(1.4rem, 3.5vw, 2.4rem);
             --body-size: clamp(0.8rem, 1.4vw, 1.05rem);
             --small-size: clamp(0.7rem, 1vw, 0.85rem);
-            --slide-padding: clamp(1.5rem, 5vw, 5rem);
+            --slide-padding: clamp(2rem, 6vw, 6rem);
             --content-gap: clamp(0.75rem, 2vw, 1.5rem);
-            --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+            --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         html {
             scroll-snap-type: y mandatory;
@@ -42,12 +42,13 @@
         }
 
         body {
-            font-family: var(--font-sans);
-            background: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: var(--font-primary);
+            background: var(--bg-light);
+            color: var(--text-dark);
             overflow-x: hidden;
             height: 100%;
             line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
         .slide {
@@ -61,20 +62,6 @@
             justify-content: center;
             position: relative;
             padding: var(--slide-padding);
-            padding-left: clamp(2rem, 8vw, 8rem);
-        }
-
-        .slide::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(ellipse at 10% 90%, rgba(0, 229, 160, 0.03) 0%, transparent 50%),
-                radial-gradient(ellipse at 90% 10%, rgba(0, 100, 200, 0.02) 0%, transparent 50%);
-            pointer-events: none;
         }
 
         .slide-content {
@@ -86,7 +73,39 @@
             overflow: hidden;
             position: relative;
             z-index: 1;
+            max-width: 1100px;
         }
+
+        /* Dark slides */
+        .dark {
+            background: var(--bg-dark);
+            color: var(--text-white);
+        }
+
+        .dark .slide-number { color: var(--text-light-muted); }
+        .dark .points li { color: rgba(255, 255, 255, 0.85); }
+        .dark .points li::before { color: var(--accent-orange); }
+        .dark .quote { border-left-color: var(--accent-orange); background: rgba(255, 197, 126, 0.08); color: var(--accent-orange); }
+        .dark .card { background: rgba(255, 255, 255, 0.05); border-color: var(--border-dark); }
+        .dark .card-title { color: var(--accent-orange); }
+        .dark .card p { color: rgba(255, 255, 255, 0.7); }
+
+        /* Light slides */
+        .light {
+            background: var(--bg-white);
+            color: var(--text-dark);
+        }
+
+        .logo {
+            position: absolute;
+            top: clamp(1rem, 3vw, 2rem);
+            left: clamp(1.5rem, 4vw, 3rem);
+            height: clamp(20px, 3vw, 32px);
+            z-index: 10;
+            opacity: 0.7;
+        }
+
+        .dark .logo { filter: brightness(10); }
 
         .slide-number {
             position: absolute;
@@ -98,15 +117,8 @@
             z-index: 2;
         }
 
-        .slide-number::before {
-            content: '//';
-            color: var(--accent);
-            margin-right: 0.25em;
-            opacity: 0.6;
-        }
-
         h1 {
-            font-family: var(--font-sans);
+            font-family: var(--font-display);
             font-size: var(--title-size);
             font-weight: 700;
             letter-spacing: -0.03em;
@@ -114,12 +126,8 @@
             margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
         }
 
-        h1 .accent {
-            color: var(--accent);
-        }
-
         h2 {
-            font-family: var(--font-sans);
+            font-family: var(--font-display);
             font-size: var(--h2-size);
             font-weight: 600;
             letter-spacing: -0.02em;
@@ -127,18 +135,32 @@
             margin-bottom: clamp(0.75rem, 2vw, 1.5rem);
         }
 
-        h2::before {
-            content: '> ';
-            font-family: var(--font-mono);
-            color: var(--accent);
+        .subtitle {
+            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
+            color: var(--text-muted);
             font-weight: 400;
         }
 
-        .subtitle {
-            font-size: clamp(0.9rem, 1.8vw, 1.2rem);
-            color: var(--text-secondary);
-            font-weight: 300;
+        .dark .subtitle { color: var(--text-light-muted); }
+
+        .pill {
+            display: inline-block;
+            font-family: var(--font-mono);
+            font-size: var(--small-size);
+            padding: 0.2em 0.75em;
+            border-radius: 40px;
+            margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
+            font-weight: 500;
         }
+
+        .pill-orange { background: rgba(255, 197, 126, 0.15); color: #e6a645; }
+        .pill-green { background: rgba(5, 150, 105, 0.12); color: var(--accent-green); }
+        .pill-pink { background: rgba(253, 107, 130, 0.12); color: var(--accent-pink); }
+        .pill-cyan { background: rgba(0, 179, 255, 0.12); color: var(--accent-cyan); }
+
+        .dark .pill-orange { background: rgba(255, 197, 126, 0.12); color: var(--accent-orange); }
+        .dark .pill-green { background: rgba(5, 150, 105, 0.1); color: #34d399; }
+        .dark .pill-pink { background: rgba(253, 107, 130, 0.1); color: var(--accent-pink); }
 
         .points {
             list-style: none;
@@ -149,132 +171,159 @@
 
         .points li {
             font-size: var(--body-size);
-            color: var(--text-primary);
+            color: var(--text-dark);
             padding-left: 1.5em;
             position: relative;
-            line-height: 1.5;
+            line-height: 1.55;
         }
 
         .points li::before {
-            content: '-';
+            content: '';
             position: absolute;
             left: 0;
-            color: var(--accent);
-            font-family: var(--font-mono);
-            font-weight: 700;
+            top: 0.6em;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent-green);
         }
 
         .quote {
             font-family: var(--font-mono);
-            font-size: clamp(0.85rem, 1.3vw, 1.1rem);
-            color: var(--accent);
+            font-size: clamp(0.8rem, 1.2vw, 1rem);
+            color: var(--accent-green);
             padding: clamp(0.5rem, 1.5vw, 1rem) clamp(1rem, 2vw, 1.5rem);
-            border-left: 2px solid var(--accent);
-            background: var(--accent-dim);
+            border-left: 3px solid var(--accent-green);
+            background: rgba(5, 150, 105, 0.06);
             margin-top: clamp(0.5rem, 1.5vw, 1rem);
-            border-radius: 0 4px 4px 0;
-        }
-
-        .tag {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: var(--small-size);
-            color: var(--accent);
-            background: var(--accent-dim);
-            padding: 0.15em 0.5em;
-            border-radius: 3px;
-            margin-bottom: clamp(0.5rem, 1vw, 0.75rem);
-        }
-
-        .title-slide {
-            justify-content: center;
-        }
-
-        .title-slide h1 {
-            font-size: clamp(2.2rem, 6vw, 4.5rem);
+            border-radius: 0 8px 8px 0;
         }
 
         .grid-2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-            gap: clamp(0.75rem, 2vw, 1.5rem);
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+            gap: clamp(0.75rem, 2vw, 1.25rem);
             margin-top: clamp(0.5rem, 1.5vw, 1rem);
         }
 
         .card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 6px;
+            background: rgba(45, 45, 59, 0.03);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
             padding: clamp(0.75rem, 2vw, 1.25rem);
         }
 
         .card-title {
             font-family: var(--font-mono);
             font-size: var(--small-size);
-            color: var(--accent);
-            margin-bottom: 0.4em;
-            font-weight: 500;
+            color: var(--accent-green);
+            margin-bottom: 0.3em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         .card p {
             font-size: var(--body-size);
-            color: var(--text-secondary);
+            color: var(--text-muted);
             line-height: 1.4;
         }
 
+        .separator {
+            width: 48px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink));
+            margin: clamp(0.5rem, 1.5vw, 1rem) 0;
+            border-radius: 2px;
+        }
+
+        .dp-box {
+            font-family: var(--font-mono);
+            font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+            padding: clamp(0.75rem, 2vw, 1.25rem) clamp(1rem, 2.5vw, 1.75rem);
+            border-radius: 12px;
+            margin-top: clamp(0.5rem, 1.5vw, 1rem);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .dp-naive {
+            background: rgba(253, 107, 130, 0.08);
+            color: var(--accent-pink);
+            border: 1px solid rgba(253, 107, 130, 0.15);
+        }
+
+        .dp-memo {
+            background: rgba(5, 150, 105, 0.08);
+            color: var(--accent-green);
+            border: 1px solid rgba(5, 150, 105, 0.15);
+        }
+
+        .dp-row {
+            display: flex;
+            gap: clamp(0.5rem, 2vw, 1rem);
+            margin-top: clamp(0.5rem, 1.5vw, 1rem);
+        }
+
+        .dp-row > * { flex: 1; }
+
+        /* Title slide gradient */
+        .title-slide {
+            background: linear-gradient(180deg, rgba(246, 246, 246, 0.3) 0%, var(--bg-dark) 100%);
+            color: var(--text-white);
+        }
+
+        .title-slide .subtitle { color: var(--text-light-muted); }
+        .title-slide .logo { filter: brightness(10); }
+
+        .accent-orange { color: var(--accent-orange); }
+        .accent-green { color: var(--accent-green); }
+        .accent-pink { color: var(--accent-pink); }
+
+        /* Animations */
         .reveal {
             opacity: 0;
             transform: translateY(20px);
-            transition: opacity 0.6s var(--ease-out-expo),
-                        transform 0.6s var(--ease-out-expo);
+            transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
         }
 
-        .slide.visible .reveal {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .slide.visible .reveal { opacity: 1; transform: translateY(0); }
         .slide.visible .reveal:nth-child(1) { transition-delay: 0.05s; }
         .slide.visible .reveal:nth-child(2) { transition-delay: 0.12s; }
         .slide.visible .reveal:nth-child(3) { transition-delay: 0.19s; }
         .slide.visible .reveal:nth-child(4) { transition-delay: 0.26s; }
         .slide.visible .reveal:nth-child(5) { transition-delay: 0.33s; }
         .slide.visible .reveal:nth-child(6) { transition-delay: 0.4s; }
+        .slide.visible .reveal:nth-child(7) { transition-delay: 0.47s; }
 
         .progress-bar {
             position: fixed;
             top: 0;
             left: 0;
-            height: 2px;
-            background: var(--accent);
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink));
             z-index: 100;
             transition: width 0.3s ease;
-            box-shadow: 0 0 8px var(--accent-glow);
         }
 
         .nav-hint {
             position: fixed;
-            bottom: clamp(1rem, 3vw, 2rem);
+            bottom: clamp(1rem, 3vw, 1.5rem);
             right: clamp(1.5rem, 4vw, 3rem);
             font-family: var(--font-mono);
             font-size: var(--small-size);
             color: var(--text-muted);
             z-index: 50;
+            opacity: 0.5;
         }
 
-        .separator {
-            width: 40px;
-            height: 2px;
-            background: var(--accent);
-            margin: clamp(0.5rem, 1.5vw, 1rem) 0;
-            opacity: 0.6;
-        }
+        .dark ~ .nav-hint, .title-slide ~ .nav-hint { color: var(--text-light-muted); }
 
         @media (max-height: 650px) {
             :root {
-                --slide-padding: clamp(1rem, 3vw, 2rem);
+                --slide-padding: clamp(1rem, 3vw, 2.5rem);
                 --content-gap: clamp(0.4rem, 1vw, 0.75rem);
-                --title-size: clamp(1.4rem, 4.5vw, 2.5rem);
+                --title-size: clamp(1.5rem, 4.5vw, 2.5rem);
                 --h2-size: clamp(1.1rem, 3vw, 1.75rem);
                 --body-size: clamp(0.72rem, 1.2vw, 0.9rem);
             }
@@ -290,22 +339,16 @@
                 --body-size: clamp(0.65rem, 1vw, 0.82rem);
             }
             .quote { display: none; }
+            .dp-row { flex-direction: column; }
         }
 
         @media (max-width: 600px) {
-            .slide {
-                padding-left: var(--slide-padding);
-            }
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
+            .grid-2 { grid-template-columns: 1fr; }
+            .dp-row { flex-direction: column; }
         }
 
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.2s !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.2s !important; }
             html { scroll-behavior: auto; }
         }
     </style>
@@ -316,19 +359,42 @@
 
     <!-- Slide 1: Title -->
     <section class="slide title-slide">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <div class="slide-content">
-            <span class="tag reveal">lumian.ai / engineering</span>
-            <h1 class="reveal">AI Tools & Approach<br><span class="accent">Week 1-2 Summary</span></h1>
+            <span class="pill pill-orange reveal">engineering / internal</span>
+            <h1 class="reveal">AI Tools & Approach<br><span class="accent-orange">Week 1-2 Summary</span></h1>
             <p class="subtitle reveal">Points I've raised across team meetings since joining</p>
             <div class="separator reveal"></div>
-            <p class="subtitle reveal" style="font-family: var(--font-mono); font-size: var(--small-size); color: var(--text-muted);">Tejesh Vaish / Apr 27 - May 5, 2026</p>
+            <p class="subtitle reveal" style="font-family: var(--font-mono); font-size: var(--small-size);">Tejesh Vaish / Apr 27 - May 5, 2026</p>
         </div>
     </section>
 
-    <!-- Slide 2: Context is King -->
-    <section class="slide">
+    <!-- Slide 2: Core Philosophy - DP Analogy -->
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">02</span>
         <div class="slide-content">
+            <span class="pill pill-pink reveal">core philosophy</span>
+            <h2 class="reveal">Think Like Dynamic Programming</h2>
+            <ul class="points">
+                <li class="reveal">DP = solve each subproblem ONCE, memoize, never recompute</li>
+                <li class="reveal">Same principle: every workflow solved once should be cached as a tool, doc, or agent</li>
+                <li class="reveal">Without memoization (docs, APIs, shared context) - every new person, every new agent recomputes from scratch</li>
+                <li class="reveal">With memoization - each solved problem becomes a building block. Value compounds exponentially.</li>
+            </ul>
+            <div class="dp-row reveal">
+                <div class="dp-box dp-naive">naive recursion = O(2^n)</div>
+                <div class="dp-box dp-memo">with memoization = O(n)</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Slide 3: Context is King -->
+    <section class="slide dark">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
+        <span class="slide-number">03</span>
+        <div class="slide-content">
+            <span class="pill pill-green reveal">data strategy</span>
             <h2 class="reveal">Context is King</h2>
             <ul class="points">
                 <li class="reveal">Data + Iteration = great outcomes for customers</li>
@@ -340,10 +406,12 @@
         </div>
     </section>
 
-    <!-- Slide 3: I Already Live This Way -->
-    <section class="slide">
-        <span class="slide-number">03</span>
+    <!-- Slide 4: I Already Live This Way -->
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
+        <span class="slide-number">04</span>
         <div class="slide-content">
+            <span class="pill pill-orange reveal">personal practice</span>
             <h2 class="reveal">I Already Live This Way</h2>
             <ul class="points">
                 <li class="reveal">Built my own Amazon shopping agent - opens browser, searches multiple products, reads reviews, tells me the best option</li>
@@ -354,10 +422,12 @@
         </div>
     </section>
 
-    <!-- Slide 4: Unified Agent Interface via Slack -->
-    <section class="slide">
-        <span class="slide-number">04</span>
+    <!-- Slide 5: Unified Agent Interface via Slack -->
+    <section class="slide dark">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
+        <span class="slide-number">05</span>
         <div class="slide-content">
+            <span class="pill pill-orange reveal">interface</span>
             <h2 class="reveal">Unified Agent Interface via Slack</h2>
             <ul class="points">
                 <li class="reveal">Slack as the single interface for all agents - meet users where they are</li>
@@ -369,10 +439,12 @@
         </div>
     </section>
 
-    <!-- Slide 5: CLI/API for Every Agent -->
-    <section class="slide">
-        <span class="slide-number">05</span>
+    <!-- Slide 6: CLI/API for Every Agent -->
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
+        <span class="slide-number">06</span>
         <div class="slide-content">
+            <span class="pill pill-cyan reveal">composability</span>
             <h2 class="reveal">CLI/API for Every Agent</h2>
             <ul class="points">
                 <li class="reveal">Problem: code deployed on different VMs, no programmatic way to access other team's agents</li>
@@ -380,43 +452,33 @@
                 <li class="reveal">Ask: whatever team is building, also build a tool/API so agents can access it seamlessly</li>
                 <li class="reveal">Agents composing with agents is how we get compounding value</li>
             </ul>
-            <div class="quote reveal">"For others I would need help from the team - whatever they are building, just build a tool so the agent can access it seamlessly."</div>
+            <div class="quote reveal">"Whatever they are building, just build a tool so the agent can access it seamlessly."</div>
         </div>
     </section>
 
-    <!-- Slide 6: Compounding Engineering -->
-    <section class="slide">
-        <span class="slide-number">06</span>
+    <!-- Slide 7: Compounding Engineering -->
+    <section class="slide dark">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
+        <span class="slide-number">07</span>
         <div class="slide-content">
-            <h2 class="reveal">Compounding Engineering via Documentation</h2>
+            <span class="pill pill-green reveal">documentation</span>
+            <h2 class="reveal">Compounding Engineering via Docs</h2>
             <ul class="points">
                 <li class="reveal">Amazon has finite edge cases - all solvable if documented</li>
                 <li class="reveal">More than humans, it helps the AGENTS - they won't fall into same loops</li>
                 <li class="reveal">Example: if docs existed when BQ work was done, my agent wouldn't have repeated the same work</li>
                 <li class="reveal">Problem today: 30 scattered repos, no shared documentation</li>
             </ul>
-            <div class="quote reveal">"The reason - more than two humans, it will help the agents. Agents will not fall into the same loop."</div>
-        </div>
-    </section>
-
-    <!-- Slide 7: Memory Architecture -->
-    <section class="slide">
-        <span class="slide-number">07</span>
-        <div class="slide-content">
-            <h2 class="reveal">Memory Architecture - Deprioritized</h2>
-            <ul class="points">
-                <li class="reveal">Knowledge graph = way for AI to have infinite memory across all company data</li>
-                <li class="reveal">Important but premature - we don't have any product dialed together yet</li>
-                <li class="reveal">Priority: build something team is actually using first, then layer memory on top</li>
-            </ul>
-            <div class="quote reveal">"We were focusing a lot on memory but right now that is not important because we don't have any product dialed together."</div>
+            <div class="quote reveal">"More than two humans, it will help the agents. Agents will not fall into the same loop."</div>
         </div>
     </section>
 
     <!-- Slide 8: Build What They're Dying For -->
-    <section class="slide">
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">08</span>
         <div class="slide-content">
+            <span class="pill pill-pink reveal">product</span>
             <h2 class="reveal">Build Only What They're Dying For</h2>
             <ul class="points">
                 <li class="reveal">Talk to each account management person individually</li>
@@ -428,10 +490,12 @@
     </section>
 
     <!-- Slide 9: Reduce Approval Loops -->
-    <section class="slide">
+    <section class="slide dark">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">09</span>
         <div class="slide-content">
-            <h2 class="reveal">Reduce Approval Loops - True Automation</h2>
+            <span class="pill pill-orange reveal">automation</span>
+            <h2 class="reveal">Reduce Approval Loops</h2>
             <ul class="points">
                 <li class="reveal">Current state: lots of manual approval steps blocking flow</li>
                 <li class="reveal">Goal: agent does work, drafts change, person approves, auto-applies to Amazon</li>
@@ -443,9 +507,11 @@
     </section>
 
     <!-- Slide 10: Agent Observability -->
-    <section class="slide">
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">10</span>
         <div class="slide-content">
+            <span class="pill pill-green reveal">observability</span>
             <h2 class="reveal">Agent Observability</h2>
             <ul class="points">
                 <li class="reveal">Expose agent metrics on dashboard: edits made, issues flagged, reviews removed</li>
@@ -457,25 +523,27 @@
     </section>
 
     <!-- Slide 11: Infrastructure Hygiene -->
-    <section class="slide">
+    <section class="slide dark">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">11</span>
         <div class="slide-content">
+            <span class="pill pill-cyan reveal">infrastructure</span>
             <h2 class="reveal">Infrastructure Hygiene</h2>
             <div class="grid-2">
                 <div class="card reveal">
-                    <div class="card-title">single server</div>
+                    <div class="card-title">Single Server</div>
                     <p>All products are lightweight - one server can handle them. Single URL for access.</p>
                 </div>
                 <div class="card reveal">
-                    <div class="card-title">docker</div>
+                    <div class="card-title">Docker</div>
                     <p>Containerize everything for easy stop/run/manage. Reproducible deploys.</p>
                 </div>
                 <div class="card reveal">
-                    <div class="card-title">centralized logs</div>
+                    <div class="card-title">Centralized Logs</div>
                     <p>OpenSearch so agents (and humans) can see all logs in one place.</p>
                 </div>
                 <div class="card reveal">
-                    <div class="card-title">api + workers</div>
+                    <div class="card-title">API + Workers</div>
                     <p>API layer always live. Heavy pipelines run in background workers.</p>
                 </div>
             </div>
@@ -483,9 +551,11 @@
     </section>
 
     <!-- Slide 12: Littebird -->
-    <section class="slide">
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">12</span>
         <div class="slide-content">
+            <span class="pill pill-pink reveal">workflow intelligence</span>
             <h2 class="reveal">Littebird - Real Workflow Data</h2>
             <ul class="points">
                 <li class="reveal">Tool that screenshots your screen periodically, builds memory of what you did</li>
@@ -498,9 +568,11 @@
     </section>
 
     <!-- Slide 13: GPT for Classification -->
-    <section class="slide">
+    <section class="slide dark">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">13</span>
         <div class="slide-content">
+            <span class="pill pill-green reveal">classification</span>
             <h2 class="reveal">GPT for Classification</h2>
             <ul class="points">
                 <li class="reveal">Use GPT-4 to classify Granola recordings (client calls vs personal) automatically</li>
@@ -512,9 +584,11 @@
     </section>
 
     <!-- Slide 14: What's Next -->
-    <section class="slide">
+    <section class="slide light">
+        <img src="lumian-logo.png" alt="Lumian" class="logo">
         <span class="slide-number">14</span>
         <div class="slide-content">
+            <span class="pill pill-orange reveal">next steps</span>
             <h2 class="reveal">What's Next</h2>
             <ul class="points">
                 <li class="reveal">Portal + Rufus + Agent observability = top 3 priorities</li>
@@ -523,7 +597,7 @@
                 <li class="reveal">Design system + components library for consistent UI across all tools</li>
             </ul>
             <div class="separator reveal"></div>
-            <p class="reveal" style="font-family: var(--font-mono); font-size: var(--small-size); color: var(--text-muted); margin-top: clamp(0.5rem, 1vw, 1rem);">Build what they need. Prove it works. Then scale.</p>
+            <p class="reveal" style="font-family: var(--font-display); font-size: clamp(1rem, 1.5vw, 1.2rem); color: var(--text-muted); margin-top: clamp(0.5rem, 1vw, 1rem); font-weight: 500;">Build what they need. Prove it works. Then scale.</p>
         </div>
     </section>
 
@@ -537,8 +611,7 @@
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                     const index = Array.from(slides).indexOf(entry.target);
-                    const progress = ((index + 1) / totalSlides) * 100;
-                    progressBar.style.width = progress + '%';
+                    progressBar.style.width = ((index + 1) / totalSlides * 100) + '%';
                 }
             });
         }, { threshold: 0.3 });
@@ -546,19 +619,16 @@
         slides.forEach(slide => observer.observe(slide));
 
         document.addEventListener('keydown', (e) => {
-            const currentSlide = Array.from(slides).findIndex(s =>
-                s.getBoundingClientRect().top >= -window.innerHeight / 2 &&
-                s.getBoundingClientRect().top < window.innerHeight / 2
-            );
-
+            const current = Array.from(slides).findIndex(s => {
+                const r = s.getBoundingClientRect();
+                return r.top >= -window.innerHeight / 2 && r.top < window.innerHeight / 2;
+            });
             if (e.key === 'ArrowDown' || e.key === ' ' || e.key === 'ArrowRight') {
                 e.preventDefault();
-                const next = Math.min(currentSlide + 1, totalSlides - 1);
-                slides[next].scrollIntoView({ behavior: 'smooth' });
+                slides[Math.min(current + 1, totalSlides - 1)].scrollIntoView({ behavior: 'smooth' });
             } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
                 e.preventDefault();
-                const prev = Math.max(currentSlide - 1, 0);
-                slides[prev].scrollIntoView({ behavior: 'smooth' });
+                slides[Math.max(current - 1, 0)].scrollIntoView({ behavior: 'smooth' });
             }
         });
     </script>
